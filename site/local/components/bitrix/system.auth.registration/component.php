@@ -141,3 +141,6 @@ if(!CMain::IsHTTPS() && COption::GetOptionString('main', 'use_encrypted_auth', '
 }*/
 
 $this->IncludeComponentTemplate();
+
+
+//change
