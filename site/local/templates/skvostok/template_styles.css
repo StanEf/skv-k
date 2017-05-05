@@ -1,0 +1,52 @@
+.header-line {
+	background-image: url(https://template53729.motopreview.com/mt-demo/53700/53729/mt-content/uploads/2015/05/mt-0053-home-bg-1.jpg);
+    background-size: auto;
+    background-position: center top;
+    background-repeat: repeat;
+    height: 110px;
+    border-bottom: 1px solid #c2c2c2;
+	margin-bottom: 50px;
+}
+
+.bottom-line {
+	width: 100%;
+	background-image: url(https://template53729.motopreview.com/mt-demo/53700/53729/mt-content/uploads/2015/05/mt-0053-home-line.png);
+    background-size: auto;
+    background-position: center top;
+    background-repeat: no-repeat;
+    height: 20px;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    color: #525252;
+}
+
+.bottom-line h1 {
+	font-size: 30px;
+	font-weight: 500;
+	line-height: 75px;
+}
+
+footer {
+	margin-top: 50px;
+}
+html.fancybox-margin {
+    margin: 0 !important;
+}
+.position_img {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    border: 3px solid #242424;
+    background-size: cover !important;
+}
+.position_img img.moto-widget-image-picture {
+    position: absolute;
+    top: 0px;
+    left: -10px;
+    height: 120%;
+}
+.moto-widget-image-link.position_img:before {
+    border-color: transparent !important;
+}

@@ -1,0 +1,80 @@
+	/*
+  	Flaticon icon font: Flaticon
+  	Creation date: 25/07/2016 09:34
+  	*/
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}*/
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+  font-family: Flaticon;
+  font-style: normal;
+}
+
+.flaticon-news:before { content: "\43"; }
+.flaticon-map:before { content: "\44"; }
+.flaticon-user-personal-space:before { content: "\45"; }
+.flaticon-business-contacts:before { content: "\46"; }
+.flaticon-car-wheel:before { content: "\48"; }
+.flaticon-tech-support:before { content: "\48"; }
+.flaticon-photo-camera:before { content: "\47"; }
+.flaticon-steering-wheel:before { content: "\41"; }
+.flaticon-events:before { content: "\41"; }
+.flaticon-visitor:before { content: "\42"; }
+.flaticon-interface:before { content: "\f11b"; }
+.flaticon-phone-call:before { content: "\f11d"; }
+.flaticon-arrow:before { content: "\f100"; }
+
+.flaticon-site:before { content: "\f101"; }
+.flaticon-your-content:before { content: "\f102"; }
+.flaticon-staff:before { content: "\f103"; }
+.flaticon-fast:before { content: "\f104"; }
+.flaticon-actuality:before { content: "\f105"; }
+.flaticon-effective:before { content: "\f106"; }
+.flaticon-economy:before { content: "\f107"; }
+.flaticon-car-charging:before { content: "\f108"; }
+.flaticon-experience:before { content: "\f109"; }
+.flaticon-project:before { content: "\f10a"; }
+.flaticon-car-repair-2:before { content: "\f10b"; }
+.flaticon-smm:before { content: "\f10c"; }
+.flaticon-quality:before { content: "\f10e"; }
+.flaticon-staff2:before { content: "\f10f"; }
+.flaticon-clients:before { content: "\f120"; }
+
+.flaticon-chat-comment-oval-speech-bubble-with-text-lines:before { content: "\f113"; }
+
+
+
+.flaticon-food:before { content: "\f115"; }
+.flaticon-gas-filler:before { content: "\f116"; }
+.flaticon-gasoline-pump:before { content: "\f117"; }
+.flaticon-gear:before { content: "\f118"; }
+.flaticon-hand-and-wrench:before { content: "\f119"; }
+.flaticon-hand-holding-wrench:before { content: "\f11a"; }
+.flaticon-petrol-fuel:before { content: "\f11c"; }
+.flaticon-repair:before { content: "\f11e"; }
+.flaticon-repair-service:before { content: "\f11f"; }
+.flaticon-repair-tools:before { content: "\f120"; }
+.flaticon-safe-car:before { content: "\f121"; }
+.flaticon-screwdriver-and-wrench-crossed:before { content: "\f122"; }
+.flaticon-smile:before { content: "\f123"; }
+.flaticon-smile-1:before { content: "\f124"; }
+.flaticon-speedometer:before { content: "\f125"; }
+.flaticon-transport:before { content: "\f129"; }
+.flaticon-transport-1:before { content: "\f12a"; }
+.flaticon-transport-2:before { content: "\f12b"; }
+.flaticon-vehicle:before { content: "\f12c"; }
+.flaticon-vehicle-1:before { content: "\f12d"; }
+.flaticon-vehicle-garage:before { content: "\f12e"; }

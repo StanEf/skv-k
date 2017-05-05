@@ -1,0 +1,3 @@
+syntax: glob
+car-doctor/*
+.idea/*

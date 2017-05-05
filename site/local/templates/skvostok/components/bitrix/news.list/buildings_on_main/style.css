@@ -1,0 +1,128 @@
+.time-stripe {
+    width: 100%;
+    position: relative;
+    height: 100px;
+}
+
+.time-stripe .time-stripe-background {
+    width: 75%;
+    background-color: #fe9000;
+    height: 5px;
+    margin: 0 auto;
+}
+
+.time-stripe .years-wrap {
+    height: 35px;
+    width: 75%;
+    position: absolute;
+    margin: 0 auto;
+    top: -25px;
+}
+
+.time-stripe .time-stripe-year {
+    width: 35px;
+    margin-left: 10.2%;
+    height: 35px;
+    float: left;
+    color: black;
+}
+
+.time-stripe .time-stripe-year:nth-child(even) {
+    margin-top: 35px;
+}
+
+.time-stripe .time-stripe-year.active {
+    font-weight: bold;
+}
+
+.time-stripe .time-stripe-year.active:before {
+    content: " ";
+    position: absolute;
+    top: 20px;
+    color: #fe9000;
+    background-color: #fe9000;
+    border: 2px solid white;
+    border-radius: 20px;
+    height: 15px;
+    width: 15px;
+    margin-left: 8px;
+}
+
+.buildings {
+    height: 390px;
+    overflow: hidden;
+}
+
+.buildings .building {
+    text-align: center;
+    color: #8d8d8d;
+    font-size: 18px;
+    min-width: 25%;
+    max-height: 250px;
+}
+
+.buildings .building .building-image {
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    margin-bottom: 15px;
+}
+
+.buildings .building .building-image:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.buildings .building .building-title {
+    display: block; /* Fallback for non-webkit */
+    display: -webkit-box;
+    max-width: 400px;
+    height: 72px; /* Fallback for non-webkit */
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 24px;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+    .buildings {
+        height: 420px;
+    }
+
+    .buildings .building {
+        max-height: 420px;
+        padding-bottom: 3000px;
+    }
+
+    .time-stripe .time-stripe-year:first-child {
+        //margin-left: 15px;
+    }
+
+    .time-stripe .time-stripe-year {
+        margin-left: 8.5%;
+    }
+}
+
+@media (max-width: 420px) {
+    .buildings {
+        height: 350px;
+    }
+
+    .time-stripe {
+        margin-top: 20px;
+    }
+
+    .time-stripe .time-stripe-year {
+        margin-left: 2%;
+    }
+}
+
+@media (max-width: 350px) {
+    .time-stripe .time-stripe-year {
+        margin-left: 0%;
+    }
+}

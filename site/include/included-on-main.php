@@ -1,0 +1,1 @@
+<img src="https://template53729.motopreview.com/mt-demo/53700/53729/mt-content/uploads/2015/09/mt-0053-home-parallax1.jpg" style="display: none;" id="collapse-image">

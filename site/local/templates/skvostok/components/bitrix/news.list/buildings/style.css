@@ -1,0 +1,226 @@
+.time-stripe {
+    width: 100%;
+    position: relative;
+    height: 100px;
+}
+
+.time-stripe .time-stripe-background {
+    width: 100%;
+    background-color: #fe9000;
+    height: 5px;
+    margin: 0 auto;
+}
+
+.time-stripe .years-wrap {
+    height: 35px;
+    width: 100%;
+    position: absolute;
+    margin: 0 auto;
+    top: -25px;
+}
+
+.time-stripe .time-stripe-year:first-child {
+    margin-left: 15%;
+}
+
+.time-stripe .time-stripe-year {
+    width: 35px;
+    margin-left: 10.2%;
+    height: 35px;
+    float: left;
+    color: black;
+}
+
+.time-stripe .time-stripe-year:nth-child(even) {
+    margin-top: 35px;
+}
+
+.time-stripe .time-stripe-year.active {
+    font-weight: bold;
+}
+
+.time-stripe .time-stripe-year.active:before {
+    content: " ";
+    position: absolute;
+    top: 20px;
+    color: #fe9000;
+    background-color: #fe9000;
+    border: 2px solid white;
+    border-radius: 20px;
+    height: 15px;
+    width: 15px;
+    margin-left: 8px;
+}
+
+.buildings .building {
+    color: #8d8d8d;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.buildings .building hr {
+    background-image: url('img/hr.png');
+    position: absolute;
+    bottom: -35px;
+    height: 10px;
+    width: 100%;
+    border: none;
+    background-size: cover;
+}
+
+.buildings .building .building-image {
+    background-position: center;
+    background-size: cover;
+    margin-bottom: 15px;
+}
+
+.buildings .building .building-image:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.buildings .building .building-date {
+    color: #f08a04;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.buildings .building .building-title {
+    color: black;
+}
+
+.services-wrap {
+    height: 70px;
+    margin-bottom: 70px;
+}
+
+.services-wrap .service {
+    text-align: center;
+    height: 90px;
+}
+
+.services-wrap .service:hover {
+    cursor: pointer;
+    transition: none;
+}
+
+.services-wrap .service .active-icon,
+.services-wrap .service:hover .icon,
+.services-wrap .service_item.active .icon {
+    display: none;
+}
+
+.services-wrap .service:hover .active-icon,
+.services-wrap .service .icon,
+.services-wrap .service_item.active .active-icon {
+    display: inline-block;
+}
+
+.services-wrap .service span{
+    border-radius: 50px;
+    display: inline-block;
+    border: 2px solid #a1a1a1;
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+}
+
+.services-wrap .service:hover span,
+.services-wrap .service_item.active span {
+    border-color: #f08a04;
+    transition: none;
+}
+
+.service-desc {
+    height: 135px;
+    font-family: "Roboto";
+}
+
+.service-desc .icon {
+    text-align: right;
+}
+
+.service-desc h2 {
+    font-weight: 200;
+}
+
+.service-desc p {
+    font-size: 15px;
+}
+
+.service-link {
+    color: #f08a04;
+    //position: absolute;
+    //bottom: -70px;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.service-link:hover {
+    color: #f08a04;
+}
+
+@media (max-width: 768px) {
+    .buildings {
+        //height: 420px;
+    }
+
+    .buildings .building {
+        max-height: 420px;
+        //padding-bottom: 3000px;
+    }
+
+    .time-stripe .time-stripe-year:first-child {
+        margin-left: 15px;
+    }
+
+    .time-stripe .time-stripe-year {
+        margin-left: 12%;
+    }
+
+    .service-desc {
+        height: 220px;
+    }
+    .building-image {
+        height: 200px;
+        width: 100%;
+    }
+    .service-link {
+        position: relative;
+        bottom: 0;
+        font-size: 16px;
+    }
+    .buildings .building hr {
+        display: none;
+    }
+    .buildings .building .building-date {
+        font-size: 16px;
+    }
+    .building-title strong {
+        font-size: 15px;
+    }
+    .building-desc {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 420px) {
+    .buildings {
+        //height: 350px;
+    }
+
+    .time-stripe {
+        margin-top: 20px;
+    }
+
+    .time-stripe .time-stripe-year {
+        margin-left: 2%;
+    }
+}
+
+@media (max-width: 350px) {
+    .time-stripe .time-stripe-year {
+        margin-left: 0%;
+    }
+}

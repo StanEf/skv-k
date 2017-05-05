@@ -1,0 +1,17 @@
+syntax:glob
+.idea
+.htaccess
+bitrix
+upload
+local/php_interface/constants.php
+*.txt
+*.html
+~*.php
+*.log
+*.xml
+*.sql
+Thumbs.db
+.DS_Store
+._.DS_Store
+bitrix/site_checker_c197e354b8d5cdaba4af14c3d84f3fbb.log
+bitrix/.settings.php
