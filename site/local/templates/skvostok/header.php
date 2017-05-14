@@ -33,7 +33,7 @@
         @import url(//fonts.googleapis.com/css?family=Raleway:100,200,300,regular,500,600,700,800,900|Roboto:100,100italic,300,300italic,regular,italic,500,500italic,700,700italic,900,900italic|Sarina:reqular&subset=latin,latin-ext);
     </style>
 
-   <!-- <script src="<?/*=SITE_TEMPLATE_PATH*/?>/js/js1.js"></script>-->
+   <script src="<?=SITE_TEMPLATE_PATH?>/js/js1.js"></script>
 
     <script src="<?=SITE_TEMPLATE_PATH?>/js/js2.js"></script>
 
