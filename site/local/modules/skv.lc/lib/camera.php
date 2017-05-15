@@ -1,20 +1,19 @@
-<?php
-
+<?
 namespace Skv\Lc;
 
 use \Bitrix\Main\Entity;
 use \Bitrix\Main\Type;
 
-class ObjectTable extends Entity\DataManager
+class CameraTable extends Entity\DataManager
 {
     public static function getTableName() 
     {
-        return 'object_lc';
+        return 'camera_lc';
     }
 
     public static function getUfId()
     {
-        return 'OBJECT_LC';
+        return 'CAMERA_LC';
     }
 
     public static function getMap()
@@ -25,18 +24,21 @@ class ObjectTable extends Entity\DataManager
                 'primary' => true,
                 'autocomplete' => true
             )),
-			//Имя
+			//РРјСЏ
             new Entity\StringField('NAME', array(
                 'required' => true,
             )),
-            //Широта
-            new Entity\IntegerField('COORD_LAT', array(
+			new Entity\StringField('LINK', array(
                 'required' => true,
             )),
-			//Долгота
-            new Entity\IntegerField('COORD_LON', array(
+            new Entity\IntegerField('OBJECT_ID', array(
                 'required' => true,
             )),
+			new Entity\ReferenceField(
+                'OBJECT',
+                'Skv\Lc\Object',
+                array('=this.OBJECT_ID' => 'ref.ID'),
+            )
         );
     }
 
@@ -49,7 +51,7 @@ class ObjectTable extends Entity\DataManager
         // if (isset($data['ISBN'])) {
             // $result->addError(new Entity\FieldError(
                 // $event->getEntity()->getField('ISBN'),
-                // 'Запрещено менять ISBN код у существующих книг'
+                // 'Р—Р°РїСЂРµС‰РµРЅРѕ РјРµРЅСЏС‚СЊ ISBN РєРѕРґ Сѓ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС… РєРЅРёРі'
             // ));
         // }
 

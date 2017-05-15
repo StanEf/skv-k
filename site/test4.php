@@ -1,5 +1,6 @@
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");?>
+<iframe width="560" height="315" src="http://lideo.ru/embed/4277" frameborder="0" allowfullscreen></iframe>
 <style>
 .modalDialog {
 	position: fixed;

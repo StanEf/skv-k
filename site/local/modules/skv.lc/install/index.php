@@ -99,6 +99,30 @@ Class SKV_LC extends CModule
         {
             Base::getInstance('\Skv\Lc\ObjectTable')->createDbTable();
         }
+		
+		if(!Application::getConnection(\Skv\Lc\UserTable::getConnectionName())->isTableExists(
+            Base::getInstance('\Skv\Lc\UserTable')->getDBTableName()
+            )
+        )
+        {
+            Base::getInstance('\Skv\Lc\UserTable')->createDbTable();
+        }
+		
+		if(!Application::getConnection(\Skv\Lc\ObjectUserTable::getConnectionName())->isTableExists(
+            Base::getInstance('\Skv\Lc\ObjectUserTable')->getDBTableName()
+            )
+        )
+        {
+            Base::getInstance('\Skv\Lc\ObjectUserTable')->createDbTable();
+        }
+		
+		if(!Application::getConnection(\Skv\Lc\CameraTable::getConnectionName())->isTableExists(
+            Base::getInstance('\Skv\Lc\CameraTable')->getDBTableName()
+            )
+        )
+        {
+            Base::getInstance('\Skv\Lc\CameraTable')->createDbTable();
+        }
     }
 
     function UnInstallDB()

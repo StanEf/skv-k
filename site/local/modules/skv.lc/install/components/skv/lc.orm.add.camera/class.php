@@ -4,10 +4,10 @@ use \Bitrix\Main;
 use \Bitrix\Main\Localization\Loc;
 use \Bitrix\Main\Type;
 use \Bitrix\Main\Entity;
-use \Skv\Lc\ObjectTable;
-use \Skv\Lc\ObjectUserTable;
+use \Skv\Lc\CameraTable;
 
-class LcOrmAddobject extends CBitrixComponent 
+
+class LcOrmAddcamera extends CBitrixComponent 
 {
 
     protected function checkModules()
@@ -16,37 +16,19 @@ class LcOrmAddobject extends CBitrixComponent
             throw new Main\LoaderException(Loc::getMessage('SKV_LC_MODULE_NOT_INSTALLED'));
     }
 
-
-    function addObject()
-    {
-		
+    function addCamera()
+    {	
 		echo 'component<pre>';
 		print_r($_POST);
-		echo '</pre>';
-		
+		echo '</pre>';		
 		
 		if(isset($_POST)){
-			$result = ObjectTable::add(array(
+			$result = CameraTable::add(array(
 				'NAME' => $_POST['NAME'],
-				'COORD_LAT' => $_POST['RELEASED'],
-				'COORD_LON' => $_POST['ISBN'],
-			));
-			
-			$max_object_id = ObjectTable::getList(array(
-					'select' => array(
-						new Entity\ExpressionField('MAX_ID', 'MAX(%i)', array('ID'))
-					)	
-				)
-			);			
-		}
-		
-		if(isset($_POST['USER_ID'])){			
-			$result = ObjectUserTable::add(array(
-				'OBJECT_ID' => $max_object_id['MAX_ID'],
-				'USER_ID' => $_POST['USER_ID'],
-			));
-		}
-      
+				'LINK' => $_POST['LINK'],
+				'OBJECT_ID' => $_POST['OBJECT_ID'],
+			));								
+		}      
         return $result;
     }
 
@@ -56,7 +38,7 @@ class LcOrmAddobject extends CBitrixComponent
 
         $this -> checkModules();
 
-        $result = $this->addObject();
+        $result = $this->addCamera();
 
         if ($result->isSuccess())
         {
