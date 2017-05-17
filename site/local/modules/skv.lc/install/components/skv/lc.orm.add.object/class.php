@@ -7,7 +7,7 @@ use \Bitrix\Main\Entity;
 use \Skv\Lc\ObjectTable;
 use \Skv\Lc\ObjectUserTable;
 
-class LcOrmAddobject extends CBitrixComponent 
+class LcOrmAddObject extends CBitrixComponent 
 {
 
     protected function checkModules()
@@ -26,23 +26,25 @@ class LcOrmAddobject extends CBitrixComponent
 		
 		
 		if(isset($_POST)){
-			$result = ObjectTable::add(array(
-				'NAME' => $_POST['NAME'],
-				'COORD_LAT' => $_POST['RELEASED'],
-				'COORD_LON' => $_POST['ISBN'],
-			));
-			
-			$max_object_id = ObjectTable::getList(array(
-					'select' => array(
-						new Entity\ExpressionField('MAX_ID', 'MAX(%i)', array('ID'))
-					)	
-				)
-			);			
+			$check = ObjectTable::getList(array(
+						'filter' => array(
+							'=NAME' => $_POST['NAME'],
+						)
+					));
+			if(!empty($check)){
+				$this->arResult='Объект с таким именем уже существует';
+				$result = ObjectTable::add(array(
+					'NAME' => $_POST['NAME'],
+					'COORD_LAT' => $_POST['LATITYDE'],
+					'COORD_LON' => $_POST['LONGITUDE'],
+				));			
+				$current_id = $result->getId();
+			}	
 		}
 		
-		if(isset($_POST['USER_ID'])){			
-			$result = ObjectUserTable::add(array(
-				'OBJECT_ID' => $max_object_id['MAX_ID'],
+		if(isset($_POST['USER_ID']) && isset($current_id)){			
+			ObjectUserTable::add(array(
+				'OBJECT_ID' => $current_id,
 				'USER_ID' => $_POST['USER_ID'],
 			));
 		}
@@ -66,7 +68,7 @@ class LcOrmAddobject extends CBitrixComponent
         else
         {
             $error=$result->getErrorMessages();
-            $this->arResult='Произошла ошибка при добавлении4: <pre>'.var_export($error,true).'</pre>';
+            $this->arResult='Произошла ошибка при добавлении: <pre>'.var_export($error,true).'</pre>';
         }
 
         $this->includeComponentTemplate();

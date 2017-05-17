@@ -3,9 +3,8 @@
 use \Bitrix\Main;
 use \Bitrix\Main\Localization\Loc;
 use \Bitrix\Main\Type;
-use \Skv\Lc\ObjectTable;
-use \Skv\Lc\ObjectUserTable;
-class LcOrmGetlistObject extends CBitrixComponent 
+use \Skv\Lc\CameraTable;
+class LcOrmGetlistCamera extends CBitrixComponent 
 {
 
     /**
@@ -20,11 +19,8 @@ class LcOrmGetlistObject extends CBitrixComponent
 
     function show()
     {
-        $result['ObjectTable'] = ObjectTable::getList(array(
+        $result = CameraTable::getList(array(
             'select'  => array('*'), 
-        ));
-		$result['ObjectUserTable'] = ObjectUserTable::getList(array(
-            'select'  => array('*'),
         ));
         return $result;
     }
@@ -38,8 +34,7 @@ class LcOrmGetlistObject extends CBitrixComponent
 
         $result = $this->show();
 
-        $this->arResult['ObjectTable'] = $result['ObjectTable']->fetchAll();
-		$this->arResult['ObjectUserTable'] = $result['ObjectUserTable']->fetchAll();
+        $this->arResult = $result->fetchAll();
 
         $this->includeComponentTemplate();
     }

@@ -26,6 +26,7 @@ class LcOrmUpdateCamera extends CBitrixComponent
 		}
 		
 		if(isset($_POST('LINK'))){
+			$_POST['LINK'] = htmlspecialcharsEx($_POST['LINK']);
 			$array_to_change['LINK'] = $_POST('LINK');
 		}
 		

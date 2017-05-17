@@ -37,7 +37,7 @@ class CameraTable extends Entity\DataManager
 			new Entity\ReferenceField(
                 'OBJECT',
                 'Skv\Lc\Object',
-                array('=this.OBJECT_ID' => 'ref.ID'),
+                array('=this.OBJECT_ID' => 'ref.ID')
             )
         );
     }

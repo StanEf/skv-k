@@ -7,7 +7,7 @@ use \Bitrix\Main\Entity;
 use \Skv\Lc\CameraTable;
 
 
-class LcOrmAddcamera extends CBitrixComponent 
+class LcOrmAddCamera extends CBitrixComponent 
 {
 
     protected function checkModules()
@@ -23,6 +23,7 @@ class LcOrmAddcamera extends CBitrixComponent
 		echo '</pre>';		
 		
 		if(isset($_POST)){
+			//$_POST['LINK'] = htmlspecialcharsEx($_POST['LINK']);
 			$result = CameraTable::add(array(
 				'NAME' => $_POST['NAME'],
 				'LINK' => $_POST['LINK'],

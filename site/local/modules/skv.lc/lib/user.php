@@ -1,7 +1,7 @@
 <?
 namespace Skv\Lc;
-
-class UserTable extends Main\Entity\DataManager
+use \Bitrix\Main\Localization\Loc;
+class UserTable extends \Bitrix\Main\Entity\DataManager
 {
 	/**
 	 * Returns DB table name for entity.

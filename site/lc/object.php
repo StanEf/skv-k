@@ -36,22 +36,15 @@ id пользователя
 <input type="submit">
 </form>
 
-----22----
-<?$APPLICATION->IncludeComponent(
-	"skv:lc.orm.getlist.object",
-	"",
-Array()
-);?>
-----11----
-
+add or update
 <?
-if($_POST("ACTION") == "ADD"){
+if($_POST["ACTION"] == "ADD"){
 	$APPLICATION->IncludeComponent(
 		"skv:lc.orm.add.object",
 		"",
 	Array()
 	);
-} else if($_POST("ACTION") == "MODIFY"){
+} elseif($_POST["ACTION"] == "MODIFY"){
 	$APPLICATION->IncludeComponent(
 		"skv:lc.orm.update.object",
 		"",
@@ -59,6 +52,11 @@ if($_POST("ACTION") == "ADD"){
 	);
 }
 ?>
-----00----
+show
+<?$APPLICATION->IncludeComponent(
+	"skv:lc.orm.getlist.object",
+	"",
+Array()
+);?>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
