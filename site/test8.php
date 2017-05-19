@@ -4,11 +4,11 @@ $APPLICATION->SetTitle("");?>
 <?$APPLICATION->IncludeComponent("bitrix:lists", ".default", array(
 	"IBLOCK_TYPE_ID" => "lists",
 	"SEF_MODE" => "Y",
-	"SEF_FOLDER" => "/services/lists/",
+	"SEF_FOLDER" => "",
 	"CACHE_TYPE" => "A",
 	"CACHE_TIME" => "36000000",
 	"SEF_URL_TEMPLATES" => array(
-		"lists" => "",
+		"lists" => "#list_id#/view/#section_id#/",
 		"list" => "#list_id#/view/#section_id#/",
 		"list_sections" => "#list_id#/edit/#section_id#/",
 		"list_edit" => "#list_id#/edit/",

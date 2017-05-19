@@ -97,13 +97,13 @@ if($this->StartResultCache(0 /*disable cache because it's individual for each us
 	else
 		$arFilter["SITE_ID"] = "s1";
 	
-	echo 'arOrder<pre>';
+/*	echo 'arOrder<pre>';
 	print_r($arOrder);
 	echo '</pre>';	
 	
 	echo 'arFilter<pre>';
 	print_r($arFilter);
-	echo '</pre>';
+	echo '</pre>';*/
 	
 	
 	
@@ -129,12 +129,12 @@ if($this->StartResultCache(0 /*disable cache because it's individual for each us
 	}
 
 	$CACHE_MANAGER->EndTagCache();
-	echo '55555555555556666665777<pre>';
+/*	echo '55555555555556666665777<pre>';
 print_r($arParams);
 echo '</pre>';
 echo '<pre>777777777777777777';
 print_r($arResult);
-echo '</pre>';
+echo '</pre>';*/
 	
 	
 	$this->IncludeComponentTemplate();

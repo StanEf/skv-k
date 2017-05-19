@@ -72,9 +72,14 @@ if($arParams["IBLOCK_TYPE_ID"] == COption::GetOptionString("lists", "livefeed_ib
 
 	}
 }
-
+echo 'before';
+var_dump($arVariables);
+echo '<br>';
 if($arParams["SEF_MODE"] == "Y")
 {
+	echo 'SEF_MODE == Y<br>';
+	var_dump($_GET);
+	echo '-=-=-=-';
 	$arVariables = array();
 
 	$arUrlTemplates = CComponentEngine::MakeComponentUrlTemplates($arDefaultUrlTemplates404, $arParams["SEF_URL_TEMPLATES"]);
@@ -82,30 +87,58 @@ if($arParams["SEF_MODE"] == "Y")
 
 	if($_GET['livefeed'] == 'y')
 	{
+		echo 'livefeed';
 		$componentPage = 'list_element_edit';
 		$arVariables = array('list_id' => $_GET['list_id'], 'element_id' => $_GET['element_id'], 'section_id' => 0);
 	}
 	elseif($_GET['bp_constants'] == 'y')
 	{
+		echo 'bp_constants';
 		$componentPage = "bizproc_workflow_constants";
 		$arVariables = array('list_id' => $_GET['list_id'], 'ID' => $_GET['id']);
 	}
 	elseif($processes && $_GET["bp_catalog"] == "y")
 	{
+		echo 'bp_catalog';
 		$componentPage = "catalog_processes";
 	}
+
 	else
 	{
+		echo 'else';
+		echo $componentPage .'<br>before111';
+		var_dump($arVariables);
+		echo '<br>';
+
 		$componentPage = CComponentEngine::ParseComponentPath(
 			$arParams["SEF_FOLDER"],
 			$arUrlTemplates,
 			$arVariables
 		);
+
+		if($componentPage == "" && empty($arVariables)){
+			$componentPage = "list";
+			$arVariables["list_id"] = 54;
+			$arVariables["section_id"] = 0;
+		}
+
+		echo $componentPage . '$componentPage   $arParams["SEF_FOLDER"]<pre>';
+		print_r($arParams["SEF_FOLDER"]);
+		echo '</pre>';
+		echo ' $arUrlTemplates <pre>';
+		print_r($arUrlTemplates);
+		echo '</pre>';
+		echo '<br>after111 $arVariables';
+		var_dump($arVariables);
+		echo '<br>';
 	}
 
 	if(!$componentPage)
 		$componentPage = "lists";
 
+echo 'after';
+	var_dump($arVariables);
+	echo '<br>';
 	CComponentEngine::InitComponentVariables($componentPage, $arComponentVariables, $arVariableAliases, $arVariables);
 	$arResult = array(
 		"FOLDER" => $arParams["SEF_FOLDER"],
@@ -331,6 +364,6 @@ if(
 	if(is_array($arWorkflowState) && is_array($arWorkflowState["DOCUMENT_ID"]))
 		list(, , $arResult["VARIABLES"]["element_id"]) = CBPHelper::ParseDocumentId($arWorkflowState["DOCUMENT_ID"]);
 }
-echo '=' . $componentPage . '=';
+echo $componentPage;
 $this->IncludeComponentTemplate($componentPage);
 ?>

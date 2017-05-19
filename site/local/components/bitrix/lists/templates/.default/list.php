@@ -1,6 +1,9 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
-echo '<pre>';
-//print_r($component);
+echo '$arParams<pre>';
+print_r($arParams);
+echo '</pre>';
+echo '<pre>99999999999999999999$arResult';
+print_r($arResult);
 echo '</pre>';
 
 ?>
