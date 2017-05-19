@@ -9,12 +9,35 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 // echo '<h1>привет</h1>';
 // echo '<iframe width="560" height="315" src="http://lideo.ru/embed/4186" frameborder="0" allowfullscreen></iframe>';
 // exit();
-echo'<pre>';
+// echo'arResult<pre>';
+// print_r($arResult);
+// echo'</pre>';
+
+
+
+ $arResult['FOLDER'] = '/lc/doc/';
+$arResult['URL_TEMPLATES']= Array(
+            'lists'=> '',
+            'list' => '#list_id#/view/#section_id#/',
+            'list_edit' => '#list_id#/edit/',
+            'list_fields' => '#list_id#/fields/',
+            'list_field_edit' => '#list_id#/field/#field_id#/',
+            'list_element_edit' => '#list_id#/element/#section_id#/#element_id#/',
+            'list_file' => '#list_id#/file/#section_id#/#element_id#/#field_id#/#file_id#/',
+            'bizproc_log' => '#list_id#/bp_log/#document_state_id#/',
+            'bizproc_workflow_start' => '#list_id#/bp_start/#element_id#/',
+            'bizproc_task' => '#list_id#/bp_task/#section_id#/#element_id#/#task_id#/',
+            'bizproc_workflow_admin' => '#list_id#/bp_list/',
+            'bizproc_workflow_edit' => '#list_id#/bp_edit/#ID#/',
+            'bizproc_workflow_vars' => '#list_id#/bp_vars/#ID#/',
+            'bizproc_workflow_constants' => '#list_id#/bp_constants/#ID#/',
+            'list_export_excel' => '#list_id#/excel/',
+            'list_sections' => '#list_id#/edit/#section_id#/',
+            'bizproc_workflow_delete' => '?action=del_bizproc',
+        );
+echo'arResult<pre>';
 print_r($arResult);
 echo'</pre>';
-
-
-
 
 ?>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700' rel='stylesheet' type='text/css'>
@@ -24,24 +47,36 @@ echo'</pre>';
 
 <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 <script>
+
 $(function() {
 	$(".top_menu_button").on("click", function(){
-		page_lc.show_hide();
+		page_lc.active_type = $(this).data("type");
+		
+		$.post(
+		  "/lc/ajax.php",
+		  {
+			object: page_lc.active_object ,
+			type: page_lc.active_type
+		  },
+		  page_lc.onAjaxSuccess
+		);
 	});
 	
 	$(".left-nav-object").on("click", function(){
 		page_lc.active_object = $(this).data("object");
-		$(".left-nav-object").each(function() {
-			if($(this).data("object") == page_lc.active_object){
-				$(this).children("a").addClass("active");
-			}else{
-				$(this).children("a").removeClass("active");
-			}
-		});
-		page_lc.show_hide();
+		
 	});
 	
 	var page_lc = new Object();
+	
+	page_lc.onAjaxSuccess =  function(request){
+		console.log('request post ' + request);
+		$(".templatemo-content-container").html(request);
+																	
+		console.log('request post ' + request);
+	};
+	
+	
 	
 	page_lc.get_active_type = function(){
 										$(".top_menu_button").each(function(){
@@ -74,7 +109,10 @@ $(function() {
 									}
 								});								
 							};
-	page_lc.show_hide();
+	//page_lc.show_hide();
+	
+	page_lc.store_session = function(){
+									};
 
 });	
 </script>
@@ -90,13 +128,6 @@ $(function() {
 		<li class="left-nav-object" data-object="<?= $object['ID'] ?>"><a href="" <?if($num == 0):?>class="active"<?endif;?> ><?= $object['NAME'] ?></a></li>
 		<?endforeach;?>
 	<?endif;?>
-	  <!--
-		<li><a href="#" class="active">object1</a></li>
-		<li><a href="#">object2</a></li>
-		<li><a href="#">object3</a></li>
-		<li><a href="#">object4</a></li>
-		<li><a href="#">object5</a></li>
-		-->
 	  </ul>  
 	</nav>
   </div>
@@ -106,45 +137,43 @@ $(function() {
 	  <div class="row">
 		<nav class="templatemo-top-nav col-lg-12 col-md-12">
 		  <ul class="text-uppercase">
-			<li class="top_menu_button" data-type="video"><a href="" class="active">Видео</a></li>
-			<li class="top_menu_button" data-type="docs"><a href="">Документы</a></li>
-			<li class="top_menu_button" data-type="report"><a href="">Отчеты</a></li>
+			<li class="top_menu_button" data-type="docs"><a href="" class="active">Документы</a></li>
+			<li class="top_menu_button" data-type="video"><a href="">Видео</a></li>
+	<!--	<li class="top_menu_button" data-type="report"><a href="">Отчеты</a></li> -->
 		  </ul>  
 		</nav> 
 	  </div>
 	</div>
-	<?if(!empty($arResult['cameras'])):?>
-		<?foreach($arResult['cameras'] as $object_id => $cameras):?>
 		
-	<div class="templatemo-content-container" data-type="video" data-object="<?= $object_id ?>" style="display:none;">
-			<?for($row=0;$row<ceil(count($cameras)/2);$row++):?>
-	  <div class="templatemo-flex-row flex-content-row">
-		<div class="templatemo-content-widget white-bg col-1 text-center">
-		  <h2 class="text-uppercase"><?=$cameras[2*$row]['NAME']?></h2>
-		  <?= htmlspecialcharsBack($cameras[2*$row]['LINK'])?>
-		</div>
-		<?if(isset($cameras[2*$row+1])):?>
-		<div class="templatemo-content-widget white-bg col-1 text-center">
-		  <h2 class="text-uppercase"><?=$cameras[2*$row+1]['NAME']?></h2>
-		  <?= htmlspecialcharsBack($cameras[2*$row+1]['LINK'])?>
-		</div>
-		<?endif;?>
-	  </div>
-			<?endfor;?>
-	</div> 
-		<?endforeach;?>
-	<?endif;?>
+	<div class="templatemo-content-container" data-type="docs" data-object="<?= $object_id ?>">
 	
-	<div class="templatemo-content-container" style="display:none;" data-type="docs" style="display:none;">
-	  <div class="templatemo-flex-row flex-content-row">
-		<div class="templatemo-content-widget white-bg col-1 text-center">
-		  <h3 class="text-uppercase margin-bottom-10">Документ 1</h3>
-		</div>
-		<div class="templatemo-content-widget white-bg col-1 text-center">
-		  <h3 class="text-uppercase margin-bottom-10">Документ 2</h3>
-		</div>
-	  </div>
+	<?$APPLICATION->IncludeComponent("bitrix:lists.list", ".default", array(
+		"IBLOCK_TYPE_ID" => "lists",
+		"IBLOCK_ID" => 54,
+		"SECTION_ID" => 0,
+		"LISTS_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["lists"],
+		"LIST_EDIT_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_edit"],
+		"LIST_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list"],
+		"LIST_SECTIONS_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_sections"],
+		"LIST_ELEMENT_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_element_edit"],
+		"LIST_FILE_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_file"],
+		"LIST_FIELDS_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_fields"],
+		"EXPORT_EXCEL_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_export_excel"],
+		"BIZPROC_LOG_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["bizproc_log"],
+		"BIZPROC_TASK_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["bizproc_task"],
+		"BIZPROC_WORKFLOW_START_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["bizproc_workflow_start"],
+		"BIZPROC_WORKFLOW_ADMIN_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["bizproc_workflow_admin"],
+		"CACHE_TYPE" => "A",
+		"CACHE_TIME" => "36000000",
+		),
+		""
+	);	?>
+	
+	
 	</div> 
+
+	
+
 		  
 	</div>
   </div>

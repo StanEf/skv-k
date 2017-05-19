@@ -1,5 +1,5 @@
 <?php
-
+ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 use \Bitrix\Main;
 use \Bitrix\Main\Localization\Loc;
 use \Bitrix\Main\Type;
@@ -17,7 +17,26 @@ class LcView extends CBitrixComponent
 
     function show()
     {
+		echo '<pre>';
+		print_r($this->arParams);
+		echo '</pre>';
+		
+		echo 'IBLOCK_ID ' . $this->arParams["IBLOCK_ID"].'<br>';
 		$user_id = $_SESSION['SESS_AUTH']['USER_ID'];
+		$userGroup = CUser::GetUserGroup($user_id);
+		
+		echo 'userGroup<pre>';
+		print_r($userGroup);
+		echo '</pre>';
+		$is_admin = 0;
+		foreach($userGroup as $group_id){
+			if($group_id == 1){
+				$is_admin = 1;
+			}
+		}
+		
+		$result["IS_ADMIN"] = $is_admin;
+		
         $objects = ObjectTable::getList(array(
             'select'  => array(
 				'ID',
@@ -41,9 +60,11 @@ class LcView extends CBitrixComponent
 		foreach($result['objects'] as $one){
 			$object_ids[] = $one['ID'];
 		}
+		
 		// echo '2<pre>';
 		// print_r($object_ids);
 		// echo '</pre>';
+		
 		$cameras = CameraTable::getList(array(
             'select'  => array('*'),
 			'filter' => array(
@@ -62,6 +83,7 @@ class LcView extends CBitrixComponent
 		// $result['ObjectUserTable'] = ObjectUserTable::getList(array(
             // 'select'  => array('*'),
         // ));
+		//echo '---';
         return $result;
     }
 
