@@ -3,7 +3,7 @@ $APPLICATION->SetTitle("");?>
 test7
 <?
 $arResult = array(
-	'FOLDER' => '/services/lists/',
+	'FOLDER' => '/lc/docs/',
     'URL_TEMPLATES' => Array
         (
             'lists'=> '',

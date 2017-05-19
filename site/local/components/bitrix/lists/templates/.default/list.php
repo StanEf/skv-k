@@ -1,6 +1,10 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+echo '<pre>';
+//print_r($component);
+echo '</pre>';
+
 ?>
-list template
+
 <?
 // echo '<pre>';
 // print_r($arParams);

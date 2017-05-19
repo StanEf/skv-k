@@ -166,7 +166,7 @@ $(function() {
 		"CACHE_TYPE" => "A",
 		"CACHE_TIME" => "36000000",
 		),
-		""
+		$component
 	);	?>
 	
 	
