@@ -18,13 +18,20 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/templatemo-style.css" rel="stylesheet">
 
-<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+
 
 
 <script src="<?=SITE_TEMPLATE_PATH?>/js/postmessage.js"></script>
 <script src="<?=SITE_TEMPLATE_PATH?>/js/FrameManager.js"></script>
+
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 	
 <script>
+
+function autoResize(iframe) {
+    $(iframe).height($(iframe).contents().find('html').height());
+}
+
 
 $(function() {
 	// var body_height = $(".moto-background").height();
@@ -129,10 +136,11 @@ $(function() {
 	  </div>
 	</div>
 		
-	<div class="templatemo-content-container" data-type="docs" data-object="<?= $object_id ?>" slyle="height:100%; width:100%;">
+	<div class="templatemo-content-container" data-type="docs" data-object="<?= $object_id ?> "style="height: 100%" >
 
-	<iframe id="frame_docs" name="frame_docs" src="/lc/docs/" onload="FrameManager.registerFrame(this)" scrolling="no" frameborder="0" marginheight="0" marginwidth="0" ></iframe>
 	
+	
+	<iframe src="/lc/docs/" width="100%" height="100%"  scrolling="no" frameborder="0" marginheight="0" marginwidth="0"  onload="autoResize(this);"></iframe>
 
 	</div> 
 

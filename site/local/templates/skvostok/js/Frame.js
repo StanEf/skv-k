@@ -42,5 +42,7 @@ var FrameHeightManager =
 pm.bind("register", function(data) {
     FrameHeightManager.FrameId = data.id;
     // не забываем передать правильный this
+	var hh = FrameHeightManager.getCurrentHeight();
+	console.log('FrameHeightManager.getCurrentHeight  '+hh);
     window.setInterval(function() {FrameHeightManager.publishHeight.call(FrameHeightManager)}, 300);
 });
