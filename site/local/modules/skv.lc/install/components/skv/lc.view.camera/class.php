@@ -17,7 +17,7 @@ class LcView extends CBitrixComponent
 
     function show()
     {
-		echo "999 $arParams[OBJECT_ID]" . $arParams["OBJECT_ID"] . '<br>';
+		//echo "999 $arParams[OBJECT_ID]" . $arParams["OBJECT_ID"] . '<br>';
 		$cameras = CameraTable::getList(array(
             'select'  => array('*'),
 			'filter' => array(
@@ -30,9 +30,9 @@ class LcView extends CBitrixComponent
 			$objects_cameras[$camera['OBJECT_ID']][] = $camera;
 		}
 		$result['cameras'] = $objects_cameras;
-		echo '3<pre>';
-		print_r($result);
-		echo '</pre>';
+		// echo '3<pre>';
+		// print_r($result);
+		// echo '</pre>';
 
         return $result;
     }

@@ -17,17 +17,17 @@ class LcView extends CBitrixComponent
 
     function show()
     {
-		echo '<pre>';
-		print_r($this->arParams);
-		echo '</pre>';
+		// echo '<pre>';
+		// print_r($this->arParams);
+		// echo '</pre>';
 		
-		echo 'IBLOCK_ID ' . $this->arParams["IBLOCK_ID"].'<br>';
+		// echo 'IBLOCK_ID ' . $this->arParams["IBLOCK_ID"].'<br>';
 		$user_id = $_SESSION['SESS_AUTH']['USER_ID'];
 		$userGroup = CUser::GetUserGroup($user_id);
 		
-		echo 'userGroup<pre>';
-		print_r($userGroup);
-		echo '</pre>';
+		// echo 'userGroup<pre>';
+		// print_r($userGroup);
+		// echo '</pre>';
 		$is_admin = 0;
 		foreach($userGroup as $group_id){
 			if($group_id == 1){

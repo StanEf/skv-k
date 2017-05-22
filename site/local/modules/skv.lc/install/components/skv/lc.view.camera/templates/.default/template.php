@@ -1,5 +1,3 @@
-привет
-
 <?if(!empty($arResult['cameras'])):?>
 	<?foreach($arResult['cameras'] as $object_id => $cameras):?>
 	

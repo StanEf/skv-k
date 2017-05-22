@@ -364,6 +364,6 @@ if(
 	if(is_array($arWorkflowState) && is_array($arWorkflowState["DOCUMENT_ID"]))
 		list(, , $arResult["VARIABLES"]["element_id"]) = CBPHelper::ParseDocumentId($arWorkflowState["DOCUMENT_ID"]);
 }
-echo $componentPage;
+//echo $componentPage;
 $this->IncludeComponentTemplate($componentPage);
 ?>

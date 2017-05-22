@@ -29,7 +29,8 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 <script>
 
 function autoResize(iframe) {
-    $(iframe).height($(iframe).contents().find('html').height());
+	console.log('height ' + $(iframe).contents().find('html').height());
+    $(iframe).height($(iframe).contents().find('html').height()+200);
 }
 
 
@@ -63,7 +64,8 @@ $(function() {
 	
 	page_lc.onAjaxSuccess =  function(request){
 		console.log('request post ' + request);
-		$("#frame_docs").html(request);
+		
+		$(".templatemo-content-container").html(request);
 																	
 		console.log('request post ' + request);
 	};

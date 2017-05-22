@@ -64,7 +64,9 @@ $APPLICATION->SetAdditionalCSS("/bitrix/panel/main/admin.css");
 	<script src="http://yandex.st/jquery/1.7.1/jquery.min.js"></script>
 <script src="<?=SITE_TEMPLATE_PATH?>/js/postmessage.js"></script>
 	<script src="<?=SITE_TEMPLATE_PATH?>/js/Frame.js"></script> 
-
+<script>
+console.log('height ' + $('html').height());
+</script>
 	
 	
 </head>
