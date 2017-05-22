@@ -1,4 +1,16 @@
-<?
+<!DOCTYPE html>
+<html>
+<body>
+    <!--<script src="http://yandex.st/jquery/1.7.1/jquery.min.js"></script>-->
+    <script src="postmessage.js"></script>
+    <script src="Frame.js"></script>
+<div style="border:1px solid red;margin:0; height:200px;">
+  test2
+  
+  
+  
+  
+  <?
 //if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 
 //global $APPLICATION;
@@ -12,30 +24,6 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Title");
 $GLOBALS['APPLICATION']->RestartBuffer(); 
 
-if($_POST["type"] == "docs"){
-	
-	// $APPLICATION->IncludeComponent("bitrix:lists.list", ".default", array(
-		// "IBLOCK_TYPE_ID" => "lists",
-		// "IBLOCK_ID" => 54,
-		// "SECTION_ID" => 0,
-		// "LISTS_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["lists"],
-		// "LIST_EDIT_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_edit"],
-		// "LIST_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list"],
-		// "LIST_SECTIONS_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_sections"],
-		// "LIST_ELEMENT_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_element_edit"],
-		// "LIST_FILE_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_file"],
-		// "LIST_FIELDS_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_fields"],
-		// "EXPORT_EXCEL_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_export_excel"],
-		// "BIZPROC_LOG_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["bizproc_log"],
-		// "BIZPROC_TASK_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["bizproc_task"],
-		// "BIZPROC_WORKFLOW_START_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["bizproc_workflow_start"],
-		// "BIZPROC_WORKFLOW_ADMIN_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["bizproc_workflow_admin"],
-		// "CACHE_TYPE" => "A",
-		// "CACHE_TIME" => "36000000",
-		// ),
-		// ""
-	// );	
-	
 	$APPLICATION->IncludeComponent(
 	"bitrix:lists", 
 	".default", 
@@ -68,15 +56,6 @@ if($_POST["type"] == "docs"){
 	),
 	false
 );
-	
-}else if($_POST["type"] == "video"){
-	$APPLICATION->IncludeComponent("skv:lc.view.camera", "", array(
-		"OBJECT_ID" => $_POST["object"],
-		),
-		""
-	);
-	
-}
 
 
 
@@ -87,3 +66,25 @@ if($_POST["type"] == "docs"){
 
 //die();
 ?>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  sdsds
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+</body>
+</html>

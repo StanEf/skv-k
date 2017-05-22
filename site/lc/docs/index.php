@@ -1,11 +1,82 @@
 <?
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-IncludeModuleLangFile($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/intranet/public/services/lists/index.php");
-$APPLICATION->SetTitle(GetMessage("SERVICES_TITLE"));
+//require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+// require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+// require_once($_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_after.php');
+// IncludeModuleLangFile($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/intranet/public/services/lists/index.php");
+// $APPLICATION->SetTitle(GetMessage("SERVICES_TITLE"));
+
+
+
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
+
+$APPLICATION->SetAdditionalCSS("/bitrix/panel/main/admin.css");
 
 ?>
- 
-<?$APPLICATION->IncludeComponent(
+<!DOCTYPE html>
+<html lang="en" data-ng-app="website">
+
+<head>
+    <meta charset="utf-8">
+    <title><?=$APPLICATION->ShowTitle('title')?></title>
+    <?$APPLICATION->ShowHead()?>
+    <link rel="SHORTCUT ICON" href="/favicon.ico" type="image/vnd.microsoft.icon" />
+
+
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400" rel="stylesheet">
+-->
+	<link href='https://fonts.googleapis.com/css?family=Roboto&subset=latin,greek,greek-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed&subset=latin,greek,greek-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="<?=SITE_TEMPLATE_PATH?>/css/assets.min.css" />
+    <link rel="stylesheet" href="<?=SITE_TEMPLATE_PATH?>/css/styles.css" />
+    <link rel="stylesheet" href="<?=SITE_TEMPLATE_PATH?>/css/another_styles.css" />
+    <link rel="stylesheet" href="<?=SITE_TEMPLATE_PATH?>/css/ext_styles.css" />
+    <link rel="stylesheet" href="<?=SITE_TEMPLATE_PATH?>/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="<?=SITE_TEMPLATE_PATH?>/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="<?=SITE_TEMPLATE_PATH?>/vendor/fancybox/jquery.fancybox.css">
+    <link rel="stylesheet" href="<?=SITE_TEMPLATE_PATH?>/vendor/csslider/animated-slider.css">
+    <style>
+        @import url(//fonts.googleapis.com/css?family=Asap:regular,italic,700,700italic|Cutive:regular|Lato:100,300,regular,italic,700|Open+Sans:300,300italic,regular,italic,600,600italic,700,700italic,800,800italic|PT+Sans:regular,italic,700,700italic&subset=latin,latin-ext);
+        @import url(//fonts.googleapis.com/css?family=Raleway:100,200,300,regular,500,600,700,800,900|Roboto:100,100italic,300,300italic,regular,italic,500,500italic,700,700italic,900,900italic|Sarina:reqular&subset=latin,latin-ext);
+    </style>
+
+   <script src="<?=SITE_TEMPLATE_PATH?>/js/js1.js"></script>
+
+    <script src="<?=SITE_TEMPLATE_PATH?>/js/js2.js"></script>
+
+    <script src="<?=SITE_TEMPLATE_PATH?>/js/script.js"></script>
+
+    <script src="<?=SITE_TEMPLATE_PATH?>/js/owl.carousel.min.js"></script>
+
+    <script src="<?=SITE_TEMPLATE_PATH?>/vendor/fancybox/jquery.fancybox.js"></script>
+
+    <script src="<?=SITE_TEMPLATE_PATH?>/vendor/cloud9/jquery.cloud9carousel.js"></script>
+
+    <script src="<?=SITE_TEMPLATE_PATH?>/vendor/csslider/jquery.cssslider.min.js"></script>
+
+    <script src="<?=SITE_TEMPLATE_PATH?>/vendor/swipe/jquery.touchSwipe.min.js"></script>
+    
+	<script src="http://yandex.st/jquery/1.7.1/jquery.min.js"></script>
+<script src="<?=SITE_TEMPLATE_PATH?>/js/postmessage.js"></script>
+	<script src="<?=SITE_TEMPLATE_PATH?>/js/Frame.js"></script> 
+
+	
+	
+</head>
+
+<body>
+
+
+
+
+
+<?
+	$APPLICATION->IncludeComponent(
 	"bitrix:lists", 
 	".default", 
 	array(
@@ -36,6 +107,12 @@ $APPLICATION->SetTitle(GetMessage("SERVICES_TITLE"));
 		)
 	),
 	false
-);?>
+);
 
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+//die();
+?>
+
+<?//require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
+
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");
+?>

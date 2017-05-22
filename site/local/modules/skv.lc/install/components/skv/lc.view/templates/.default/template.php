@@ -12,33 +12,6 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 // echo'arResult<pre>';
 // print_r($arResult);
 // echo'</pre>';
-
-
-
- $arResult['FOLDER'] = '/lc/docs/';
-$arResult['URL_TEMPLATES']= Array(
-            'lists'=> '',
-            'list' => '#list_id#/view/#section_id#/',
-            'list_edit' => '#list_id#/edit/',
-            'list_fields' => '#list_id#/fields/',
-            'list_field_edit' => '#list_id#/field/#field_id#/',
-            'list_element_edit' => '#list_id#/element/#section_id#/#element_id#/',
-            'list_file' => '#list_id#/file/#section_id#/#element_id#/#field_id#/#file_id#/',
-            'bizproc_log' => '#list_id#/bp_log/#document_state_id#/',
-            'bizproc_workflow_start' => '#list_id#/bp_start/#element_id#/',
-            'bizproc_task' => '#list_id#/bp_task/#section_id#/#element_id#/#task_id#/',
-            'bizproc_workflow_admin' => '#list_id#/bp_list/',
-            'bizproc_workflow_edit' => '#list_id#/bp_edit/#ID#/',
-            'bizproc_workflow_vars' => '#list_id#/bp_vars/#ID#/',
-            'bizproc_workflow_constants' => '#list_id#/bp_constants/#ID#/',
-            'list_export_excel' => '#list_id#/excel/',
-            'list_sections' => '#list_id#/edit/#section_id#/',
-            'bizproc_workflow_delete' => '?action=del_bizproc',
-        );
-echo'arResult<pre>';
-print_r($arResult);
-echo'</pre>';
-
 ?>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700' rel='stylesheet' type='text/css'>
 <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -46,9 +19,21 @@ echo'</pre>';
 <link href="css/templatemo-style.css" rel="stylesheet">
 
 <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+
+
+<script src="<?=SITE_TEMPLATE_PATH?>/js/postmessage.js"></script>
+<script src="<?=SITE_TEMPLATE_PATH?>/js/FrameManager.js"></script>
+	
 <script>
 
 $(function() {
+	// var body_height = $(".moto-background").height();
+	// console.log("body_height " + body_height);
+	
+	// var iframe_body = $('#frame_docs');
+	// console.log("iframe body_height " + iframe_body.height());
+    // iframe.height($(document.body).height());
+	
 	$(".top_menu_button").on("click", function(){
 		page_lc.active_type = $(this).data("type");
 		
@@ -71,7 +56,7 @@ $(function() {
 	
 	page_lc.onAjaxSuccess =  function(request){
 		console.log('request post ' + request);
-		$(".templatemo-content-container").html(request);
+		$("#frame_docs").html(request);
 																	
 		console.log('request post ' + request);
 	};
@@ -109,13 +94,12 @@ $(function() {
 									}
 								});								
 							};
-	//page_lc.show_hide();
-	
-	page_lc.store_session = function(){
-									};
+
 
 });	
 </script>
+
+
 <div class="templatemo-flex-row">
   <div class="templatemo-sidebar">
 	<div class="mobile-menu-icon">
@@ -145,31 +129,11 @@ $(function() {
 	  </div>
 	</div>
 		
-	<div class="templatemo-content-container" data-type="docs" data-object="<?= $object_id ?>">
+	<div class="templatemo-content-container" data-type="docs" data-object="<?= $object_id ?>" slyle="height:100%; width:100%;">
+
+	<iframe id="frame_docs" name="frame_docs" src="/lc/docs/" onload="FrameManager.registerFrame(this)" scrolling="no" frameborder="0" marginheight="0" marginwidth="0" ></iframe>
 	
-	<?$APPLICATION->IncludeComponent("bitrix:lists.list", ".default", array(
-		"IBLOCK_TYPE_ID" => "lists",
-	"IBLOCK_ID" => 54,
-	"SECTION_ID" => 0,
-	"LISTS_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["lists"],
-	"LIST_EDIT_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_edit"],
-	"LIST_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list"],
-	"LIST_SECTIONS_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_sections"],
-	"LIST_ELEMENT_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_element_edit"],
-	"LIST_FILE_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_file"],
-	"LIST_FIELDS_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_fields"],
-	"EXPORT_EXCEL_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_export_excel"],
-	"BIZPROC_LOG_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["bizproc_log"],
-	"BIZPROC_TASK_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["bizproc_task"],
-	"BIZPROC_WORKFLOW_START_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["bizproc_workflow_start"],
-	"BIZPROC_WORKFLOW_ADMIN_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["bizproc_workflow_admin"],
-	"CACHE_TYPE" => "A",
-	"CACHE_TIME" => "36000000",
-		),
-		""
-	);	?>
-	
-	
+
 	</div> 
 
 	
