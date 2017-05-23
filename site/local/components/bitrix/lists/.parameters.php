@@ -25,6 +25,8 @@ while($ar = $rsIBlocks->Fetch())
 $arComponentParameters = array(
 	"GROUPS" => array(
 	),
+	"OBJECT_ID" => array(
+	),
 	"PARAMETERS" => array(
 		"VARIABLE_ALIASES" => Array(
 			"list_id" => Array("NAME" => GetMessage("CP_BL_LIST_ID")),
@@ -132,6 +134,7 @@ $arComponentParameters = array(
 			"DEFAULT" => "lists",
 		),
 		"CACHE_TIME"  =>  Array("DEFAULT"=>3600),
+		
 	),
 );
 ?>

@@ -66,6 +66,8 @@ $APPLICATION->SetAdditionalCSS("/bitrix/panel/main/admin.css");
 	<script src="<?=SITE_TEMPLATE_PATH?>/js/Frame.js"></script> 
 <script>
 console.log('height ' + $('html').height());
+
+console.log('iframe-'+ window.objectere);
 </script>
 	
 	
@@ -78,10 +80,14 @@ console.log('height ' + $('html').height());
 
 
 <?
+	// echo "_GET<pre>";
+// print_r($_GET);
+// echo "</pre>9-";
 	$APPLICATION->IncludeComponent(
 	"bitrix:lists", 
 	".default", 
 	array(
+		"OBJECT_ID" => $_GET["object"],
 		"IBLOCK_TYPE_ID" => "lists",
 		"SEF_MODE" => "Y",
 		"SEF_FOLDER" => "/lc/docs/",

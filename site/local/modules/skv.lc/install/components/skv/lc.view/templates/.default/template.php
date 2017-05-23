@@ -30,21 +30,21 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 
 function autoResize(iframe) {
 	console.log('height ' + $(iframe).contents().find('html').height());
-    $(iframe).height($(iframe).contents().find('html').height()+200);
+    $(iframe).height($(iframe).contents().find('html').height()+400);
 }
 
 
 $(function() {
-	// var body_height = $(".moto-background").height();
-	// console.log("body_height " + body_height);
-	
-	// var iframe_body = $('#frame_docs');
-	// console.log("iframe body_height " + iframe_body.height());
-    // iframe.height($(document.body).height());
-	
-	$(".top_menu_button").on("click", function(){
-		page_lc.active_type = $(this).data("type");
+
 		
+	$(".top_menu_button").on("click", function(){
+
+	// var src = $("#document_frame")[0].src;
+	// console.log($("#document_frame"));
+	// console.log("src " + src);
+	page_lc.get_active_type($(this));
+	//$("#document_frame")[0].src += "?object="+page_lc.active_object;
+	
 		$.post(
 		  "/lc/ajax.php",
 		  {
@@ -53,10 +53,20 @@ $(function() {
 		  },
 		  page_lc.onAjaxSuccess
 		);
+		
 	});
 	
 	$(".left-nav-object").on("click", function(){
 		page_lc.active_object = $(this).data("object");
+		page_lc.get_active_object($(this));
+		$.post(
+		  "/lc/ajax.php",
+		  {
+			object: page_lc.active_object ,
+			type: page_lc.active_type
+		  },
+		  page_lc.onAjaxSuccess
+		);
 		
 	});
 	
@@ -72,7 +82,8 @@ $(function() {
 	
 	
 	
-	page_lc.get_active_type = function(){
+	page_lc.get_active_type = function(elem){
+									if(!elem){
 										$(".top_menu_button").each(function(){
 											if($(this).children("a").hasClass("active")){
 												active_type = $(this).data("type");
@@ -80,17 +91,64 @@ $(function() {
 												page_lc.active_type = active_type;
 											}
 										});
-									};
+									}else{
+										$(".top_menu_button").each(function(){
+											$(this).children("a").removeClass("active");
+										});
+										elem.children("a").addClass("active");
+										page_lc.active_type = elem.data("type");
+									}
+								};
 									
-	page_lc.get_active_object = function(){
+	page_lc.get_active_object = function(elem){
+										if(!elem){
 											$(".left-nav-object").each(function(){
 												if($(this).children("a").hasClass("active")){
 													active_object = $(this).data("object");
 													console.log('active_object '+active_object);
 													page_lc.active_object = active_object;
+													
+													if(page_lc.active_type == "video"){
+														var document_frame_src = $("#document_frame")[0].src;
+														console.log(document_frame_src);
+														console.log(document_frame_src.indexOf('object') );
+														if(document_frame_src.indexOf('object') + 1) {
+															console.log('est');
+															var arr_document_frame_src = document_frame_src.split("?object=");
+															console.log(arr_document_frame_src);
+															$("#document_frame")[0].src = arr_document_frame_src[0] + "?object=" + page_lc.active_object;
+														}else{
+															console.log('net');
+															$("#document_frame")[0].src = document_frame_src + "?object=" + page_lc.active_object;
+														}
+													}
+													
 												}
 											});
-										};
+										}else{
+											$(".left-nav-object").each(function(){
+												$(this).children("a").removeClass("active");
+											});
+											elem.children("a").addClass("active");
+											page_lc.active_object = elem.data("object");
+											
+											if(page_lc.active_type == "video"){
+												var document_frame_src = $("#document_frame")[0].src;
+												console.log(document_frame_src);
+												console.log(document_frame_src.indexOf('object') );
+												if(document_frame_src.indexOf('object') + 1) {
+													console.log('est');
+													var arr_document_frame_src = document_frame_src.split("?object=");
+													console.log(arr_document_frame_src);
+												}else{
+													console.log('net');
+													$("#document_frame")[0].src = document_frame_src + "?object=" + page_lc.active_object;
+												}	
+											}
+											
+												
+										}	
+									};
 	page_lc.get_active_type();
 	page_lc.get_active_object();
 
@@ -142,7 +200,7 @@ $(function() {
 
 	
 	
-	<iframe src="/lc/docs/" width="100%" height="100%"  scrolling="no" frameborder="0" marginheight="0" marginwidth="0"  onload="autoResize(this);"></iframe>
+	<iframe src="/lc/docs/" width="100%" height="100%"  scrolling="no" frameborder="0" marginheight="0" marginwidth="0"  onload="autoResize(this);" id="document_frame" name="document_frame"></iframe>
 
 	</div> 
 

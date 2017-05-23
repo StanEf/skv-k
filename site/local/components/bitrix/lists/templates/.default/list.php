@@ -9,7 +9,7 @@
 ?>
 
 <?
-// echo '<pre>';
+// echo '4444<pre>';
 // print_r($arParams);
 // echo '</pre>';
 // echo '<pre>99999999999999999999';
@@ -34,6 +34,7 @@ $APPLICATION->IncludeComponent("bitrix:lists.list", ".default", array(
 	"BIZPROC_WORKFLOW_ADMIN_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["bizproc_workflow_admin"],
 	"CACHE_TYPE" => $arParams["CACHE_TYPE"],
 	"CACHE_TIME" => $arParams["CACHE_TIME"],
+	"OBJECT_ID" => $_GET["object"],
 	),
 	$component
 );?>

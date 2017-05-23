@@ -1,4 +1,8 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+// echo '= b34443egin component '.$arParams["OBJECT_ID"].'--!' ;
+// echo '4444<pre>';
+// print_r($arParams);
+// echo '</pre>';
 /** @global CMain $APPLICATION */
 /** @global CUser $USER */
 /** @global CDatabase $DB */
@@ -30,7 +34,7 @@ $arDefaultUrlTemplates404 = array(
 	"bizproc_workflow_constants" => "#list_id#/bp_constants/#ID#/",
 	"list_export_excel" => "#list_id#/excel/",
 );
-
+//echo '= begin component '.$arParams["OBJECT_ID"].'--!' ;
 $processes = false;
 if($arParams["IBLOCK_TYPE_ID"] == COption::GetOptionString("lists", "livefeed_iblock_type_id"))
 {
@@ -364,6 +368,6 @@ if(
 	if(is_array($arWorkflowState) && is_array($arWorkflowState["DOCUMENT_ID"]))
 		list(, , $arResult["VARIABLES"]["element_id"]) = CBPHelper::ParseDocumentId($arWorkflowState["DOCUMENT_ID"]);
 }
-//echo $componentPage;
+//echo $componentPage . '='.$arParams["OBJECT_ID"].'--'.$_POST["OBJECT_ID"];
 $this->IncludeComponentTemplate($componentPage);
 ?>

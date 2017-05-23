@@ -329,6 +329,14 @@ if(
 	{
 		$arFilter["=ID"] = $_POST["ID"];
 	}
+	
+	
+	
+// echo "<pre>";
+// print_r($arFilter);
+// echo "</pre>";
+
+
 
 	/*Take action*/
 	if($_POST["action_button_".$arResult["GRID_ID"]] == "delete" && isset($_POST["ID"]) && is_array($_POST["ID"]))
@@ -720,6 +728,29 @@ if($arParams["CAN_EDIT"])
 // print_r($arSelect);
 // echo '</pre>';
 	/** @var CIBlockResult $rsElements */
+//$arFilter["OBJECT_ID"] = $arParams["OBJECT_ID"];	
+
+
+$user_groups = CUser::GetUserGroup($_SESSION['SESS_AUTH']['USER_ID']);
+// echo 'user_groups<pre>';
+// print_r($user_groups);
+// echo '</pre>';
+if(!in_array(1, $user_groups)){
+	$arFilter["=CREATED_BY"] = $_SESSION['SESS_AUTH']['USER_ID'];
+}
+
+
+//$arFilter["=PROPERTY_OBJECT_ID"] = 1;
+$arFilter["=IBLOCK_ID"] = $arParams["IBLOCK_ID"];	;
+
+
+$arFilter["=PROPERTY_OBJECT_ID"] = $arParams["OBJECT_ID"];	
+	// echo "730<pre>";
+// print_r($arFilter);
+// echo "</pre>";
+	// echo "730<pre>";
+// print_r($_POST);
+// echo "</pre>";
 $rsElements = CIBlockElement::GetList(
 	$grid_sort["sort"], $arFilter, false, $grid_options->GetNavParams(), $arSelect
 );
@@ -1162,7 +1193,7 @@ foreach($arResult["SECTION_PATH"] as $arPath)
 {
 	$APPLICATION->AddChainItem($arPath["NAME"], $arPath["URL"]);
 }
-// echo 'arResult component lists.list<pre>';
+// echo 'arResult component lists.list 9999999999999999888888<pre>';
 // print_r($arResult);
 // echo '</pre>';
 
