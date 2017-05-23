@@ -1,3 +1,9 @@
+<?
+echo '<pre>';
+print_r($arResult['cameras']);
+echo '</pre>';
+?>
+
 <?if(!empty($arResult['cameras'])):?>
 	<?foreach($arResult['cameras'] as $object_id => $cameras):?>
 	

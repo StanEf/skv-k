@@ -1,11 +1,6 @@
 <?
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 ?>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700' rel='stylesheet' type='text/css'>
-<link href="css/font-awesome.min.css" rel="stylesheet">
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/templatemo-style.css" rel="stylesheet">
-<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 	
 <script>
 function autoResize(iframe) {
@@ -83,7 +78,7 @@ $(function() {
 													// console.log('active_object '+active_object);
 													page_lc.active_object = active_object;
 													
-													if(page_lc.active_type == "video"){
+													if(page_lc.active_type == "docs"){
 														var document_frame_src = $("#document_frame")[0].src;
 														// console.log(document_frame_src);
 														// console.log(document_frame_src.indexOf('object') );
@@ -107,7 +102,7 @@ $(function() {
 											elem.children("a").addClass("active");
 											page_lc.active_object = elem.data("object");
 											
-											if(page_lc.active_type == "video"){
+											if(page_lc.active_type == "docs"){
 												var document_frame_src = $("#document_frame")[0].src;
 												// console.log(document_frame_src);
 												// console.log(document_frame_src.indexOf('object') );
@@ -140,40 +135,40 @@ $(function() {
 
 });	
 </script>
-
-
-<div class="templatemo-flex-row">
-  <div class="templatemo-sidebar">
-	<div class="mobile-menu-icon">
-		<i class="fa fa-bars"></i>
-	</div>
-	<nav class="templatemo-left-nav moto-widget-menu">          
-	  <ul>
-	<?if(!empty($arResult['objects'])):?>
-		<?foreach($arResult['objects'] as $num => $object):?>
-		<li class="left-nav-object" data-object="<?= $object['ID'] ?>"><a href="" <?if($num == 0):?>class="active"<?endif;?> ><?= $object['NAME'] ?></a></li>
-		<?endforeach;?>
-	<?endif;?>
-	  </ul>  
-	</nav>
-  </div>
-  <!-- Main content --> 
-  <div class="templatemo-content col-1 light-gray-bg">
-	<div class="templatemo-top-nav-container">
-	  <div class="row">
-		<nav class="templatemo-top-nav col-lg-12 col-md-12">
-		  <ul class="text-uppercase">
-			<li class="top_menu_button" data-type="docs"><a href="" class="active">Документы</a></li>
-			<li class="top_menu_button" data-type="video"><a href="">Видео</a></li>
-	<!--	<li class="top_menu_button" data-type="report"><a href="">Отчеты</a></li> -->
+<?if(empty($arResult['objects'])):?>
+	<h2>У Вас нет доступных объектов</h2>
+<?else:?>
+	<div class="templatemo-flex-row">
+	  <div class="templatemo-sidebar">
+		<div class="mobile-menu-icon">
+			<i class="fa fa-bars"></i>
+		</div>
+		<nav class="templatemo-left-nav moto-widget-menu">          
+		  <ul>
+			<?foreach($arResult['objects'] as $num => $object):?>
+			<li class="left-nav-object" data-object="<?= $object['ID'] ?>"><a href="" <?if($num == 0):?>class="active"<?endif;?> ><?= $object['NAME'] ?></a></li>
+			<?endforeach;?>
 		  </ul>  
-		</nav> 
+		</nav>
+	  </div>
+	  <!-- Main content --> 
+	  <div class="templatemo-content col-1 light-gray-bg">
+		<div class="templatemo-top-nav-container">
+		  <div class="row">
+			<nav class="templatemo-top-nav col-lg-12 col-md-12">
+			  <ul class="text-uppercase">
+				<li class="top_menu_button" data-type="docs"><a href="" class="active">Документы</a></li>
+				<li class="top_menu_button" data-type="video"><a href="">Видео</a></li>
+		<!--	<li class="top_menu_button" data-type="report"><a href="">Отчеты</a></li> -->
+			  </ul>  
+			</nav> 
+		  </div>
+		</div>
+			
+		<div class="templatemo-content-container" data-type="docs" data-object="<?= $object_id ?> "style="height: 100%" >
+			<iframe src="/lc/docs/" width="100%" height="100%"  scrolling="no" frameborder="0" marginheight="0" marginwidth="0"  onload="autoResize(this);" id="document_frame" name="document_frame"></iframe>
+		</div> 	  
+		</div>
 	  </div>
 	</div>
-		
-	<div class="templatemo-content-container" data-type="docs" data-object="<?= $object_id ?> "style="height: 100%" >
-		<iframe src="/lc/docs/" width="100%" height="100%"  scrolling="no" frameborder="0" marginheight="0" marginwidth="0"  onload="autoResize(this);" id="document_frame" name="document_frame"></iframe>
-	</div> 	  
-	</div>
-  </div>
-</div>
+<?endif;?>

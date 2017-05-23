@@ -18,23 +18,25 @@ class LcOrmUpdateCamera extends CBitrixComponent
 
     function updateCamera()
     {
-		$object_id = $_POST('ID');
+		$object_id = $_POST['ID'];
 		$array_to_change = array();
 		
-		if(isset($_POST('NAME'))){
-			$array_to_change['NAME'] = $_POST('NAME');
+		if(isset($_POST['NAME']) && !empty($_POST['NAME'])){
+			$array_to_change['NAME'] = $_POST['NAME'];
 		}
 		
-		if(isset($_POST('LINK'))){
+		if(isset($_POST['LINK']) && !empty($_POST['LINK'])){
 			$_POST['LINK'] = htmlspecialcharsEx($_POST['LINK']);
-			$array_to_change['LINK'] = $_POST('LINK');
+			$array_to_change['LINK'] = $_POST['LINK'];
 		}
 		
-		if(isset($_POST('OBJECT_ID'))){
-			$array_to_change['OBJECT_ID'] = $_POST('OBJECT_ID');
+		if(isset($_POST['OBJECT_ID']) && !empty($_POST['OBJECT_ID'])){
+			$array_to_change['OBJECT_ID'] = $_POST['OBJECT_ID'];
 		}	
-		
-		$result['ObjectTable'] = CameraTable::update($_POST('ID'), $array_to_change);
+		// echo '<pre>';
+		// print_r($array_to_change);
+		// echo '</pre>';
+		$result = CameraTable::update($_POST['ID'], $array_to_change);
 		
         return $result;
     }

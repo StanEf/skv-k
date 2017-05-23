@@ -68,7 +68,7 @@ class LcView extends CBitrixComponent
 		$cameras = CameraTable::getList(array(
             'select'  => array('*'),
 			'filter' => array(
-							'@OBJECT_ID' => $object_ids,
+							'=OBJECT_ID' => $object_ids[0],
 						)
         ));
 		$result['cameras'] = $cameras->fetchAll();

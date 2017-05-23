@@ -1,7 +1,12 @@
 <?
+
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("");?><?
 
+global $USER;
+if (!$USER->IsAuthorized() && $_SERVER['REMOTE_USER']==''){
+	LocalRedirect("/404.php", "404 Not Found");
+}
 echo '<pre>';
 print_r($_POST);
 echo '</pre>';

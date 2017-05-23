@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="<?=SITE_TEMPLATE_PATH?>/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="<?=SITE_TEMPLATE_PATH?>/vendor/fancybox/jquery.fancybox.css">
     <link rel="stylesheet" href="<?=SITE_TEMPLATE_PATH?>/vendor/csslider/animated-slider.css">
+	<link rel="stylesheet" href="<?=SITE_TEMPLATE_PATH?>/css/styles_auth.css">
     <style>
         @import url(//fonts.googleapis.com/css?family=Asap:regular,italic,700,700italic|Cutive:regular|Lato:100,300,regular,italic,700|Open+Sans:300,300italic,regular,italic,600,600italic,700,700italic,800,800italic|PT+Sans:regular,italic,700,700italic&subset=latin,latin-ext);
         @import url(//fonts.googleapis.com/css?family=Raleway:100,200,300,regular,500,600,700,800,900|Roboto:100,100italic,300,300italic,regular,italic,500,500italic,700,700italic,900,900italic|Sarina:reqular&subset=latin,latin-ext);

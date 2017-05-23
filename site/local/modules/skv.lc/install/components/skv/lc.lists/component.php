@@ -34,7 +34,7 @@ $arDefaultUrlTemplates404 = array(
 	"bizproc_workflow_constants" => "#list_id#/bp_constants/#ID#/",
 	"list_export_excel" => "#list_id#/excel/",
 );
-//echo '= begin component '.$arParams["OBJECT_ID"].'--!' ;
+echo '= begin component '.$arParams["OBJECT_ID"].'--!' ;
 $processes = false;
 if($arParams["IBLOCK_TYPE_ID"] == COption::GetOptionString("lists", "livefeed_iblock_type_id"))
 {
