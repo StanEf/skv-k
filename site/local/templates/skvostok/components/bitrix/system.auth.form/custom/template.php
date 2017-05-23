@@ -276,7 +276,7 @@ form {
 				</div>
 			</div>
 			<div class="bx-authform-formgroup-container" style="text-align:center;">
-				<input type="submit" name="logout_butt" value="<?=GetMessage("AUTH_LOGOUT_BUTTON")?>" />
+				<a href="/support/?logout=yes&amp;login=yes" ><?=GetMessage("AUTH_LOGOUT_BUTTON")?></a>
 			</div>
 		</form>
 	</div>
