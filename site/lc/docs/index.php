@@ -65,26 +65,18 @@ $APPLICATION->SetAdditionalCSS("/bitrix/panel/main/admin.css");
 <script src="<?=SITE_TEMPLATE_PATH?>/js/postmessage.js"></script>
 	<script src="<?=SITE_TEMPLATE_PATH?>/js/Frame.js"></script> 
 <script>
-console.log('height ' + $('html').height());
+//console.log('height ' + $('html').height());
 
-console.log('iframe-'+ window.objectere);
+//console.log('iframe-'+ window.objectere);
 </script>
-	
-	
+
 </head>
 
 <body>
 
-
-
-
-
 <?
-	// echo "_GET<pre>";
-// print_r($_GET);
-// echo "</pre>9-";
 	$APPLICATION->IncludeComponent(
-	"bitrix:lists", 
+	"skv:lc.lists", 
 	".default", 
 	array(
 		"OBJECT_ID" => $_GET["object"],
@@ -117,10 +109,8 @@ console.log('iframe-'+ window.objectere);
 	false
 );
 
-//die();
 ?>
 
-<?//require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
-
+<?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");
 ?>

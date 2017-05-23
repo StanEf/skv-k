@@ -16,7 +16,7 @@
 // print_r($arResult);
 // echo '</pre>';
 
-$APPLICATION->IncludeComponent("skv:lc.lists.list", ".default", array(
+$APPLICATION->IncludeComponent("bitrix:lists.list", ".default", array(
 	"IBLOCK_TYPE_ID" => $arParams["IBLOCK_TYPE_ID"],
 	"IBLOCK_ID" => $arResult["VARIABLES"]["list_id"],
 	"SECTION_ID" => $arResult["VARIABLES"]["section_id"],

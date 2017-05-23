@@ -1,49 +1,26 @@
 <?
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
-//echo $arResult['cameras'][1][8]['LINK'] . '<br>';
-//echo htmlspecialcharsBack($arResult['cameras'][1][8]['LINK']);
-// $str = htmlspecialcharsBack($arResult['cameras'][1][8]['LINK']);
-// $str = ltrim($str, '"');
-//var_dump($str); 
-// echo '<br>'.$str;
-// echo '<h1>привет</h1>';
-// echo '<iframe width="560" height="315" src="http://lideo.ru/embed/4186" frameborder="0" allowfullscreen></iframe>';
-// exit();
-// echo'arResult<pre>';
-// print_r($arResult);
-// echo'</pre>';
 ?>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700' rel='stylesheet' type='text/css'>
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/templatemo-style.css" rel="stylesheet">
-
-
-
-
-<script src="<?=SITE_TEMPLATE_PATH?>/js/postmessage.js"></script>
-<script src="<?=SITE_TEMPLATE_PATH?>/js/FrameManager.js"></script>
-
 <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 	
 <script>
-
 function autoResize(iframe) {
-	console.log('height ' + $(iframe).contents().find('html').height());
+	// console.log('height ' + $(iframe).contents().find('html').height());
     $(iframe).height($(iframe).contents().find('html').height()+400);
 }
 
 
-$(function() {
+$(function() {	
 
-		
+	var page_lc = new Object();
+
 	$(".top_menu_button").on("click", function(){
 
-	// var src = $("#document_frame")[0].src;
-	// console.log($("#document_frame"));
-	// console.log("src " + src);
-	page_lc.get_active_type($(this));
-	//$("#document_frame")[0].src += "?object="+page_lc.active_object;
+		page_lc.get_active_type($(this));
 	
 		$.post(
 		  "/lc/ajax.php",
@@ -70,14 +47,12 @@ $(function() {
 		
 	});
 	
-	var page_lc = new Object();
-	
 	page_lc.onAjaxSuccess =  function(request){
-		console.log('request post ' + request);
+		// console.log('request post ' + request);
 		
 		$(".templatemo-content-container").html(request);
 																	
-		console.log('request post ' + request);
+		// console.log('request post ' + request);
 	};
 	
 	
@@ -87,7 +62,7 @@ $(function() {
 										$(".top_menu_button").each(function(){
 											if($(this).children("a").hasClass("active")){
 												active_type = $(this).data("type");
-												console.log('active_type 4 '+active_type);
+												// console.log('active_type 4 '+active_type);
 												page_lc.active_type = active_type;
 											}
 										});
@@ -105,20 +80,20 @@ $(function() {
 											$(".left-nav-object").each(function(){
 												if($(this).children("a").hasClass("active")){
 													active_object = $(this).data("object");
-													console.log('active_object '+active_object);
+													// console.log('active_object '+active_object);
 													page_lc.active_object = active_object;
 													
 													if(page_lc.active_type == "video"){
 														var document_frame_src = $("#document_frame")[0].src;
-														console.log(document_frame_src);
-														console.log(document_frame_src.indexOf('object') );
+														// console.log(document_frame_src);
+														// console.log(document_frame_src.indexOf('object') );
 														if(document_frame_src.indexOf('object') + 1) {
-															console.log('est');
+															// console.log('est');
 															var arr_document_frame_src = document_frame_src.split("?object=");
-															console.log(arr_document_frame_src);
+															// console.log(arr_document_frame_src);
 															$("#document_frame")[0].src = arr_document_frame_src[0] + "?object=" + page_lc.active_object;
 														}else{
-															console.log('net');
+															// console.log('net');
 															$("#document_frame")[0].src = document_frame_src + "?object=" + page_lc.active_object;
 														}
 													}
@@ -134,14 +109,14 @@ $(function() {
 											
 											if(page_lc.active_type == "video"){
 												var document_frame_src = $("#document_frame")[0].src;
-												console.log(document_frame_src);
-												console.log(document_frame_src.indexOf('object') );
+												// console.log(document_frame_src);
+												// console.log(document_frame_src.indexOf('object') );
 												if(document_frame_src.indexOf('object') + 1) {
-													console.log('est');
+													// console.log('est');
 													var arr_document_frame_src = document_frame_src.split("?object=");
-													console.log(arr_document_frame_src);
+													// console.log(arr_document_frame_src);
 												}else{
-													console.log('net');
+													// console.log('net');
 													$("#document_frame")[0].src = document_frame_src + "?object=" + page_lc.active_object;
 												}	
 											}
@@ -197,16 +172,8 @@ $(function() {
 	</div>
 		
 	<div class="templatemo-content-container" data-type="docs" data-object="<?= $object_id ?> "style="height: 100%" >
-
-	
-	
-	<iframe src="/lc/docs/" width="100%" height="100%"  scrolling="no" frameborder="0" marginheight="0" marginwidth="0"  onload="autoResize(this);" id="document_frame" name="document_frame"></iframe>
-
-	</div> 
-
-	
-
-		  
+		<iframe src="/lc/docs/" width="100%" height="100%"  scrolling="no" frameborder="0" marginheight="0" marginwidth="0"  onload="autoResize(this);" id="document_frame" name="document_frame"></iframe>
+	</div> 	  
 	</div>
   </div>
 </div>
