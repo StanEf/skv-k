@@ -28,7 +28,30 @@ if ($arParams['FLEXIBLE_LAYOUT'])
 	$APPLICATION->setPageProperty('BodyClass', trim(sprintf('%s %s', $bodyClass, 'flexible-layout')));
 }
 
+echo '$arParams<pre>';
+print_r($arParams);
+echo '</pre>';
+
+echo '$arResult<pre>';
+print_r($arResult);
+echo '</pre>';
+
 ?>
+
+<?$APPLICATION->IncludeComponent(
+	"bitrix:main.ui.filter",
+	"",
+	array(
+		"FILTER_ID"=>"FILTER_OBJECTS",
+		"GRID_ID"=>$arParams["~GRID_ID"],
+		"FILTER"=>$arParams["~FILTER"],
+		"FILTER_ROWS"=>$arResult["FILTER_ROWS"],
+		"FILTER_FIELDS"=>$arResult["FILTER"],
+		"OPTIONS"=>$arResult["OPTIONS"],
+	),
+	$component,
+	array("HIDE_ICONS"=>true)
+);?>
 
 <div class="main-grid <?=!$arParams["ALLOW_HORIZONTAL_SCROLL"] ? "main-grid-full" : "" && $arParams["ALLOW_ROWS_SORT"] ? " main-grid-rows-sort-enable" : ""?>" id="<?=$arParams["GRID_ID"]?>" data-ajaxid="<?=$arParams["AJAX_ID"]?>"><?
 	?><form name="form_<?=$arParams["GRID_ID"]?>" action="<?=POST_FORM_ACTION_URI; ?>" method="POST"><?

@@ -1,7 +1,5 @@
 <?
-echo '<pre>';
-print_r($arResult['cameras']);
-echo '</pre>';
+
 ?>
 
 <?if(!empty($arResult['cameras'])):?>

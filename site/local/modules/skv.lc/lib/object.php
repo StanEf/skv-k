@@ -25,22 +25,44 @@ class ObjectTable extends Entity\DataManager
                 'primary' => true,
                 'autocomplete' => true
             )),
-			//Имя
+			//РРјСЏ
             new Entity\StringField('NAME', array(
                 'required' => true,
             )),
-            //Широта
+            //РЁРёСЂРѕС‚Р°
             new Entity\IntegerField('COORD_LAT', array(
                 'required' => true,
             )),
-			//Долгота
+			//Р”РѕР»РіРѕС‚Р°
             new Entity\IntegerField('COORD_LON', array(
                 'required' => true,
             )),
         );
     }
 
-
+    /**
+     *
+     */
+    public static function getRequired()
+    {
+        $required = array();
+        $res = ObjectTable::getEntity()->getFields();
+        foreach($res as $name => $item){
+            $required[$name] = $item->isRequired();
+        }
+        return $required;
+    }
+    
+    public static function getAutocomplete()
+    {
+        $autocomplete = array();
+        $res = ObjectTable::getEntity()->getFields();
+        foreach($res as $name => $item){
+            $autocomplete[$name] = $item->isAutocomplete();
+        }
+        return $required;
+    }
+    
     // public static function onBeforeUpdate(Entity\Event $event)
     // {
         // $result = new Entity\EventResult;
@@ -49,7 +71,7 @@ class ObjectTable extends Entity\DataManager
         // if (isset($data['ISBN'])) {
             // $result->addError(new Entity\FieldError(
                 // $event->getEntity()->getField('ISBN'),
-                // 'Запрещено менять ISBN код у существующих книг'
+                // 'Р—Р°РїСЂРµС‰РµРЅРѕ РјРµРЅСЏС‚СЊ ISBN РєРѕРґ Сѓ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС… РєРЅРёРі'
             // ));
         // }
 

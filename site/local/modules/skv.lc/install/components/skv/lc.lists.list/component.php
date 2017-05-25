@@ -54,6 +54,13 @@ $lists_perm = CListPermissions::CheckAccess(
 	$IBLOCK_ID,
 	$arParams["~SOCNET_GROUP_ID"]
 );
+echo '$arParams["~IBLOCK_TYPE_ID"] ' .$arParams["~IBLOCK_TYPE_ID"] . '<br>';
+
+
+echo '$IBLOCK_ID ' .$IBLOCK_ID . '<br>';
+
+echo '$arParams["~SOCNET_GROUP_ID"] ' .$arParams["~SOCNET_GROUP_ID"] . '<br>';
+ echo '$lists_perm ' .$lists_perm . '<br>';
 if($lists_perm < 0)
 {
 	switch($lists_perm)
@@ -80,6 +87,7 @@ elseif(
 	)
 )
 {
+	echo 334343523;
 	ShowError(GetMessage("CC_BLL_ACCESS_DENIED"));
 	return;
 }
@@ -1196,6 +1204,34 @@ foreach($arResult["SECTION_PATH"] as $arPath)
 // echo 'arResult component lists.list 9999999999999999888888<pre>';
 // print_r($arResult);
 // echo '</pre>';
+
+global $USER;
+$arResult["USER_GROUPS"] = $USER->GetUserGroupArray();
+
+// показываем простому пользователю личного кабинета только созданные им документы
+
+if($arResult["USER_TYPE"] == "user"){
+	
+	$arSelect = Array("ID", "CREATED_BY");
+	$arFilter = Array("IBLOCK_ID" => 54, "CREATED_BY" => $USER->GetID() );
+	$res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
+	$available_documents = array();
+	while($ob = $res->GetNextElement())
+	{
+		$arFields = $ob->GetFields();
+		$available_documents[$arFields["ID"]] = $arFields["ID"];
+	 // echo '<pre>';
+	 // print_r($arFields);
+	// echo '</pre>';
+	}
+	
+	foreach($arResult["ELEMENTS_ROWS"] as $num => $val){
+		if(!isset($available_documents[$val["id"]])){
+			unset($arResult["ELEMENTS_ROWS"][$num]);
+		}
+	}
+}
+echo '333';
 
 $this->IncludeComponentTemplate();
 ?>

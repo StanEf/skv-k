@@ -18,9 +18,6 @@ class LcOrmAddCamera extends CBitrixComponent
 
     function addCamera()
     {	
-		echo 'component<pre>';
-		print_r($_POST);
-		echo '</pre>';		
 		
 		if(isset($_POST)){
 			//$_POST['LINK'] = htmlspecialcharsEx($_POST['LINK']);
@@ -49,7 +46,7 @@ class LcOrmAddCamera extends CBitrixComponent
         else
         {
             $error=$result->getErrorMessages();
-            $this->arResult='Произошла ошибка при добавлении4: <pre>'.var_export($error,true).'</pre>';
+            $this->arResult='Произошла ошибка при добавлении: <pre>'.var_export($error,true).'</pre>';
         }
 
         $this->includeComponentTemplate();

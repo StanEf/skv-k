@@ -35,6 +35,7 @@ $APPLICATION->IncludeComponent("skv:lc.lists.list", ".default", array(
 	"CACHE_TYPE" => $arParams["CACHE_TYPE"],
 	"CACHE_TIME" => $arParams["CACHE_TIME"],
 	"OBJECT_ID" => $_GET["object"],
+	"USER_TYPE" => $arParams["USER_TYPE"], 
 	),
 	$component
 );?>

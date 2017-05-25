@@ -151,7 +151,39 @@ else
 	$APPLICATION->SetAdditionalCSS("/bitrix/js/lists/css/intranet-common.css");
 	$pagetitleFlexibleSpace = "lists-pagetitle-container-light";
 }
+// echo '<pre>';
+// print_r($arResult["USER_GROUPS"]);
+// echo '</pre>';
 ?>
+
+
+<?if(in_array(1, $arResult["USER_GROUPS"])):?>
+	<div class="pagetitle-container pagetitle-align-right-container">
+		<? if($arResult["SECTION_ID"]):?>
+			<a href="<?=$arResult["LIST_PARENT_URL"]?>" class="lists-list-back">
+				<?=GetMessage("CT_BLL_SECTION_RETURN")?>
+			</a>
+		<?endif;?>
+		<? if($listAction):?>
+			<span id="lists-title-action" class="webform-small-button webform-small-button-transparent bx-filter-button">
+			<span class="webform-small-button-text"><?=Loc::getMessage("CT_BLL_TOOLBAR_ACTION")?></span>
+			<span id="lists-title-action-icon" class="webform-small-button-icon"></span>
+		</span>
+		<?endif;?>
+		<?if($arResult["CAN_ADD_ELEMENT"] || $arResult["CAN_EDIT_SECTIONS"]):?>
+			<span class="webform-small-button-separate-wrap bx24-top-toolbar-add">
+			<a href="<?=$arResult["LIST_NEW_ELEMENT_URL"]?>" class="
+				webform-small-button webform-small-button-blue" id="lists-title-action-add">
+				<span class="webform-small-button-icon"></span>
+				<span class="webform-small-button-text"><?=Loc::getMessage("CT_BLL_TOOLBAR_ADD")?></span>
+			</a>
+			<span class="webform-small-button-right-part" id="lists-title-action-select-add"></span>
+		</span>
+		<?endif?>
+	</div>
+<?endif?>
+
+
 <div class="pagetitle-container pagetitle-flexible-space <?=$pagetitleFlexibleSpace?>">
 	<? $APPLICATION->IncludeComponent(
 		"bitrix:main.ui.filter",
@@ -166,29 +198,6 @@ else
 		$component,
 		array("HIDE_ICONS" => true)
 	); ?>
-</div>
-<div class="pagetitle-container pagetitle-align-right-container">
-	<? if($arResult["SECTION_ID"]):?>
-		<a href="<?=$arResult["LIST_PARENT_URL"]?>" class="lists-list-back">
-			<?=GetMessage("CT_BLL_SECTION_RETURN")?>
-		</a>
-	<?endif;?>
-	<? if($listAction):?>
-		<span id="lists-title-action" class="webform-small-button webform-small-button-transparent bx-filter-button">
-		<span class="webform-small-button-text"><?=Loc::getMessage("CT_BLL_TOOLBAR_ACTION")?></span>
-		<span id="lists-title-action-icon" class="webform-small-button-icon"></span>
-	</span>
-	<?endif;?>
-	<?if($arResult["CAN_ADD_ELEMENT"] || $arResult["CAN_EDIT_SECTIONS"]):?>
-		<span class="webform-small-button-separate-wrap bx24-top-toolbar-add">
-		<a href="<?=$arResult["LIST_NEW_ELEMENT_URL"]?>" class="
-			webform-small-button webform-small-button-blue" id="lists-title-action-add">
-			<span class="webform-small-button-icon"></span>
-			<span class="webform-small-button-text"><?=Loc::getMessage("CT_BLL_TOOLBAR_ADD")?></span>
-		</a>
-		<span class="webform-small-button-right-part" id="lists-title-action-select-add"></span>
-	</span>
-	<?endif?>
 </div>
 <?
 if($isBitrix24Template)
@@ -236,6 +245,10 @@ if($shouldStartRebuildSeachableContent):?>
 	</script>
 	-----
 <?endif;
+
+echo '<pre>';
+print_r($arResult);
+echo '</pre>';
 
 $APPLICATION->IncludeComponent(
 	"bitrix:main.ui.grid",
