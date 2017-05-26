@@ -47,12 +47,9 @@ if ($arResult != null) {
 }
 
 
- echo'1<pre>';
+/* echo'1<pre>';
  print_r($arResult);
- echo'</pre>';
-
-
-
+ echo'</pre>';*/
 
 
 ?>

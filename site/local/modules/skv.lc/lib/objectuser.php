@@ -15,7 +15,11 @@ class ObjectUserTable extends Entity\DataManager
     {
         return array(
             new Entity\IntegerField('OBJECT_ID', array(
-                'primary' => true
+                'primary' => true,
+                'autocomplete' => true,
+            )),
+            new Entity\IntegerField('OBJECT_ID', array(
+                //'primary' => true
             )),
             new Entity\ReferenceField(
                 'OBJECT',
@@ -23,7 +27,7 @@ class ObjectUserTable extends Entity\DataManager
                 array('=this.OBJECT_ID' => 'ref.ID')
             ),
             new Entity\IntegerField('USER_ID', array(
-                'primary' => true
+                //'primary' => true
             )),
             new Entity\ReferenceField(
                 'USER',
@@ -32,4 +36,25 @@ class ObjectUserTable extends Entity\DataManager
             )
         );
     }
+    
+    public static function getUsers($object_id)
+    {
+        //exit(122);
+        $obUsers = ObjectUserTable::getList(array(
+            'select' => array('USER_ID'),
+            'filter' => array(
+                '=OBJECT_ID' => $object_id
+            ),
+            )
+        );
+        
+        $arUsers = $obUsers->Fetch();
+      echo '$arUsers<pre>';
+      print_r($arUsers);
+      echo '</pre>';
+
+        return $arUsers;
+        return implode(",", $arUsers);
+
+    }    
 }
