@@ -14,7 +14,7 @@ class ObjectUserTable extends Entity\DataManager
     public static function getMap()
     {
         return array(
-            new Entity\IntegerField('OBJECT_ID', array(
+            new Entity\IntegerField('ID', array(
                 'primary' => true,
                 'autocomplete' => true,
             )),
@@ -48,7 +48,9 @@ class ObjectUserTable extends Entity\DataManager
             )
         );
         
-        $arUsers = $obUsers->Fetch();
+        while($user = $obUsers->fetch()){
+            $arUsers[] = $user["USER_ID"];
+        }
       echo '$arUsers<pre>';
       print_r($arUsers);
       echo '</pre>';
