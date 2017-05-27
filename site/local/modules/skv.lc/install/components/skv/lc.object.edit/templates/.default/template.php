@@ -27,9 +27,9 @@ if($arResult["RESULT_MESSAGE"]){
 print_r($arResult["TABLE"]);
 echo '</pre>';*/
 
-echo '$_POST<pre>';
+/*echo '$_POST<pre>';
 print_r($_POST);
-echo '</pre>';
+echo '</pre>';*/
 
 ?>
 <script>
@@ -87,6 +87,7 @@ if ($arResult != null) {?>
 									echo '<input  type="text" class="tcal"';
 								}else{
 									echo "<input  type=\"" . $item["TYPE"] . "\"";
+									if($item["NAME"] == "ID") echo " readonly ";
 								}?>
 								<?if ($item["REQ"] == true) :?> required <?endif;?> name="<?=$item["NAME"]?>"  <?
 								if ($item["TYPE"] == "checkbox"){
@@ -111,7 +112,7 @@ if ($arResult != null) {?>
 
 					<tr>
 						<td class="first_col">Пользователи</td><td class="second_col">
-						<input type="text" value="212" name="SELECTED_USERS_ON_OBJECT" id="SELECTED_USERS_ON_OBJECT">
+						<!--<input type="text" value="212" name="SELECTED_USERS_ON_OBJECT" id="SELECTED_USERS_ON_OBJECT">-->
 <?
 							$GLOBALS["APPLICATION"]->IncludeComponent('bitrix:intranet.user.selector.new', '', array(
 							"FORM_NAME" => "object_form_edit",

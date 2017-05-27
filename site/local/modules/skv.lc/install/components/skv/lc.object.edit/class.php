@@ -48,9 +48,9 @@ class LcOrmObjectEdit extends CBitrixComponent
 				$object[$itName] = $request[$itName];
 			}
 		}
-		echo '$object <pre>';
+		/*echo '$object <pre>';
    		 print_r($object);
-    	echo '</pre>';
+    	echo '</pre>';*/
 		$result = ObjectTable::update($request["ID"], $object);
 		if ($result->isSuccess()) {
 			$id = $result->getId();
@@ -73,14 +73,42 @@ class LcOrmObjectEdit extends CBitrixComponent
 
 			while ($row = $res->fetch())
 			{
-				$users_old[$row["OBJECT_ID"]] = 1;
+				$users_old[$row["USER_ID"]] = 1;
 			}
+
+
+			/*echo '$users_old <pre>';
+			print_r($users_old);
+			echo '</pre>';
+			echo '$users_new <pre>';
+			print_r($users_new);
+			echo '</pre>';*/
 
 			foreach($users_old as $user_id => $v){
 				if(!isset($users_new[$user_id])){
 					$to_delete["OBJECT_ID"] = $request["ID"];
 					$to_delete["USER_ID"] = $user_id;
-					ObjectUserTable::delete($to_delete);
+
+					$ids_to_delete = ObjectUserTable::getList(array(
+						'select' => array('ID'),
+						'filter' => array('=OBJECT_ID' => $request["ID"],
+											'=USER_ID' => $user_id
+						),
+					));
+					$rows = array();
+					while ($row = $ids_to_delete->fetch())
+					{
+						$rows[] = $row;
+						ObjectUserTable::delete($row["ID"]);
+					}
+				/*	echo '$ids_to_delete <pre>';
+					print_r($rows);
+					echo '</pre>';
+
+					echo '$to_delete <pre>';
+					print_r($to_delete);
+					echo '</pre>';*/
+					//ObjectUserTable::delete($to_delete);
 				}
 			}
 
@@ -102,9 +130,9 @@ class LcOrmObjectEdit extends CBitrixComponent
 			$itName = $item->getName();
 			$object2[$itName] = $request[$itName];
 		}
-			echo '$res2 <pre>';
+			/*echo '$res2 <pre>';
                 print_r($object2);
-                echo '</pre>';
+                echo '</pre>';*/
 	}
 
 	function constructTable($id)
@@ -147,7 +175,6 @@ class LcOrmObjectEdit extends CBitrixComponent
 						$itType = "string";
 						break;
 				}
-				echo "SKV_LC_OBJECT_EDIT_FORM_" . $itName . '<br>';
 				$itN = Loc::getMessage("SKV_LC_OBJECT_EDIT_FORM_" . $itName);
 				$this->arResult["TABLE"][$item->getName()] = array(
 					"NAME" => $itName,
@@ -161,8 +188,11 @@ class LcOrmObjectEdit extends CBitrixComponent
 	}
 	public function getUsers()
 	{
-		echo "this->object_id" .$this->object_id;
+		//echo "this->object_id" .$this->object_id;
 		$this->arResult["USERS"] = ObjectUserTable::getUsers($this->object_id);
+	/*	echo '$this->arResult["USERS"]<pre>';
+		print_r($this->arResult["USERS"]);
+		echo '</pre>';*/
 	}
 
 	public function executeComponent()

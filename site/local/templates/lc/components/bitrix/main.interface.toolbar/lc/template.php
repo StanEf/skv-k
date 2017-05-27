@@ -7,7 +7,6 @@ table td {
 	border: none;
 }
 </style>
-555
 <div class="bx-interface-toolbar">
 <table cellpadding="0" cellspacing="0" border="0" class="bx-interface-toolbar" >
 	<tr class="bx-top">

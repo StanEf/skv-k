@@ -5,6 +5,7 @@ use \Bitrix\Main\Localization\Loc;
 use \Bitrix\Main\Type;
 use \Skv\Lc\ObjectTable;
 use \Skv\Lc\ObjectUserTable;
+use \Skv\Lc\CameraTable;
 class LcOrmGetlistObject extends CBitrixComponent 
 {
 
@@ -24,10 +25,11 @@ class LcOrmGetlistObject extends CBitrixComponent
         $this->arResult["FILTER"] = array();
         $iList = $this->itemList;
         foreach ($iList as $key => $value) {
+        /*echo $key;*/
             if ($value != "list") {
                 switch ($key) {
                     default:
-                        $this->arResult["FILTER"][] = array("id" => $key, "name" => Loc::getMessage('SKV_LC_CLIENTS_LIST_HEADER_' . $key), "type" => $value);
+                        $this->arResult["FILTER"][] = array("id" => $key, "name" => Loc::getMessage('SKV_LC_CAMS_LIST_HEADER_' . $key), "type" => $value);
                         break;
                 }
             }
@@ -81,7 +83,7 @@ class LcOrmGetlistObject extends CBitrixComponent
 
     protected function getItemList()
     {
-        $res = ObjectTable::getEntity()->getFields();
+        $res = CameraTable::getEntity()->getFields();
         foreach ($res as $item) {
             $itName = $item->getName();
             switch ($item->getDataType()) {
@@ -106,14 +108,15 @@ class LcOrmGetlistObject extends CBitrixComponent
             }
             $this->itemList[$itName] = $itType;
         }
-/*        echo '$this->itemList <pre>';
+        $this->itemList["OBJECT_NAME"] = "text";
+        /*echo '$this->itemList <pre>';
         print_r($this->itemList);
         echo '</pre>';*/
     }
 
     function getList()
     {
-        $this->arResult["GRID_NAME"] = "object";
+        $this->arResult["GRID_NAME"] = "cams";
 
         $nav = new \Bitrix\Main\UI\PageNavigation($this->arResult["GRID_NAME"]);
         $grid_options = new CGridOptions($this->arResult["GRID_NAME"]);
@@ -124,9 +127,9 @@ class LcOrmGetlistObject extends CBitrixComponent
             ->setPageSize($grid_params["nPageSize"])
             ->initFromUri();
 
-        $ObjectList = ObjectTable::getList(
+        $CameraList = CameraTable::getList(
             array(
-                "select" => array('*'),
+                "select" => array('*', "OBJECT_NAME" => "OBJECT.NAME"),
                 "count_total" => true,
                 "offset" => $nav->getOffset(),
                 "limit" => $nav->getLimit(),
@@ -136,37 +139,38 @@ class LcOrmGetlistObject extends CBitrixComponent
         );
 
         $rows = array();
-        while ($object = $ObjectList->fetch()) {
-           /* echo '$object<pre>';
-            print_r($object);
+        while ($camera = $CameraList->fetch()) {
+            /*echo '$camera<pre>';
+            print_r($camera);
             echo '</pre>';*/
             $actions = Array(
-                array("ICONCLASS" => "edit", "TEXT" => Loc::getMessage('SKV_LC_CLIENTS_LIST_CHANGE_BUTTON'), "ONCLICK" => "jsUtils.Redirect(arguments, 'object_edit.php?ID=" . $object["ID"] . "')", "DEFAULT" => true),
+                array("ICONCLASS" => "edit", "TEXT" => Loc::getMessage('SKV_LC_CAMS_LIST_CHANGE_BUTTON'), "ONCLICK" => "jsUtils.Redirect(arguments, 'cam_edit.php?ID=" . $camera["ID"] . "')", "DEFAULT" => true),
                 array("SEPARATOR" => true),
-                array("ICONCLASS" => "delete", "TEXT" => Loc::getMessage('SKV_LC_CLIENTS_LIST_DELETE_BUTTON'), "ONCLICK" => "if(confirm('" . Loc::getMessage('SKV_LC_CLIENTS_LIST_DELETE_CONFIRM') . "')) window.location='?action=delete_object&ID=" . $object["ID"] . "&" . bitrix_sessid_get() . "';"),
+                array("ICONCLASS" => "delete", "TEXT" => Loc::getMessage('SKV_LC_CAMS_LIST_DELETE_BUTTON'), "ONCLICK" => "if(confirm('" . Loc::getMessage('SKV_LC_CAMS_LIST_DELETE_CONFIRM') . "')) window.location='?action=delete_cam&ID=" . $camera["ID"] . "&" . bitrix_sessid_get() . "';"),
             );
             $cols = array();
             $res = array();
             foreach ($this->itemList as $key => $value) {
+
                 if ($key == "ID") {
-                    $res[$key] = $object[$key];
+                    $res[$key] = $camera[$key];
                 } elseif ($value == "checkbox") {
-                    if ($object[$key] == true) {
-                        $object[$key] = Loc::getMessage('SKV_LC_CLIENTS_LIST_TRUE_TEXT');
+                    if ($camera[$key] == true) {
+                        $camera[$key] = Loc::getMessage('SKV_LC_CAMS_LIST_TRUE_TEXT');
                         $res["~" . $key] = "Y";
                     } else {
-                        $client[$key] = Loc::getMessage('SKV_LC_CLIENTS_LIST_FALSE_TEXT');
+                        $client[$key] = Loc::getMessage('SKV_LC_CAMS_LIST_FALSE_TEXT');
                         $res["~" . $key] = "N";
                     }
                 } else {
-                    $res["~" . $key] = $object[$key];
+                    $res["~" . $key] = $camera[$key];
                 }
 
-                if ($value == "list") {
-                    $cols[$key . "_ID"] = $object["BLIZARD_SKV_LC_ELEMENTS_CLIENTS_" . $key . "_NAME"];
-                } else {
-                    $cols[$key] = $object[$key];
-                }
+                /*if ($value == "list") {
+                    $cols[$key . "_ID"] = $camera["SKV_LC_ELEMENTS_CAMS_" . $key . "_NAME"];
+                } else {*/
+                    $cols[$key] = $camera[$key];
+               /* }*/
             }
             $rows[] = array(
                 "data" => $res,
@@ -175,13 +179,18 @@ class LcOrmGetlistObject extends CBitrixComponent
                 "editable" => true,
             );
         }
+        /*echo '$rows<pre>';
+        print_r($rows);
+        echo '</pre>';*/
         $this->arResult["ROWS"] = $rows;
         $this->arResult["HEADERS"] = array();
         foreach ($this->itemList as $key => $value) {
+            /*echo '--'.$key.'<br/>';*/
             if ($key == "ID" || $value == "notext") {
+
                 $this->arResult["HEADERS"][] = array(
                     "id" => $key,
-                    "name" => Loc::getMessage('SKV_LC_CLIENTS_LIST_HEADER_' . $key),
+                    "name" => Loc::getMessage('SKV_LC_CAMS_LIST_HEADER_' . $key),
                     "sort" => $key,
                     "default" => true,
                     "type" => $value
@@ -193,7 +202,7 @@ class LcOrmGetlistObject extends CBitrixComponent
                 }
                 $this->arResult["HEADERS"][] = array(
                     "id" => $key,
-                    "name" => Loc::getMessage('SKV_LC_CLIENTS_LIST_HEADER_' . $key),
+                    "name" => Loc::getMessage('SKV_LC_CAMS_LIST_HEADER_' . $key),
                     "sort" => $key,
                     "default" => true,
                     "editable" => $edit,
@@ -202,8 +211,11 @@ class LcOrmGetlistObject extends CBitrixComponent
 
             }
         }
-        $nav->setRecordCount($ObjectList->getCount());
-        $this->arResult["COUNT"] = $ObjectList->getCount();
+        /*echo '$this->arResult["HEADERS"]<pre>';
+        print_r($this->arResult["HEADERS"]);
+        echo '</pre>';*/
+        $nav->setRecordCount($CameraList->getCount());
+        $this->arResult["COUNT"] = $CameraList->getCount();
         $this->arResult["NAV"] = $nav;
     }
 

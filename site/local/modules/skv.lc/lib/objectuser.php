@@ -51,9 +51,9 @@ class ObjectUserTable extends Entity\DataManager
         while($user = $obUsers->fetch()){
             $arUsers[] = $user["USER_ID"];
         }
-      echo '$arUsers<pre>';
+    /*  echo '$arUsers<pre>';
       print_r($arUsers);
-      echo '</pre>';
+      echo '</pre>';*/
 
         return $arUsers;
         return implode(",", $arUsers);

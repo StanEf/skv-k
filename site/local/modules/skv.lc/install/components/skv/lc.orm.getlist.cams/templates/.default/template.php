@@ -18,7 +18,7 @@ if ($arResult != null) {
 				array(
 					"TEXT" => "Создать",
 					"TITLE" => "Создать",
-					"LINK" => "object_add.php",
+					"LINK" => "cam_add.php",
 					"ICON" => "btn-new",
 				),
 			),
