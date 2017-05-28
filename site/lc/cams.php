@@ -18,6 +18,16 @@ if(isset($_GET["action"]) && $_GET["action"] == "delete_cam"){
         Array()
     );
     $_REQUEST["ID"] = "";
+    $_REQUEST["action"] = "";
+    $_REQUEST["sessid"] = "";
+
+    ?>
+    <script>
+
+        console.log(window.location.href);
+        window.history.pushState(window.location.href, "Title", "/lc/cams.php");
+    </script>
+    <?
 }
 ?>
 
