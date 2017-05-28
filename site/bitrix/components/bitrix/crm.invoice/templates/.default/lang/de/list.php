@@ -1,0 +1,4 @@
+<?
+$MESS["CRM_INVOICE_LIST_SWITCHER_RECUR"] = "Wiederkehrende";
+$MESS["CRM_INVOICE_LIST_SWITCHER_LIST"] = "Erstellte";
+?>

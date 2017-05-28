@@ -1,0 +1,23 @@
+<?php
+if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
+
+$MESS["SKV_LC_MODULE_NOT_INSTALLED"] = "Модуль SKV_LC не установлен!";
+$MESS["SKV_LC_OBJECT_EDIT_BUTTON_EDIT"] = "Изменить";
+$MESS["SKV_LC_OBJECT_EDIT_BUTTON_CLEAN"] = "Очистить";
+$MESS["SKV_LC_OBJECT_EDIT_BUTTON_BACK"] = "Назад";
+$MESS["SKV_LC_OBJECT_EDIT_MESSAGE"] = "Запись обновлена с id: ";
+$MESS["SKV_LC_OBJECT_EDIT_ERROR_MESSAGE"] = "Произошла ошибка при изменении: ";
+$MESS["SKV_LC_OBJECT_EDIT_FORM_ID"] = "ID";
+$MESS["SKV_LC_OBJECT_EDIT_FORM_NAME"] = "Название";
+$MESS["SKV_LC_OBJECT_EDIT_FORM_FIST_NAME"] = "Имя";
+$MESS["SKV_LC_OBJECT_EDIT_FORM_LAST_NAME"] = "Фамилия";
+$MESS["SKV_LC_OBJECT_EDIT_FORM_MIDDLE_NAME"] = "Отчество";
+$MESS["SKV_LC_OBJECT_EDIT_FORM_PHONE"] = "Телефон";
+$MESS["SKV_LC_OBJECT_EDIT_FORM_EMAIL"] = "e-mail";
+$MESS["SKV_LC_OBJECT_EDIT_FORM_COMPANY"] = "Организация";
+$MESS["SKV_LC_OBJECT_EDIT_FORM_UNIT"] = "Подразделение";
+$MESS["SKV_LC_OBJECT_EDIT_FORM_OWNER"] = "Владелец";
+$MESS["SKV_LC_OBJECT_EDIT_FORM_COMMENTS"] = "Комментарии";
+
+$MESS["SKV_LC_OBJECT_EDIT_FORM_COORD_LAT"] = "Широта";
+$MESS["SKV_LC_OBJECT_EDIT_FORM_COORD_LON"] = "Долгота";
