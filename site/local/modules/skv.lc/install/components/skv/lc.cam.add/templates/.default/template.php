@@ -37,6 +37,10 @@ $APPLICATION->IncludeComponent(
 	),
 	$component
 );
+if(isset($arResult["REQUEST"])){
+	echo $arResult["REQUEST"];
+}
+
 ?>
 <div class="container" style="padding: 15px;">
 	<div class="bx-authform" style="margin: 0 auto;">
@@ -67,7 +71,12 @@ $APPLICATION->IncludeComponent(
 					Id объекта
 				</div>
 				<div class="bx-authform-input-container">
-					<input type="text" name="OBJECT_ID" value="" maxlength="255"> <br/>
+					<!--<input type="text" name="OBJECT_ID" value="" maxlength="255"> <br/>-->
+					<select name="OBJECT_ID">
+						<?foreach($arResult["OBJECTS"] as $id => $name):?>
+							<option value="<?= $id ?>"><?= $name ?> </option>
+						<?endforeach;?>
+					</select>
 				</div>
 			</div>
 			<div class="bx-authform-formgroup-container">
@@ -76,7 +85,7 @@ $APPLICATION->IncludeComponent(
 		</form>
 	</div>
 </div>
-<?
+<?/*
 if($_POST["ACTION"] == "ADD"){
 	$APPLICATION->IncludeComponent(
 		"skv:lc.orm.add.camera",
@@ -84,4 +93,4 @@ if($_POST["ACTION"] == "ADD"){
 		Array()
 	);
 }
-?>
+*/?>

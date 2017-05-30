@@ -40,7 +40,7 @@ if($arResult["CAN_EDIT_SECTIONS"])
 }
 if($arParams["CAN_EDIT"])
 {
-	$listAction[] = array(
+/*	$listAction[] = array(
 		"text" => $arParams["IBLOCK_TYPE_ID"] == Option::get("lists", "livefeed_iblock_type_id") ?
 			Loc::getMessage("CT_BLL_TOOLBAR_PROCESS_TITLE") : Loc::getMessage("CT_BLL_TOOLBAR_LIST_TITLE"),
 		"url" => $arResult["LIST_EDIT_URL"],
@@ -58,7 +58,7 @@ if($arParams["CAN_EDIT"])
 			"url" => $arResult["BIZPROC_WORKFLOW_ADMIN_URL"],
 			"action" => 'document.location.href="'.$arResult["~BIZPROC_WORKFLOW_ADMIN_URL"].'"',
 		);
-	}
+	}*/
 }
 if($arResult["SHOW_SECTION_GRID"] == "Y")
 {
@@ -68,21 +68,21 @@ else
 {
 	$textForActionSectionGrid = Loc::getMessage("CT_BLL_SHOW_SECTION_GRID");
 }
-$listAction[] = array(
+/*$listAction[] = array(
 	"id" => "showSectionGrid",
 	"text" => $textForActionSectionGrid,
 	"action" => "BX.Lists['".$arResult["JS_OBJECT"]."'].toogleSectionGrid();"
-);
+);*/
 if($arResult["CAN_READ"])
 {
 	$url = CHTTP::urlAddParams((strpos($APPLICATION->GetCurPageParam(), "?") == false) ?
 		$arResult["EXPORT_EXCEL_URL"] : $arResult["EXPORT_EXCEL_URL"].substr($APPLICATION->GetCurPageParam(),
 			strpos($APPLICATION->GetCurPageParam(), "?")), array("ncc" => "y"));
-	$listAction[] = array(
+/*	$listAction[] = array(
 		"text" => Loc::getMessage("CT_BLL_EXPORT_IN_EXCEL"),
 		"url" => $url,
 		"action" => 'document.location.href="'.$url.'"',
-	);
+	);*/
 }
 
 if(!IsModuleInstalled("bitrix24")
@@ -103,10 +103,10 @@ if(!IsModuleInstalled("bitrix24")
 					'action' => $link['ONCLICK'],
 				);
 			}
-			$listAction[] = array(
+			/*$listAction[] = array(
 				'text' => 'SharePoint',
 				'items' => $items
-			);
+			);*/
 		}
 	}
 }
@@ -136,7 +136,6 @@ foreach($arResult["FILTER_CUSTOM_ENTITY"] as $fieldType => $listField)
 		echo Bitrix\Iblock\Helpers\Filter\Property::render($filterId, $fieldType, $listField);
 	}
 }
-
 $isBitrix24Template = (SITE_TEMPLATE_ID == "bitrix24");
 if($isBitrix24Template)
 {
@@ -156,7 +155,6 @@ else
 // echo '</pre>';
 ?>
 
-
 <?if(in_array(1, $arResult["USER_GROUPS"])):?>
 	<div class="pagetitle-container pagetitle-align-right-container">
 		<? if($arResult["SECTION_ID"]):?>
@@ -165,27 +163,26 @@ else
 			</a>
 		<?endif;?>
 		<? if($listAction):?>
-			<span id="lists-title-action" class="webform-small-button webform-small-button-transparent bx-filter-button">
+		<span id="lists-title-action" class="webform-small-button webform-small-button-transparent bx-filter-button">
 			<span class="webform-small-button-text"><?=Loc::getMessage("CT_BLL_TOOLBAR_ACTION")?></span>
 			<span id="lists-title-action-icon" class="webform-small-button-icon"></span>
 		</span>
 		<?endif;?>
-		<?if($arResult["CAN_ADD_ELEMENT"] || $arResult["CAN_EDIT_SECTIONS"]):?>
-			<span class="webform-small-button-separate-wrap bx24-top-toolbar-add">
-			<a href="<?=$arResult["LIST_NEW_ELEMENT_URL"]?>" class="
+<!--		<?/*if($arResult["CAN_ADD_ELEMENT"] || $arResult["CAN_EDIT_SECTIONS"]):*/?>
+		<span class="webform-small-button-separate-wrap bx24-top-toolbar-add">
+			<a href="<?/*=$arResult["LIST_NEW_ELEMENT_URL"]*/?>" class="
 				webform-small-button webform-small-button-blue" id="lists-title-action-add">
 				<span class="webform-small-button-icon"></span>
-				<span class="webform-small-button-text"><?=Loc::getMessage("CT_BLL_TOOLBAR_ADD")?></span>
+				<span class="webform-small-button-text"><?/*=Loc::getMessage("CT_BLL_TOOLBAR_ADD")*/?></span>
 			</a>
 			<span class="webform-small-button-right-part" id="lists-title-action-select-add"></span>
 		</span>
-		<?endif?>
+		--><?/*endif*/?>
 	</div>
 <?endif?>
 
-
-<div class="pagetitle-container pagetitle-flexible-space <?=$pagetitleFlexibleSpace?>">
-	<? $APPLICATION->IncludeComponent(
+<!--<div class="pagetitle-container pagetitle-flexible-space <?/*=$pagetitleFlexibleSpace*/?>">
+	<?/* $APPLICATION->IncludeComponent(
 		"bitrix:main.ui.filter",
 		"",
 		array(
@@ -197,8 +194,8 @@ else
 		),
 		$component,
 		array("HIDE_ICONS" => true)
-	); ?>
-</div>
+	); */?>
+</div>-->
 <?
 if($isBitrix24Template)
 {
@@ -218,6 +215,7 @@ $dataForAjax = array(
 	"socnetGroupId" => $socnetGroupId,
 
 );
+
 if($shouldStartRebuildSeachableContent):?>
 	<div id="rebuildSeachableContent"></div>
 	<script>
@@ -243,19 +241,62 @@ if($shouldStartRebuildSeachableContent):?>
 			manager.runAfter(100);
 		});
 	</script>
-	-----
+	----
 <?endif;
 
-echo '<pre>';
+/*echo '<pre>';
 print_r($arResult);
-echo '</pre>';
+echo '</pre>';*/
 
+
+
+
+?>
+<!-- КНОПКА ДОБАВЛЕНИЯ НОВОГО ДОКУМЕНТА-->
+<!--<div id="menu-popup-lists-title-add" class="popup-window popup-window-no-paddings" style="z-index: 1000; position: absolute; display: block; top: 54px; left: 1.42969px;">-->
+	<div id="popup-window-content-menu-popup-lists-title-add" class="popup-window-content" style="display: inline-block;">
+		<div class="menu-popup" style="display: block;"><div class="menu-popup-items">
+				<span onclick="document.location.href=&quot;/lc/docs/<?= $arParams["IBLOCK_ID"]?>/element/<?=$arParams["SECTION_ID"]?>/0/<?=$arParams["OBJECT_ID"]?>/&quot;" class="menu-popup-item menu-popup-no-icon ">
+					<!--"#list_id#/element/#section_id#/#element_id#/#object_id#/"-->
+					<span class="menu-popup-item-icon"></span>
+					<span class="menu-popup-item-text">Добавить документ</span>
+				</span>
+			</div>
+		</div>
+	</div>
+	<!--<div class="popup-window-angly popup-window-angly-top" style="left: 23px; margin-left: 0px;"></div>-->
+<!--</div>-->
+
+<?
+/*echo '$arResult<pre>';
+print_r($arResult);
+echo '</pre>';*/
 $APPLICATION->IncludeComponent(
-	"bitrix:main.ui.grid",
+	"bitrix:main.interface.grid",
+	"",
+	array(
+		"GRID_ID" => "DOCUMENTS_GRID",
+		"HEADERS" => $arResult["ELEMENTS_HEADERS"],
+		"ROWS" => $arResult["ELEMENTS_ROWS"],
+		"FOOTER" => array(array("title" => "Всего", "value" => $arResult["NAV_OBJECT"]->NavRecordCount)),
+		//"NAV_OBJECT" => $arResult["NAV"],
+		"NAV_PARAMS" => array(#				"SEF_MODE" => "Y"
+		),
+		"FILTER" => $arResult["FILTER"],
+		"SORT"=>$arResult["SORT"],
+		//"SORT_VARS"=>$arResult["SORT_VARS"],
+		"FILTER_TEMPLATE_NAME" => "tabbed",
+		"OBJECT_ID" => $arParams["OBJECT_ID"]
+	)
+);
+
+/*$APPLICATION->IncludeComponent(
+	"bitrix:main.interface.grid",
 	"",
 	array(
 		"GRID_ID" => $arResult["GRID_ID"],
 		"COLUMNS" => $arResult["ELEMENTS_HEADERS"],
+		"HEADERS" => $arResult["ELEMENTS_HEADERS"],
 		"ROWS" => $arResult["ELEMENTS_ROWS"],
 		"NAV_STRING" => $arResult["NAV_STRING"],
 		"TOTAL_ROWS_COUNT" => $arResult["NAV_OBJECT"]->NavRecordCount,
@@ -283,7 +324,7 @@ $APPLICATION->IncludeComponent(
 		"AJAX_OPTION_HISTORY" => "N"
 	),
 	$component, array("HIDE_ICONS" => "Y")
-);
+);*/
 ?>
 
 <script type="text/javascript">

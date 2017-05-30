@@ -58,7 +58,7 @@ return array (
     'value' => 
     array (
       'install' => 5,
-      'uninstall' => 4,
+      'uninstall' => 5,
     ),
     'readonly' => false,
   ),

@@ -19,11 +19,15 @@ $this->setFrameMode(false);
 
 $arDefaultUrlTemplates404 = array(
 	"lists" => "",
-	"list" =>"#list_id#/view/#section_id#/",
+
+	"list" =>"#list_id#/view/#section_id#/#object_id#/",
+
 	"list_edit" => "#list_id#/edit/",
 	"list_fields" => "#list_id#/fields/",
 	"list_field_edit" => "#list_id#/field/#field_id#/",
-	"list_element_edit" => "#list_id#/element/#section_id#/#element_id#/",
+
+	"list_element_edit" => "#list_id#/element/#section_id#/#element_id#/#object_id#/",
+
 	"list_file" => "#list_id#/file/#section_id#/#element_id#/#field_id#/#file_id#/",
 	"bizproc_log" => "#list_id#/bp_log/#document_state_id#/",
 	"bizproc_workflow_start" => "#list_id#/bp_start/#element_id#/",
@@ -36,6 +40,7 @@ $arDefaultUrlTemplates404 = array(
 );
 //echo '= begin component '.$arParams["OBJECT_ID"].'--!' ;
 $processes = false;
+
 if($arParams["IBLOCK_TYPE_ID"] == COption::GetOptionString("lists", "livefeed_iblock_type_id"))
 {
 	$processes = true;
@@ -85,9 +90,21 @@ if($arParams["SEF_MODE"] == "Y")
 	// var_dump($_GET);
 	// echo '-=-=-=-';
 	$arVariables = array();
+/*	echo '$arParams<pre>';
+	print_r($arParams);
+	echo '</pre>';*/
 
 	$arUrlTemplates = CComponentEngine::MakeComponentUrlTemplates($arDefaultUrlTemplates404, $arParams["SEF_URL_TEMPLATES"]);
 	$arVariableAliases = CComponentEngine::MakeComponentVariableAliases($arDefaultVariableAliases404, $arParams["VARIABLE_ALIASES"]);
+
+/*	echo '$arUrlTemplates<pre>';
+	print_r($arUrlTemplates);
+	echo '</pre>';
+
+
+	echo '$arVariableAliases<pre>';
+	print_r($arVariableAliases);
+	echo '</pre>';*/
 
 	if($_GET['livefeed'] == 'y')
 	{
@@ -109,10 +126,15 @@ if($arParams["SEF_MODE"] == "Y")
 
 	else
 	{
-		// echo 'else';
 		// echo $componentPage .'<br>before111';
 		// var_dump($arVariables);
 		// echo '<br>';
+
+/*		echo '$arParams["SEF_FOLDER"] ' . $arParams["SEF_FOLDER"] . '<br>';
+
+		echo '$arUrlTemplates<pre>';
+		print_r($arUrlTemplates);
+		echo '</pre>';*/
 
 		$componentPage = CComponentEngine::ParseComponentPath(
 			$arParams["SEF_FOLDER"],
@@ -120,10 +142,19 @@ if($arParams["SEF_MODE"] == "Y")
 			$arVariables
 		);
 
+		/*echo '$componentPage9<pre>';
+		print_r($componentPage);
+		echo '</pre>';
+		echo '$arVariables<pre>';
+		print_r($arVariables);
+		echo '</pre>';*/
+
+		// не используется
 		if($componentPage == "" && empty($arVariables)){
 			$componentPage = "list";
 			$arVariables["list_id"] = $arParams["INFOBLOCK_ID"];
 			$arVariables["section_id"] = 0;
+			$arVariables["object_id"] = $arParams["OBJECT_ID"];
 		}
 
 		// echo $componentPage . '$componentPage   $arParams["SEF_FOLDER"]<pre>';
@@ -140,9 +171,9 @@ if($arParams["SEF_MODE"] == "Y")
 	if(!$componentPage)
 		$componentPage = "lists";
 
-	// echo 'after';
-	// var_dump($arVariables);
-	// echo '<br>';
+/*	echo '$arVariables<pre>';
+	print_r($arVariables);
+	echo '</pre>';*/
 	CComponentEngine::InitComponentVariables($componentPage, $arComponentVariables, $arVariableAliases, $arVariables);
 	$arResult = array(
 		"FOLDER" => $arParams["SEF_FOLDER"],
@@ -166,7 +197,7 @@ if($arParams["SEF_MODE"] == "Y")
 }
 else
 {
-	$arVariables = array();
+	/*$arVariables = array();
 	if(!isset($arParams["VARIABLE_ALIASES"]["ID"]))
 		$arParams["VARIABLE_ALIASES"]["ID"] = "ID";
 
@@ -347,7 +378,7 @@ else
 		"ALIASES" => $arVariableAliases
 	);
 	if($processes)
-		$arResult["URL_TEMPLATES"]["catalog_processes"] = $APPLICATION->GetCurPage()."?mode=catalog";
+		$arResult["URL_TEMPLATES"]["catalog_processes"] = $APPLICATION->GetCurPage()."?mode=catalog";*/
 }
 
 $p = strpos($arResult["URL_TEMPLATES"]["bizproc_workflow_delete"], "?");
@@ -368,6 +399,6 @@ if(
 	if(is_array($arWorkflowState) && is_array($arWorkflowState["DOCUMENT_ID"]))
 		list(, , $arResult["VARIABLES"]["element_id"]) = CBPHelper::ParseDocumentId($arWorkflowState["DOCUMENT_ID"]);
 }
-//echo $componentPage . '='.$arParams["OBJECT_ID"].'--'.$_POST["OBJECT_ID"];
+echo $componentPage . '<br>';
 $this->IncludeComponentTemplate($componentPage);
 ?>

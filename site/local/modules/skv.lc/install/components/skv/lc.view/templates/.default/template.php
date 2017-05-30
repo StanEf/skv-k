@@ -6,6 +6,8 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 function autoResize(iframe) {
 	// console.log('height ' + $(iframe).contents().find('html').height());
     $(iframe).height($(iframe).contents().find('html').height()+400);
+	console.log("holla");
+	
 }
 
 
@@ -82,15 +84,18 @@ $(function() {
 														var document_frame_src = $("#document_frame")[0].src;
 														// console.log(document_frame_src);
 														// console.log(document_frame_src.indexOf('object') );
-														if(document_frame_src.indexOf('object') + 1) {
-															// console.log('est');
-															var arr_document_frame_src = document_frame_src.split("?object=");
-															// console.log(arr_document_frame_src);
-															$("#document_frame")[0].src = arr_document_frame_src[0] + "?object=" + page_lc.active_object;
-														}else{
-															// console.log('net');
-															$("#document_frame")[0].src = document_frame_src + "?object=" + page_lc.active_object;
-														}
+														var arr_document_frame_src = document_frame_src.split("/");
+														console.log(arr_document_frame_src);
+														arr_document_frame_src[arr_document_frame_src.length - 2] = page_lc.active_object;
+														$("#document_frame")[0].src = arr_document_frame_src.join("/");
+														
+														// if(document_frame_src.indexOf('object_id') + 1) { 
+															
+														// }else{
+															// $("#document_frame")[0].src = document_frame_src + "?object=" + page_lc.active_object;
+														// }
+														
+														
 													}
 													
 												}
@@ -106,14 +111,16 @@ $(function() {
 												var document_frame_src = $("#document_frame")[0].src;
 												// console.log(document_frame_src);
 												// console.log(document_frame_src.indexOf('object') );
-												if(document_frame_src.indexOf('object') + 1) {
-													// console.log('est');
-													var arr_document_frame_src = document_frame_src.split("?object=");
-													// console.log(arr_document_frame_src);
-												}else{
-													// console.log('net');
-													$("#document_frame")[0].src = document_frame_src + "?object=" + page_lc.active_object;
-												}	
+												
+												var arr_document_frame_src = document_frame_src.split("/");
+												arr_document_frame_src[arr_document_frame_src.length - 2] = page_lc.active_object;
+												$("#document_frame")[0].src = arr_document_frame_src.join("/");
+												
+												// if(document_frame_src.indexOf('object') + 1) {
+													// var arr_document_frame_src = document_frame_src.split("?object=");
+												// }else{
+													// $("#document_frame")[0].src = document_frame_src + "?object=" + page_lc.active_object;
+												// }	
 											}
 											
 												
@@ -155,18 +162,27 @@ $(function() {
 	  <div class="templatemo-content col-1 light-gray-bg">
 		<div class="templatemo-top-nav-container">
 		  <div class="row">
-			<nav class="templatemo-top-nav col-lg-12 col-md-12">
+			<nav class="templatemo-top-nav col-lg-10 col-md-10">
 			  <ul class="text-uppercase">
 				<li class="top_menu_button" data-type="docs"><a href="" class="active">Документы</a></li>
 				<li class="top_menu_button" data-type="video"><a href="">Видео</a></li>
 		<!--	<li class="top_menu_button" data-type="report"><a href="">Отчеты</a></li> -->
 			  </ul>  
-			</nav> 
+			</nav>
+			  <nav class="templatemo-top-nav col-lg-2 col-md-2">
+				  <ul class="text-uppercase">
+					  <li class="" ><a href="/index.php?logout=yes">Выход</a></li>
+
+				  </ul>
+			  </nav>
+			<!--<div style="text-align: right;" class="text-uppercase  ">
+				<a href="" style="color: #7f7f7f;">Выход</a>
+			</div>-->
 		  </div>
 		</div>
 			
 		<div class="templatemo-content-container" data-type="docs" data-object="<?= $object_id ?> "style="height: 100%" >
-			<iframe src="/lc/docs/" width="100%" height="100%"  scrolling="no" frameborder="0" marginheight="0" marginwidth="0"  onload="autoResize(this);" id="document_frame" name="document_frame"></iframe>
+			<iframe src="/lc/docs/<?= $arParams["IBLOCK_ID"]?>/view/0/object_id/" width="100%" height="100%"  scrolling="no" frameborder="0" marginheight="0" marginwidth="0"  onload="autoResize(this);" id="document_frame" name="document_frame"></iframe>
 		</div> 	  
 		</div>
 	  </div>

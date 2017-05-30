@@ -40,16 +40,16 @@ if ($arResult != null) {
 			),
 			"FILTER" => $arResult["FILTER"],
 			"SORT"=>$arResult["SORT"],
-			"SORT_VARS"=>$arResult["SORT_VARS"],
+			"SORT_VARS"=>array("by" => "by", "order" => "order"),
 			"FILTER_TEMPLATE_NAME" => "tabbed",
 		)
 	);
 }
 
 
-/* echo'1<pre>';
+echo'$arResult<pre>';
  print_r($arResult);
- echo'</pre>';*/
+ echo'</pre>';
 
 
 ?>

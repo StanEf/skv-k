@@ -20,6 +20,7 @@ $APPLICATION->IncludeComponent("skv:lc.lists.list", ".default", array(
 	"IBLOCK_TYPE_ID" => $arParams["IBLOCK_TYPE_ID"],
 	"IBLOCK_ID" => $arResult["VARIABLES"]["list_id"],
 	"SECTION_ID" => $arResult["VARIABLES"]["section_id"],
+	"OBJECT_ID" => $arResult["VARIABLES"]["object_id"],
 	"LISTS_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["lists"],
 	"LIST_EDIT_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_edit"],
 	"LIST_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list"],
@@ -34,7 +35,7 @@ $APPLICATION->IncludeComponent("skv:lc.lists.list", ".default", array(
 	"BIZPROC_WORKFLOW_ADMIN_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["bizproc_workflow_admin"],
 	"CACHE_TYPE" => $arParams["CACHE_TYPE"],
 	"CACHE_TIME" => $arParams["CACHE_TIME"],
-	"OBJECT_ID" => $_GET["object"],
+	
 	"USER_TYPE" => $arParams["USER_TYPE"], 
 	),
 	$component

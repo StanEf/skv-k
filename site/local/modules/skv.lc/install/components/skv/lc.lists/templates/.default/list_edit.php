@@ -9,6 +9,7 @@
 	"LIST_FIELDS_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_fields"],
 	"CACHE_TYPE" => $arParams["CACHE_TYPE"],
 	"CACHE_TIME" => $arParams["CACHE_TIME"],
+	"USER_TYPE" => $arParams["USER_TYPE"],
 	),
 	$component
 );?>

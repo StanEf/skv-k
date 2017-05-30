@@ -5,7 +5,7 @@ use \Bitrix\Main\Localization\Loc;
 use \Bitrix\Main\Type;
 use \Bitrix\Main\Entity;
 use \Skv\Lc\CameraTable;
-
+use \Skv\Lc\ObjectTable;
 
 class LcOrmAddCam extends CBitrixComponent
 {
@@ -16,6 +16,17 @@ class LcOrmAddCam extends CBitrixComponent
             throw new Main\LoaderException(Loc::getMessage('SKV_LC_MODULE_NOT_INSTALLED'));
     }
 
+	function showObjectsData()
+	{
+		$result = ObjectTable::GetList(array(
+			'select' => array("ID", "NAME"),
+		));
+		while ($row = $result->fetch())
+		{
+			$this->arResult["OBJECTS"][$row["ID"]] = $row["NAME"];
+		}
+	}
+	
     function showCameraData()
     {	
 		
@@ -75,10 +86,9 @@ class LcOrmAddCam extends CBitrixComponent
 			}
 		}else {
 			$this->showCameraData();
+			$this->showObjectsData();
 		}
         //$result = $this->addCamera();
-
-
 
         $this->includeComponentTemplate();
     }

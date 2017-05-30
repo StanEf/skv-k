@@ -5,6 +5,7 @@ use \Bitrix\Main\Localization\Loc;
 use \Bitrix\Main\Type;
 use \Bitrix\Main\Entity;
 use \Skv\Lc\CameraTable;
+use \Skv\Lc\ObjectTable;
 
 
 class LcOrmAddCam extends CBitrixComponent
@@ -16,6 +17,20 @@ class LcOrmAddCam extends CBitrixComponent
             throw new Main\LoaderException(Loc::getMessage('SKV_LC_MODULE_NOT_INSTALLED'));
     }
 
+    function showObjectsData()
+    {
+        $result = ObjectTable::GetList(array(
+            'select' => array("ID", "NAME"),
+        ));
+        while ($row = $result->fetch())
+        {
+            $this->arResult["OBJECTS"][$row["ID"]] = $row["NAME"];
+        }
+/*        echo '<pre>';
+        print_r($this->arResult["OBJECTS"]);
+        echo '</pre>';*/
+    }
+    
     function addCamera()
     {	
 		
@@ -35,18 +50,19 @@ class LcOrmAddCam extends CBitrixComponent
         $this -> includeComponentLang('class.php');
 
         $this -> checkModules();
-
+        $this -> showObjectsData();
+        
         $result = $this->addCamera();
 
         if ($result->isSuccess())
         {
             $id = $result->getId();
-            $this->arResult='Запись добавлена с id: '.$id;
+            $this->arResult["REQUEST"]='Запись добавлена с id: '.$id;
         }
         else
         {
             $error=$result->getErrorMessages();
-            $this->arResult='Произошла ошибка при добавлении: <pre>'.var_export($error,true).'</pre>';
+            $this->arResult["REQUEST"] = 'Произошла ошибка при добавлении: <pre>'.var_export($error,true).'</pre>';
         }
 
         $this->includeComponentTemplate();

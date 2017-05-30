@@ -7,12 +7,12 @@ echo '<pre>';
 print_r($arResult);
 echo '</pre>';*/
 
-
-$APPLICATION->IncludeComponent("bitrix:lists.element.edit", ".default", array(
+$APPLICATION->IncludeComponent("skv:lc.lists.element.edit", ".default", array(
 	"IBLOCK_TYPE_ID" => $arParams["IBLOCK_TYPE_ID"],
 	"IBLOCK_ID" => $arResult["VARIABLES"]["list_id"],
 	"SECTION_ID" => $arResult["VARIABLES"]["section_id"],
 	"ELEMENT_ID" => $arResult["VARIABLES"]["element_id"],
+	"OBJECT_ID" => $arResult["VARIABLES"]["object_id"],
 	"LISTS_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["lists"],
 	"LIST_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list"],
 	"LIST_ELEMENT_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["list_element_edit"],

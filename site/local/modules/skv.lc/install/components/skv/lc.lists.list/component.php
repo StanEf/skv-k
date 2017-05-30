@@ -54,13 +54,13 @@ $lists_perm = CListPermissions::CheckAccess(
 	$IBLOCK_ID,
 	$arParams["~SOCNET_GROUP_ID"]
 );
-echo '$arParams["~IBLOCK_TYPE_ID"] ' .$arParams["~IBLOCK_TYPE_ID"] . '<br>';
+/*echo '$arParams["~IBLOCK_TYPE_ID"] ' .$arParams["~IBLOCK_TYPE_ID"] . '<br>';
 
 
 echo '$IBLOCK_ID ' .$IBLOCK_ID . '<br>';
 
 echo '$arParams["~SOCNET_GROUP_ID"] ' .$arParams["~SOCNET_GROUP_ID"] . '<br>';
- echo '$lists_perm ' .$lists_perm . '<br>';
+ echo '$lists_perm ' .$lists_perm . '<br>';*/
 if($lists_perm < 0)
 {
 	switch($lists_perm)
@@ -87,18 +87,18 @@ elseif(
 	)
 )
 {
-	echo 334343523;
+	/*echo 334343523;*/
 	ShowError(GetMessage("CC_BLL_ACCESS_DENIED"));
 	return;
 }
 
-$arParams["CAN_EDIT"] =	(
+/*$arParams["CAN_EDIT"] =	(
 	!$arResult["IS_SOCNET_GROUP_CLOSED"]
 	&& (
 		$lists_perm >= CListPermissions::IS_ADMIN
 		|| CIBlockRights::UserHasRightTo($IBLOCK_ID, $IBLOCK_ID, "iblock_edit")
 	)
-);
+);*/
 $arResult["CAN_ADD_ELEMENT"] = (
 	!$arResult["IS_SOCNET_GROUP_CLOSED"]
 	&& (
@@ -113,14 +113,14 @@ $arResult["CAN_READ"] = (
 		|| CIBlockSectionRights::UserHasRightTo($IBLOCK_ID, $section_id, "element_read")
 	)
 );
-$arResult["CAN_EDIT_SECTIONS"] = (
+/*$arResult["CAN_EDIT_SECTIONS"] = (
 	!$arResult["IS_SOCNET_GROUP_CLOSED"]
 	&& (
 		$lists_perm >= CListPermissions::CAN_WRITE
 		|| CIBlockSectionRights::UserHasRightTo($IBLOCK_ID, $section_id, "section_edit")
 		|| CIBlockSectionRights::UserHasRightTo($IBLOCK_ID, $section_id, "section_section_bind")
 	)
-);
+);*/
 $arResult["IBLOCK_PERM"] = $lists_perm;
 $arResult["USER_GROUPS"] = $USER->GetUserGroupArray();
 $arIBlock = CIBlock::GetArrayByID(intval($arParams["~IBLOCK_ID"]));
@@ -971,8 +971,8 @@ while($obElement = $rsElements->GetNextElement())
 	}
 
 	$url = str_replace(
-		array("#list_id#", "#section_id#", "#element_id#", "#group_id#"),
-		array($arIBlock["ID"], intval($arResult["SECTION_ID"]), intval($data["~ID"]), $arParams["SOCNET_GROUP_ID"]),
+		array("#list_id#", "#section_id#", "#element_id#", "#group_id#", "#object_id#"),
+		array($arIBlock["ID"], intval($arResult["SECTION_ID"]), intval($data["~ID"]), $arParams["SOCNET_GROUP_ID"], $arParams["OBJECT_ID"]),
 		$arParams["LIST_ELEMENT_URL"]
 	);
 	if($arResult["ANY_SECTION"])
@@ -1001,8 +1001,8 @@ while($obElement = $rsElements->GetNextElement())
 		|| CIBlockSectionRights::UserHasRightTo($IBLOCK_ID, intval($arResult["SECTION_ID"]), "section_element_bind")))
 	{
 		$urlCopy = CHTTP::urlAddParams(str_replace(
-				array("#list_id#", "#section_id#", "#element_id#", "#group_id#"),
-				array($arIBlock["ID"], intval($arResult["SECTION_ID"]), 0, $arParams["SOCNET_GROUP_ID"]),
+				array("#list_id#", "#section_id#", "#element_id#", "#group_id#", "#object_id#"),
+				array($arIBlock["ID"], intval($arResult["SECTION_ID"]), 0, $arParams["SOCNET_GROUP_ID"], intval($arParams["OBJECT_ID"])),
 				$arParams["LIST_ELEMENT_URL"]
 			),
 			array("copy_id" => $data["~ID"]),
@@ -1231,7 +1231,8 @@ if($arResult["USER_TYPE"] == "user"){
 		}
 	}
 }
-echo '333';
+/*echo '333';*/
+
 
 $this->IncludeComponentTemplate();
 ?>

@@ -64,10 +64,15 @@ $APPLICATION->IncludeComponent(
 			</div>
 			<div class="bx-authform-formgroup-container">
 				<div class="bx-authform-label-container">
-					Id объекта
+					Объект
 				</div>
 				<div class="bx-authform-input-container">
-					<input type="text" name="OBJECT_ID" value="<?= $arResult["OBJECT_ID"] ?>" maxlength="255"> <br/>
+				<!--	<input type="text" name="OBJECT_ID" value="<?/*= $arResult["OBJECT_ID"] */?>" maxlength="255"> <br/>-->
+					<select name="OBJECT_ID">
+						<?foreach($arResult["OBJECTS"] as $id => $name):?>
+						<option value="<?= $id ?>" <?if($id == $arResult["OBJECT_ID"]):?> selected <?endif;?>><?= $name ?> </option>
+						<?endforeach;?>
+					</select>
 				</div>
 			</div>
 			<div class="bx-authform-formgroup-container">
