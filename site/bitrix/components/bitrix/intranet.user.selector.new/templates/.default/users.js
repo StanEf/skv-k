@@ -1,5 +1,5 @@
 ;(function(){
-console.log("users.js");
+
 if(window.IntranetUsers)
 	return;
 	
@@ -21,7 +21,6 @@ IntranetUsers.ajaxUrl = '';
 
 IntranetUsers.prototype.loadGroup = function(groupId)
 {
-
 	var obSection = BX(this.name + '_group_section_' + groupId);
 	function __onLoadEmployees(data)
 	{
@@ -282,12 +281,9 @@ IntranetUsers.prototype.show = function (sectionID, usersData, sectionPrefixName
 
 IntranetUsers.prototype.select = function(e)
 {
-console.log(this);
-console.log(IntranetUsers);
-
 	var obCurrentTarget;
 	var i = 0;
-console.log('select');
+
 	var target = e.target || e.srcElement;
 
 	if (e.currentTarget)
@@ -308,7 +304,6 @@ console.log('select');
 
 	if (!this.multiple)
 	{
-	console.log('not multiple');
 		var arInputs = document.getElementsByName(this.name);
 		for(var i = 0; i < arInputs.length; i++)
 		{
@@ -338,13 +333,11 @@ console.log('select');
 	}
 	else
 	{
-	console.log('multiple'+this.name);
 		var arInputs = document.getElementsByName(this.name + "[]");
 		if (!BX.util.in_array(obInput, arInputs) && !BX.util.in_array(obInput.value, this.arFixed)) { // IE7
 			obInput.checked = false;
 			BX.toggleClass(obInput.parentNode, BX.hasClass(obInput.parentNode, "finder-box-item") ?  "finder-box-item-selected" : "company-department-employee-selected")
 		}
-		console.log(arInputs);
 		for(var i = 0; i < arInputs.length; i++)
 		{
 			if (arInputs[i].value == obInput.value && !BX.util.in_array(obInput.value, this.arFixed))
@@ -358,14 +351,11 @@ console.log('select');
 		{
 			obInput.checked = true;
 		}
-	console.log(obInput);
+
 		if (obInput.checked)
 		{
-            console.log('obInput.checked');
 			var obSelected = BX.findChild(BX(this.name + "_selected_users"), {className: "finder-box-selected-items"});
-console.log(obSelected);
-console.log(this.name + "_selected_users");
-console.log(this.name + "_employee_selected_" + obInput.value);
+
 			if (!BX(this.name + "_employee_selected_" + obInput.value))
 			{
 				var obUserRow = BX.create('DIV');
@@ -377,10 +367,9 @@ console.log(this.name + "_employee_selected_" + obInput.value);
 				obUserRow.innerHTML =  "<div class=\"finder-box-selected-item-icon\" id=\"" + this.name + "-user-selector-unselect-" + obInput.value + "\" onclick=\"O_" + this.name + ".unselect(" + obInput.value + ", this);\"></div><span class=\"finder-box-selected-item-text\">" + obNameDiv.innerHTML + "</span>";
 				obSelected.appendChild(obUserRow);
 
-	console.log(this.name + "_current_count");
 				var countSpan = BX(this.name + "_current_count");
 				countSpan.innerHTML = parseInt(countSpan.innerHTML) + 1;
-	console.log(countSpan);
+
 				this.arSelected[obInput.value] = {
 					id : obInput.value,
 					name : IntranetUsers.arEmployeesData[obInput.value].name,
@@ -390,8 +379,6 @@ console.log(this.name + "_employee_selected_" + obInput.value);
 					photo : IntranetUsers.arEmployeesData[obInput.value].photo
 				};
 			}
-			console.log('jo');
-			console.log(this.arSelected);
 		}
 		else
 		{
@@ -405,17 +392,11 @@ console.log(this.name + "_employee_selected_" + obInput.value);
 	}
 
 	var posInLast = BX.util.array_search(obInput.value, IntranetUsers.lastUsers);
-	console.log('posInLast '+posInLast);
 	if (posInLast >= 0)
 		IntranetUsers.lastUsers.splice(posInLast, 1);
 
 	IntranetUsers.lastUsers.unshift(obInput.value);
-	console.log(IntranetUsers.lastUsers);
-
-
 	BX.userOptions.save('intranet', 'user_search', 'last_selected', IntranetUsers.lastUsers.slice(0, 10));
-
-
 
 	if (this.onSelect)
 	{
@@ -423,8 +404,7 @@ console.log(this.name + "_employee_selected_" + obInput.value);
 		this.arSelected.push(emp);
 		this.onSelect(emp);
 	}
-console.log('joyo');
-console.log([this.toObject(this.arSelected)]);
+
 	BX.onCustomEvent(this, 'on-change', [this.toObject(this.arSelected)]);
 
 	if (this.onChange)
@@ -496,7 +476,7 @@ IntranetUsers.prototype.unselect = function(employeeID)
 	}
 
 	this.arSelected[employeeID] = null;
-console.log(this.arSelected);
+
 	BX.onCustomEvent(this, 'on-change', [this.toObject(this.arSelected)]);
 
 	if (this.onChange)

@@ -1,20 +1,4 @@
-<?php
-/**
- * Bitrix Framework
- * @package bitrix
- * @subpackage main
- * @copyright 2001-2013 Bitrix
- */
-
-/**
- * Bitrix vars
- *
- * @var array $arParams
- * @var array $arResult
- * @var CBitrixComponent $this
- * @global CMain $APPLICATION
- * @global CUser $USER
- */
+<?
 
 if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 	die();

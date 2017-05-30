@@ -248,12 +248,16 @@ if($shouldStartRebuildSeachableContent):?>
 print_r($arResult);
 echo '</pre>';*/
 
+
+
+
 ?>
-<!-- КНОПКА ДОБАВЛЕНИЯ ДОКУМЕНТА-->
+<!-- КНОПКА ДОБАВЛЕНИЯ НОВОГО ДОКУМЕНТА-->
 <!--<div id="menu-popup-lists-title-add" class="popup-window popup-window-no-paddings" style="z-index: 1000; position: absolute; display: block; top: 54px; left: 1.42969px;">-->
 	<div id="popup-window-content-menu-popup-lists-title-add" class="popup-window-content" style="display: inline-block;">
 		<div class="menu-popup" style="display: block;"><div class="menu-popup-items">
-				<span onclick="document.location.href=&quot;/lc/docs/<?= $arParams["IBLOCK_ID"]?>/element/0/0/?list_section_id=&object=<?= $arParams["OBJECT_ID"] ?>&quot;" class="menu-popup-item menu-popup-no-icon ">
+				<span onclick="document.location.href=&quot;/lc/docs/<?= $arParams["IBLOCK_ID"]?>/element/<?=$arParams["SECTION_ID"]?>/0/<?=$arParams["OBJECT_ID"]?>/&quot;" class="menu-popup-item menu-popup-no-icon ">
+					<!--"#list_id#/element/#section_id#/#element_id#/#object_id#/"-->
 					<span class="menu-popup-item-icon"></span>
 					<span class="menu-popup-item-text">Добавить документ</span>
 				</span>
@@ -264,6 +268,9 @@ echo '</pre>';*/
 <!--</div>-->
 
 <?
+/*echo '$arResult<pre>';
+print_r($arResult);
+echo '</pre>';*/
 $APPLICATION->IncludeComponent(
 	"bitrix:main.interface.grid",
 	"",

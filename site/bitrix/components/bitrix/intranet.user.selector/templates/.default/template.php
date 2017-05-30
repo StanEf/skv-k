@@ -25,7 +25,6 @@ $APPLICATION->IncludeComponent('bitrix:main.lookup.input', 'users', array(
 ), $component, array('HIDE_ICONS' => 'Y'));
 ?>
 <br />
-	9999
 <?
 if ($arParams['EXTERNAL'] == 'I' && intval($arParams["SOCNET_GROUP_ID"]) <= 0):
 

@@ -707,18 +707,7 @@ if($arResult["SHOW_SECTION_GRID"] == "Y")
 
 if($arParams["CAN_EDIT"])
 	$arFilter["SHOW_NEW"] = "Y";
-// echo '$grid_sort["sort"]<pre>';
-// print_r($grid_sort["sort"]);
-// echo '</pre>';
-// echo '$arFilter<pre>';
-// print_r($arFilter);
-// echo '</pre>';
-// echo '$grid_options->GetNavParams()<pre>';
-// print_r($grid_options->GetNavParams());
-// echo '</pre>';
-// echo '$arSelect<pre>';
-// print_r($arSelect);
-// echo '</pre>';
+
 	/** @var CIBlockResult $rsElements */
 $rsElements = CIBlockElement::GetList(
 	$grid_sort["sort"], $arFilter, false, $grid_options->GetNavParams(), $arSelect
@@ -1162,9 +1151,6 @@ foreach($arResult["SECTION_PATH"] as $arPath)
 {
 	$APPLICATION->AddChainItem($arPath["NAME"], $arPath["URL"]);
 }
-// echo 'arResult component lists.list<pre>';
-// print_r($arResult);
-// echo '</pre>';
 
 $this->IncludeComponentTemplate();
 ?>

@@ -7,6 +7,6 @@ echo '$arStructure<pre>';
 print_r($arStructure);
 echo '</pre>';
 
-
+// 77777777777777777777777777777777
 ?>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

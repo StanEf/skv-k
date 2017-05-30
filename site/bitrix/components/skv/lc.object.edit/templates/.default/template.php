@@ -53,7 +53,7 @@ echo '</pre>';*/
 		console.log('users_on_object_str'+users_on_object_str);
 		$("#SELECTED_USERS_ON_OBJECT").val(users_on_object_str);
 	}
-	$("#object_form_edit").on("submit", function(){
+	/*$("#object_form_edit").on("submit", function(){
 	alert(1);
 		var users_on_object = [];
 		O_USERS_OBJECTS.arSelected.forEach(function(item, number){
@@ -66,10 +66,10 @@ echo '</pre>';*/
 		console.log('users_on_object_str'+users_on_object_str);
 		$("#SELECTED_USERS_ON_OBJECT").val(users_on_object_str);
 		alert(2);
-	});
+	});*/
 
 </script>
-<input type="button" onclick="clickMe();" value="click">
+<!--<input type="button" onclick="clickMe();" value="click">-->
 
 <?
 if ($arResult != null) {?>
@@ -114,6 +114,11 @@ if ($arResult != null) {?>
 						<td class="first_col">Пользователи</td><td class="second_col">
 						<!--<input type="text" value="212" name="SELECTED_USERS_ON_OBJECT" id="SELECTED_USERS_ON_OBJECT">-->
 <?
+
+/*echo '$arResult["USERS"]<pre>';
+print_r($arResult["USERS"]);
+echo '</pre>';*/
+
 							$GLOBALS["APPLICATION"]->IncludeComponent('bitrix:intranet.user.selector.new', '', array(
 							"FORM_NAME" => "object_form_edit",
 							/*'INPUT_NAME' => "USER_SEARCH_INPUT",*/

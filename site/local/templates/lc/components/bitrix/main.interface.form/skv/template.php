@@ -18,7 +18,9 @@
 
 if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 	die();
-echo 'dsdsdsds';
+/*echo '$arResult["TABS"]<pre>';
+print_r($arResult["TABS"]);
+echo '</pre>';*/
 //color schemes
 if($arParams["USE_THEMES"])
 	$arThemes = CGridOptions::GetThemes($this->GetFolder());
@@ -81,6 +83,9 @@ endforeach;
 					<td>
 <?
 $bWasRequired = false;
+/*echo '$arResult["TABS"]<pre>';
+print_r($arResult["TABS"]);
+echo '</pre>';*/
 foreach($arResult["TABS"] as $tab):
 ?>
 <div id="inner_tab_<?=$tab["id"]?>" class="bx-edit-tab-inner"<?if($tab["id"] <> $arResult["SELECTED_TAB"]) echo ' style="display:none;"'?>>
@@ -109,8 +114,8 @@ $i = 0;
 $cnt = count($tab["fields"]);
 $prevType = '';
 
-/*
-echo '$tab["fields"]<pre>"';
+
+/*echo '$tab["fields"]<pre>"';
 print_r($tab["fields"]);
 echo '"</pre>';*/
 
@@ -121,6 +126,13 @@ foreach($tab["fields"] as $field):
 	if(isset($field["show"]))
 	{
 		if($field["show"] == "N")
+		{
+			$style = "display:none;";
+		}
+	}
+	if(isset($field["not_show_not_modify"]))
+	{
+		if($field["not_show_not_modify"] == "Y")
 		{
 			$style = "display:none;";
 		}
@@ -149,6 +161,11 @@ if($field["type"] == 'section'):
 <?
 else:
 	$val = (isset($field["value"])? $field["value"] : $arParams["~DATA"][$field["id"]]);
+
+
+/*	echo '$val<pre>';
+	print_r($val);
+	echo '</pre>';*/
 	$valEncoded = '';
 	if(!is_array($val))
 		$valEncoded = htmlspecialcharsbx(htmlspecialcharsback($val));
@@ -194,7 +211,7 @@ else:
 	switch($field["type"]):
 		case 'label':
 		case 'custom':
-			echo $val.'33';
+			echo '-'.$val.'-';
 			break;
 		case 'checkbox':
 ?>
@@ -369,7 +386,6 @@ if(isset($arParams["BUTTONS"])):
 <?endif;?>
 </table>
 </div>
-
 </div>
 <?
 endif //$GLOBALS['USER']->IsAuthorized()

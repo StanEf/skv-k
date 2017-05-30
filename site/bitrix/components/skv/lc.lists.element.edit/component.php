@@ -169,15 +169,15 @@ $arResult["~LISTS_URL"] = str_replace(
 $arResult["LISTS_URL"] = htmlspecialcharsbx($arResult["~LISTS_URL"]);
 
 $arResult["~LIST_URL"] = CHTTP::urlAddParams(str_replace(
-	array("#list_id#", "#section_id#", "#group_id#"),
-	array($arResult["IBLOCK_ID"], 0, $arParams["SOCNET_GROUP_ID"]),
+	array("#list_id#", "#section_id#", "#group_id#", "#object_id#"),
+	array($arResult["IBLOCK_ID"], 0, $arParams["SOCNET_GROUP_ID"], $arParams["OBJECT_ID"]),
 	$arParams["~LIST_URL"]
 ), array("list_section_id" => ""));
 $arResult["LIST_URL"] = htmlspecialcharsbx($arResult["~LIST_URL"]);
 
 $arResult["~LIST_SECTION_URL"] = str_replace(
-	array("#list_id#", "#section_id#", "#group_id#"),
-	array($arResult["IBLOCK_ID"], intval($arParams["~SECTION_ID"]), $arParams["SOCNET_GROUP_ID"]),
+	array("#list_id#", "#section_id#", "#group_id#", "#object_id#"),
+	array($arResult["IBLOCK_ID"], intval($arParams["~SECTION_ID"]), $arParams["SOCNET_GROUP_ID"], $arParams["OBJECT_ID"]),
 	$arParams["~LIST_URL"]
 );
 if(isset($_GET["list_section_id"]) && strlen($_GET["list_section_id"]) == 0)
@@ -189,8 +189,8 @@ if ($ELEMENT_ID > 0)
 {
 	$copy_id = 0;
 	$arResult["LIST_COPY_ELEMENT_URL"] = CHTTP::urlAddParams(str_replace(
-			array("#list_id#", "#section_id#", "#element_id#", "#group_id#"),
-			array($arResult["IBLOCK_ID"], intval($arResult["SECTION_ID"]), 0, $arParams["SOCNET_GROUP_ID"]),
+			array("#list_id#", "#section_id#", "#element_id#", "#group_id#", "#object_id#"),
+			array($arResult["IBLOCK_ID"], intval($arResult["SECTION_ID"]), 0, $arParams["SOCNET_GROUP_ID"], $arParams["OBJECT_ID"]),
 			$arParams["~LIST_ELEMENT_URL"]
 		),
 		array("copy_id" => $ELEMENT_ID),
@@ -210,6 +210,21 @@ $arResult["COPY_ID"] = $copy_id;
 $obList = new CList($arIBlock["ID"]);
 
 $arResult["FIELDS"] = $obList->GetFields();
+//$arResult["FIELDS"]["PROPERTY_235"]
+
+
+// ВЫСТАВЛЯЕМ НЕИЗМЕНЯЕМОСТЬ OBJECT_ID В ФОРМАХ ДОБАВЛЕНИЯ, ИЗМЕНЕНИЯ ДОКУМЕНТОВ
+foreach($arResult["FIELDS"] as $FIELD_ID => $arField)
+{
+	if($arField["NAME"] == "OBJECT_ID"){
+		$arResult["FIELDS"][$FIELD_ID]["SETTINGS"]["NOT_SHOW_NOT_MODIFY"] = "Y";
+	}
+}
+
+/*echo '$arResult["FIELDS"]<pre>';
+print_r($arResult["FIELDS"]);
+echo '</pre>';*/
+
 if($bBizproc)
 	$arSelect = array("ID", "IBLOCK_ID", "NAME", "IBLOCK_SECTION_ID", "CREATED_BY", "BP_PUBLISHED");
 else

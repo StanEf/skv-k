@@ -98,6 +98,9 @@ class LcOrmObjectEdit extends CBitrixComponent
 					$rows = array();
 					while ($row = $ids_to_delete->fetch())
 					{
+						echo '$id_to_delete <pre>';
+						print_r($row);
+						echo '</pre>';
 						$rows[] = $row;
 						ObjectUserTable::delete($row["ID"]);
 					}
@@ -116,6 +119,9 @@ class LcOrmObjectEdit extends CBitrixComponent
 				if(!isset($users_old[$user_id])){
 					$to_add["OBJECT_ID"] = $request["ID"];
 					$to_add["USER_ID"] = $user_id;
+					echo '$to_add<pre>';
+					print_r($to_add);
+					echo '</pre>';
 					ObjectUserTable::add($to_add);
 				}
 			}
@@ -190,7 +196,8 @@ class LcOrmObjectEdit extends CBitrixComponent
 	{
 		//echo "this->object_id" .$this->object_id;
 		$this->arResult["USERS"] = ObjectUserTable::getUsers($this->object_id);
-	/*	echo '$this->arResult["USERS"]<pre>';
+
+/*		echo '$this->arResult["USERS"]<pre>';
 		print_r($this->arResult["USERS"]);
 		echo '</pre>';*/
 	}

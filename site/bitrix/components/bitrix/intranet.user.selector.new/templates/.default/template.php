@@ -11,18 +11,13 @@ $ajaxUrl = $this->__component->GetPath() . '/ajax.php?' .
 			'GROUP_SITE_ID'       => $GLOBALS["GROUP_SITE_ID"],
 			'IS_EXTRANET'         => ($bExtranet ? "Y" : "N"),
 			'SHOW_INACTIVE_USERS' => $arParams['SHOW_INACTIVE_USERS'],
-			'SHOW_EXTRANET_USERS' => "Y"/*$arParams['SHOW_EXTRANET_USERS']*/,
+			'SHOW_EXTRANET_USERS' => $arParams['SHOW_EXTRANET_USERS'],
 			'EX_GROUP'            => !empty($arParams["EX_GROUP"]) ? $arParams["EX_GROUP"] : '',
 			'nt'                  => $arParams["NAME_TEMPLATE"],
 			'sl'                  => $arParams["SHOW_LOGIN"],
 			'SHOW_USERS'          => ($arParams['SHOW_STRUCTURE_ONLY'] == 'Y' ? 'N' : 'Y'),
 		)
 	);
-
-/*echo '$arResult<pre>';
-print_r($arResult);
-echo '</pre>';*/
-
 ?>
 <script type="text/javascript">
 	BX.message({
@@ -158,7 +153,6 @@ echo '</pre>';*/
 					<?php endif; ?>
 					<?php if($arParams["DISPLAY_TAB_GROUP"] == 'Y'): ?>
 					<div class="finder-box-tab-content" id="<?php echo $arResult["NAME"]?>_groups">
-
 						<?php
 							CIntranetUserSelectorHelper::drawGroup($arResult["GROUPS"], $arResult["NAME"]);
 						?>

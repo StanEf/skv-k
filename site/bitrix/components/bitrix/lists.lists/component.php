@@ -52,7 +52,7 @@ if($lists_perm < 0)
 elseif($lists_perm <= CListPermissions::ACCESS_DENIED)
 {
 	ShowError(GetMessage("CC_BLL_ACCESS_DENIED"));
-	return;
+	//return;
 }
 
 $arParams["CAN_EDIT"] = $lists_perm >= CListPermissions::IS_ADMIN;
@@ -94,18 +94,8 @@ if($this->StartResultCache(0 /*disable cache because it's individual for each us
 	if($arParams["SOCNET_GROUP_ID"])
 		$arFilter["=SOCNET_GROUP_ID"] = $arParams["SOCNET_GROUP_ID"];
 	else
-		$arFilter["SITE_ID"] = "s1";
-	
-	echo 'arOrder<pre>';
-	print_r($arOrder);
-	echo '</pre>';	
-	
-	echo 'arFilter<pre>';
-	print_r($arFilter);
-	echo '</pre>';
-	
-	
-	
+		$arFilter["SITE_ID"] = SITE_ID;
+
 	$arResult["ITEMS"] = array();
 	$rsLists = CIBlock::GetList($arOrder, $arFilter);
 	while($ar = $rsLists->GetNext())
@@ -128,13 +118,5 @@ if($this->StartResultCache(0 /*disable cache because it's individual for each us
 	}
 
 	$CACHE_MANAGER->EndTagCache();
-	echo '55555555555556666665<pre>';
-print_r($arParams);
-echo '</pre>';
-echo '<pre>777777777777777777';
-print_r($arResult);
-echo '</pre>';
-	
-	
 	$this->IncludeComponentTemplate();
 }

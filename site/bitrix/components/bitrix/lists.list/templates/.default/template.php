@@ -234,7 +234,6 @@ if($shouldStartRebuildSeachableContent):?>
 			manager.runAfter(100);
 		});
 	</script>
-	-----
 <?endif;
 
 $APPLICATION->IncludeComponent(

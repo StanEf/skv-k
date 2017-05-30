@@ -56,12 +56,14 @@ foreach($group_access_allowed as $group => $user_type){
 		"COMPONENT_TEMPLATE" => ".default",
 		"SEF_URL_TEMPLATES" => array(
 			"lists" => "",
-			"list" => "#list_id#/view/#section_id#/",
+			
+			"list" => "#list_id#/view/#section_id#/#object_id#/",
+			"list_element_edit" => "#list_id#/element/#section_id#/#element_id#/#object_id#/",
+			
 			"list_sections" => "#list_id#/edit/#section_id#/",
 			"list_edit" => "#list_id#/edit/",
 			"list_fields" => "#list_id#/fields/",
 			"list_field_edit" => "#list_id#/field/#field_id#/",
-			"list_element_edit" => "#list_id#/element/#section_id#/#element_id#/",
 			"list_file" => "#list_id#/file/#section_id#/#element_id#/#field_id#/#file_id#/",
 			"bizproc_log" => "#list_id#/bp_log/#document_state_id#/",
 			"bizproc_workflow_start" => "#list_id#/bp_start/#element_id#/",

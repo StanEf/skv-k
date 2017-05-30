@@ -52,8 +52,8 @@ class ListsElementEditAjaxController extends Controller
 			array('workflowId', 'iblockTypeId', 'elementId', 'iblockId', 'sectionId', 'socnetGroupId', 'action')
 		);
 
-		//$this->fillDataForCheckPermission();
-		//$this->checkPermission();
+		$this->fillDataForCheckPermission();
+		$this->checkPermission();
 		if($this->errorCollection->hasErrors())
 		{
 			$this->sendJsonErrorResponse();

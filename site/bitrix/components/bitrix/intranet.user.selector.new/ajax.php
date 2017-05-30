@@ -203,7 +203,7 @@ if (empty($_REQUEST['GROUP_ID']) && $_REQUEST['MODE'] == 'EMPLOYEES'
 					'ACTIVE' => $showActiveUsers,
 					'CONFIRM_CODE' => false
 				);
-				
+
 				$dbUsers = CUser::GetList(
 					$sort_by = 'last_name', $sort_dir = 'asc',
 					$arHeadFilter,
@@ -212,9 +212,6 @@ if (empty($_REQUEST['GROUP_ID']) && $_REQUEST['MODE'] == 'EMPLOYEES'
 
 				if ($arRes = $dbUsers->Fetch())
 				{
-
-
-
 					$arFilter['!ID'] = $arRes['ID'];
 					$arUsers[] = array(
 						'ID'            => $arRes['ID'],

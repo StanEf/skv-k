@@ -74,7 +74,28 @@ foreach($arResult["FIELDS"] as $fieldId => $field)
 	$field["ELEMENT_ID"] = $arResult["ELEMENT_ID"];
 	$field["FIELD_ID"] = $fieldId;
 	$field["VALUE"] = $arResult["FORM_DATA"]["~".$fieldId];
+
+	/*if($field["NAME"] == "OBJECT_ID"){
+
+	}*/
+
+
+
+// ДОБАВЛЯЕM В ФОРМУ ID ТЕКУЩЕГО ОБЪЕКТА
+	if($field["NAME"] == "OBJECT_ID"){
+		$first_elem = reset($field["VALUE"]);
+		if(empty($first_elem["VALUE"])){
+			unset($field["VALUE"]);
+			$field["VALUE"][]["VALUE"] = $arParams["OBJECT_ID"];
+		}
+	}
+
 	$preparedData = \Bitrix\Lists\Field::prepareFieldDataForEditForm($field);
+//ВЫСТАВЛЯЕМ НЕИЗМЕНЯЕМОСТЬ OBJECT_ID В ФОРМАХ ДОБАВЛЕНИЯ, ИЗМЕНЕНИЯ ДОКУМЕНТОВ
+	if($field["NAME"] == "OBJECT_ID"){
+		$preparedData["not_show_not_modify"] = "Y";
+	}
+
 	if($preparedData)
 	{
 		$tabElement[] = $preparedData;
@@ -83,6 +104,15 @@ foreach($arResult["FIELDS"] as $fieldId => $field)
 			$cuctomHtml .= $preparedData["customHtml"];
 		}
 	}
+
+/*	echo '$field<pre>';
+	print_r($field);
+	echo '</pre>';
+
+	echo '$preparedData<pre>';
+	print_r($preparedData);
+	echo '</pre>';*/
+
 }
 
 $tabSection = array(
@@ -457,9 +487,9 @@ if(CModule::IncludeModule("bizproc") && CBPRuntime::isFeatureEnabled() && $arRes
 	$arTabs[] = array("id"=>"tab_bp", "name"=>GetMessage("CT_BLEE_BIZPROC_TAB"), "icon"=>"", "fields"=>$arTab2Fields);
 }
 
-echo '$arTabs<pre>';
+/*echo '$arTabs<pre>';
 print_r($arTabs);
-echo '</pre>';
+echo '</pre>';*/
 
 if(isset($arResult["RIGHTS"]))
 {
@@ -500,10 +530,14 @@ if(!$arParams["CAN_EDIT"])
 	$cuctomHtml .= '<input type="button" value="'.GetMessage("CT_BLEE_FORM_CANCEL").
 		'" name="cancel" onclick="window.location=\''.htmlspecialcharsbx(CUtil::addslashes(
 				$arResult["~LIST_SECTION_URL"])).'\'" title="'.GetMessage("CT_BLEE_FORM_CANCEL_TITLE").'" />';
-echo 'before';
-/*ТОЛЬКО ВКЛАДКА ДОКУМЕНТ*/
+/*echo 'before';*/
+/* ПОКАЗЫВАТЬ ТОЛЬКО ВКЛАДКУ - ДОКУМЕНТ*/
 $arTabsTmp[] = $arTabs[0];
-
+echo '$arTabs<pre>';
+print_r($arTabsTmp);
+echo '</pre>';
+/*ДЛЯ АДМИНА ДОБАВЛЯЕМ ПОЛЬЗОВАТЕЛЕЙ КОТОРЫМ БУДЕМ ПОКАЗЫВАТЬ СОЗДАННЫЙ ДОКУМЕНТ*/
+//$arTabsTmp[0]["fields"]
 
 $APPLICATION->IncludeComponent(
 	"bitrix:main.interface.form",
@@ -519,10 +553,11 @@ $APPLICATION->IncludeComponent(
 		"DATA"=>$arResult["FORM_DATA"],
 		"SHOW_SETTINGS"=>"N",
 		"THEME_GRID_ID"=>$arResult["GRID_ID"],
+		"OBJECT_ID" => $arParams["OBJECT_ID"],
 	),
 	$component, array("HIDE_ICONS" => "Y")
 );
-echo 'after';
+echo 'after32';
 ?>
 
 <div id="lists-notify-admin-popup" style="display:none;">

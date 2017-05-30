@@ -971,8 +971,8 @@ while($obElement = $rsElements->GetNextElement())
 	}
 
 	$url = str_replace(
-		array("#list_id#", "#section_id#", "#element_id#", "#group_id#"),
-		array($arIBlock["ID"], intval($arResult["SECTION_ID"]), intval($data["~ID"]), $arParams["SOCNET_GROUP_ID"]),
+		array("#list_id#", "#section_id#", "#element_id#", "#group_id#", "#object_id#"),
+		array($arIBlock["ID"], intval($arResult["SECTION_ID"]), intval($data["~ID"]), $arParams["SOCNET_GROUP_ID"], $arParams["OBJECT_ID"]),
 		$arParams["LIST_ELEMENT_URL"]
 	);
 	if($arResult["ANY_SECTION"])
@@ -1001,8 +1001,8 @@ while($obElement = $rsElements->GetNextElement())
 		|| CIBlockSectionRights::UserHasRightTo($IBLOCK_ID, intval($arResult["SECTION_ID"]), "section_element_bind")))
 	{
 		$urlCopy = CHTTP::urlAddParams(str_replace(
-				array("#list_id#", "#section_id#", "#element_id#", "#group_id#"),
-				array($arIBlock["ID"], intval($arResult["SECTION_ID"]), 0, $arParams["SOCNET_GROUP_ID"]),
+				array("#list_id#", "#section_id#", "#element_id#", "#group_id#", "#object_id#"),
+				array($arIBlock["ID"], intval($arResult["SECTION_ID"]), 0, $arParams["SOCNET_GROUP_ID"], intval($arParams["OBJECT_ID"])),
 				$arParams["LIST_ELEMENT_URL"]
 			),
 			array("copy_id" => $data["~ID"]),

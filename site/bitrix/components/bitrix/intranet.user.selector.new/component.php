@@ -43,7 +43,12 @@ foreach ($arParams['VALUE'] as &$id)
 	$id = intval(trim($id));
 }
 unset($id);
+
 $arParams['VALUE'] = array_unique($arParams['VALUE']);
+/*
+echo '$arParams[\'VALUE\'] component<pre>';
+print_r($arParams['VALUE']);
+echo '</pre>';*/
 
 $GLOBALS['GROUP_SITE_ID'] = $arParams['GROUP_SITE_ID'];
 $bSubordinateOnly         = (isset($arParams["SUBORDINATE_ONLY"]) && $arParams["SUBORDINATE_ONLY"] == "Y");
@@ -140,7 +145,7 @@ $arResult["LAST_USERS_IDS"] = !empty($arResult["LAST_USERS"]) ? array_keys(array
 $arResult["CURRENT_USERS"]  = array();
 if (count($arParams["VALUE"]))
 {
-	$arFilter['!UF_DEPARTMENT'] = false;
+	//$arFilter['!UF_DEPARTMENT'] = false;  // ПОКАЗЫВАЮТСЯ ВСЕ ВЫБРАННЫЕ ПОЛЬЗОВАТЕЛИ НА ОБЪЕКТЕ
 	$arFilter['ID']             = implode('|', $arParams['VALUE']);
 	$notSelectedUsersId         = $arParams['VALUE'];
 

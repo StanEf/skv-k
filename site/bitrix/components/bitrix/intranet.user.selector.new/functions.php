@@ -26,23 +26,6 @@ class CIntranetUserSelectorHelper
 {
 	public static function drawEmployeeStructure($arStructure, $arSections, $key, $name, $bSelectSection = false)
 	{
-/*		echo '$arStructure<pre>';
-		print_r($arStructure);
-		echo '</pre>';
-
-		echo '$arSections<pre>';
-		print_r($arSections);
-		echo '</pre>';
-
-		echo '$key<pre>';
-		print_r($key);
-		echo '</pre>';
-
-		echo '$name<pre>';
-		print_r($name);
-		echo '</pre>';*/
-
-
 		foreach ($arStructure[$key] as $id)
 		{
 			$arRes = $arSections[$id];

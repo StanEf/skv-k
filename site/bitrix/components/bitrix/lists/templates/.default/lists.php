@@ -1,15 +1,5 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
-?><?
-// echo '<pre>';
-// print_r($arParams);
-// echo '</pre>';
-// echo '<pre>99999999999999999999';
-// print_r($arResult);
-// echo '</pre>';
-
-
-
-$APPLICATION->IncludeComponent("bitrix:lists.lists", ".default", array(
+?><?$APPLICATION->IncludeComponent("bitrix:lists.lists", ".default", array(
 	"IBLOCK_TYPE_ID" => $arParams["IBLOCK_TYPE_ID"],
 	"LISTS_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["lists"],
 	"CATALOG_PROCESSES_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["catalog_processes"] ? $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["catalog_processes"] : '',
