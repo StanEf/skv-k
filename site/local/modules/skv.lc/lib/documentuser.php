@@ -1,5 +1,4 @@
 <?
-
 namespace Skv\Lc;
 
 use \Bitrix\Main\Entity;
@@ -24,7 +23,7 @@ class DocumentUserTable extends Entity\DataManager
             )),
             new Entity\ReferenceField(
                 'DOCUMENT',
-                '\Bitrix\Iblock',
+                'Skv\Lc\Document',
                 array('=this.DOCUMENT_ID' => 'ref.ID')
             ),
             new Entity\IntegerField('USER_ID', array(
@@ -32,7 +31,7 @@ class DocumentUserTable extends Entity\DataManager
             )),
             new Entity\ReferenceField(
                 'USER',
-                '\Bitrix\User',
+                'Skv\Lc\User',
                 array('=this.USER_ID' => 'ref.ID')
             ),
             new Entity\BooleanField('EDIT', array(

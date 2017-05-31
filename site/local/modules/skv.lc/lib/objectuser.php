@@ -31,7 +31,7 @@ class ObjectUserTable extends Entity\DataManager
             )),
             new Entity\ReferenceField(
                 'USER',
-                'Bitrix\User',
+                'Skv\Lc\User',
                 array('=this.USER_ID' => 'ref.ID')
             )
         );
