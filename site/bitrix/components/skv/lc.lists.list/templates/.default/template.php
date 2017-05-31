@@ -268,7 +268,7 @@ echo '</pre>';*/
 <!--</div>-->
 
 <?
-echo '$arResult<pre>';
+echo '$arResult template lc.lists.list<pre>';
 print_r($arResult);
 echo '</pre>';
 $APPLICATION->IncludeComponent(

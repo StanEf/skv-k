@@ -294,10 +294,8 @@ endforeach;
 		<td class="bx-field-value">
 			<?$GLOBALS["APPLICATION"]->IncludeComponent('bitrix:intranet.user.selector.new', '', array(
 					"FORM_NAME" => "document_form_edit",
-					/*'INPUT_NAME' => "USER_SEARCH_INPUT",*/
 					"MULTIPLE" => "Y",
 					"NAME" => "USERS_DOCUMENTS",
-					//'POPUP' => 'Y',
 					'SITE_ID' => SITE_ID,
 					"DISPLAY_TAB_STRUCTURE" => "N",
 					"DISPLAY_TAB_GROUP" => "N",
@@ -305,11 +303,9 @@ endforeach;
 					'INPUT_NAME_SUSPICIOUS' => "estimate_contact_h",
 					'TEXTAREA_MIN_HEIGHT' => 30,
 					'TEXTAREA_MAX_HEIGHT' => 60,
-					//'INPUT_VALUE' => array(1,2,3),
 					'SHOW_EXTRANET_USERS' => 'Y',
 					'SOCNET_GROUP_ID' => '',
 					'VALUE' => array(1,25),
-					//'INPUT_VALUE_STRING'  => "1,2,3,25",
 				)
 			);?>
 
