@@ -19,12 +19,25 @@ if(!CModule::IncludeModule('lists'))
 	ShowError(GetMessage("CC_BLEE_MODULE_NOT_INSTALLED"));
 	return;
 }
+
+if(!CModule::IncludeModule('skv.lc'))
+{
+	ShowError(GetMessage("CC_BLEE_MODULE_NOT_INSTALLED").' LC');
+	return;
+}
+use \Skv\Lc\DocumentUserTable;
 require_once($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/iblock/admin_tools.php");
 $APPLICATION->AddHeadScript('/bitrix/js/iblock/iblock_edit.js');
 
 $IBLOCK_ID = is_array($arParams["~IBLOCK_ID"])? 0: intval($arParams["~IBLOCK_ID"]);
 $ELEMENT_ID = is_array($arParams["~ELEMENT_ID"])? 0: intval($arParams["~ELEMENT_ID"]);
 $SECTION_ID = is_array($arParams["~SECTION_ID"])? 0: intval($arParams["~SECTION_ID"]);
+
+
+/*echo '$_REQUEST<pre>';
+print_r($_REQUEST);
+echo '</pre>';*/
+//exit();
 
 if (
 	intval($arParams["~SOCNET_GROUP_ID"]) > 0
@@ -443,6 +456,10 @@ if(
 		&& $arParams["CAN_EDIT"]
 	)
 	{
+		/*echo '$_POST save or apply<pre>';
+		print_r($_POST);
+		echo '</pre>';*/
+
 		$strError = "";
 
 		//Gather fields for update
@@ -453,6 +470,10 @@ if(
 		);
 		$arProps = array();
 		$additionalActions = array();
+		/*echo '$arResult["FIELDS"] component<pre>';
+		print_r($arResult["FIELDS"]);
+		echo '</pre>';*/
+		//exit();
 		foreach($arResult["FIELDS"] as $FIELD_ID => $arField)
 		{
 			if($FIELD_ID == "PREVIEW_PICTURE" || $FIELD_ID == "DETAIL_PICTURE")
@@ -580,6 +601,17 @@ if(
 				$arProps[$arField["ID"]] = $_POST[$FIELD_ID];
 			}
 		}
+
+		/*echo '$arElement<pre>';
+		print_r($arElement);
+		echo '</pre>';
+
+		echo '$arProps<pre>';
+		print_r($arProps);
+		echo '</pre>';*/
+
+		//exit();
+
 
 		$arElement["MODIFIED_BY"] = $USER->GetID();
 		unset($arElement["TIMESTAMP_X"]);
@@ -730,19 +762,85 @@ if(
 		{
 			$obElement = new CIBlockElement;
 
+			//  Skv\Lc\DocumentUser;
+
+
+
+
 			if($arResult["ELEMENT_ID"])
 			{
 				$res = $obElement->Update($arResult["ELEMENT_ID"], $arElement, false, true, true);
-				if(!$res)
+				if(!$res) {
 					$strError = $obElement->LAST_ERROR;
+				}
+
+				/*ДОСТУП ПОЛЬЗОВАТЕЛЯ К РЕДАКТИРОВАНИЮ ФАЙЛА*/
+				if(isset($_POST["USER_EDIT_RIGHTS"])){
+					$user_edit_rights = "Y";
+				}else{
+					$user_edit_rights = "N";
+				}
+
+echo '$user_edit_rights ' . $user_edit_rights . '<br>';
+
+
+				/*ЗАПОМИНАЕМ ПОЛЬЗОВАТЕЛЕЙ КОТОРЫМ ДОСТУПЕН ДОКУМЕНТ СОЗДАННЫЙ СОТРУДНИКОМ */
+				$obUsersOld = DocumentUserTable::GetList(array(
+					'filter' => array('=DOCUMENT_ID' => $arResult["ELEMENT_ID"],
+					),
+				));
+				$rows = array();
+				while ($row = $obUsersOld->fetch())
+				{
+					$arUsersOld[$row["USER_ID"]] = $row;
+				}
+
+
+				foreach($_POST["USERS_DOCUMENTS"] as $user){
+					$arUsersNew[$user] = 1;
+				}
+
+				foreach($arUsersNew as $user => $v){
+					if(!isset($arUsersOld[$user])){
+						$to_add["DOCUMENT_ID"] = $arResult["ELEMENT_ID"];
+						$to_add["USER_ID"] = $user;
+						$to_add["EDIT"] = $user_edit_rights;
+						DocumentUserTable::add($to_add);
+					}
+				}
+
+
+
+				foreach($arUsersOld as $user => $v){
+					if(!isset($arUsersNew[$user])){
+						DocumentUserTable::delete($v["ID"]);
+					}else{
+						if($row["EDIT"] != $user_edit_rights){
+							$to_edit["EDIT"] = $user_edit_rights;
+							DocumentUserTable::update($v["ID"], $to_edit);
+						}
+					}
+				}
+
 			}
 			else
 			{
 				$res = $obElement->Add($arElement, false, true, true);
+				echo 'res is<pre>';
+				print_r($res);
+				echo '</pre>';
+				
 				if($res)
 					$arResult["ELEMENT_ID"] = $res;
 				else
 					$strError = $obElement->LAST_ERROR;
+				/*ЗАПОМИНАЕМ ПОЛЬЗОВАТЕЛЕЙ КОТОРЫМ ДОСТУПЕН ДОКУМЕНТ СОЗДАННЫЙ СОТРУДНИКОМ */
+				$idDocumentNew = $res;
+				foreach($_POST["USERS_DOCUMENTS"] as $user){
+					$to_add["DOCUMENT_ID"] = $arResult["ELEMENT_ID"];
+					$to_add["USER_ID"] = $user;
+					DocumentUserTable::add($to_add);
+				}
 			}
 		}
 
@@ -835,14 +933,23 @@ if(
 		{
 			//Successfull update
 
+			/*echo '$arParams<pre>';
+			print_r($arParams);
+			echo '</pre>';*/
+
+
+
+
 			$url = CHTTP::urlAddParams(str_replace(
-				array("#list_id#", "#section_id#", "#element_id#", "#group_id#"),
-				array($arResult["IBLOCK_ID"], intval($_POST["IBLOCK_SECTION_ID"]), $arResult["ELEMENT_ID"], $arParams["SOCNET_GROUP_ID"]),
+				array("#list_id#", "#section_id#", "#element_id#", "#group_id#", "#object_id#"),
+				array($arResult["IBLOCK_ID"], intval($_POST["IBLOCK_SECTION_ID"]), $arResult["ELEMENT_ID"], $arParams["SOCNET_GROUP_ID"], $arParams["OBJECT_ID"]),
 				$arParams["~LIST_ELEMENT_URL"]
 			),
 				array($tab_name => $_POST[$tab_name]),
 				array("skip_empty" => true, "encode" => true)
 			);
+			echo $url;
+
 			if(isset($_GET["list_section_id"]) && strlen($_GET["list_section_id"]) == 0)
 				$url = CHTTP::urlAddParams($url, array("list_section_id" => ""));
 
@@ -882,6 +989,7 @@ if(
 			}
 			else
 			{
+				//exit('before redirect');
 				LocalRedirect($url);
 			}
 		}
@@ -1130,6 +1238,27 @@ foreach($data as $key => $value)
 }
 
 $arResult['RAND_STRING'] = $this->randString();
+
+/* ПОЛУЧАЕМ ПОЛЬЗОВАТЕЛЕЙ КОТОРЫМ ДОСТУПЕН ДОКУМЕНТ СОЗДАННЫЙ СОТРУДНИКОМ */
+$obUsers = DocumentUserTable::GetList(array(
+	'select' => array('USER_ID', 'EDIT'),
+	'filter' => array('=DOCUMENT_ID' => $arParams["ELEMENT_ID"],
+	),
+));
+while ($row = $obUsers->fetch())
+{
+	$rows[] = $row["USER_ID"];
+	$user_edit_rights = $row["EDIT"];
+}
+
+$arResult["USER_EDIT_RIGHTS"] = $user_edit_rights;
+//echo '$arResult["USER_EDIT_RIGHTS"] ' . $arResult["USER_EDIT_RIGHTS"];
+$arResult["DOCUMENT_USERS"] = implode(",", $rows);
+
+/*echo 'ОЛУЧАЕМ ПОЛЬЗОВАТЕЛЕЙ КОТОРЫМ ДОСТУПЕН ДОКУМЕНТ СОЗДАННЫЙ СОТРУДНИКОМ<pre>';
+print_r($rows);
+echo '</pre>';*/
+
 
 $this->IncludeComponentTemplate();
 

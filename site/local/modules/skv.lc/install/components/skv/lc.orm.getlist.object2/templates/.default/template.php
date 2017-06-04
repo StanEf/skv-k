@@ -47,9 +47,9 @@ if ($arResult != null) {
 }
 
 
-echo'$arResult<pre>';
+/*echo'$arResult<pre>';
  print_r($arResult);
- echo'</pre>';
+ echo'</pre>';*/
 
 
 ?>

@@ -123,6 +123,14 @@ Class SKV_LC extends CModule
         {
             Base::getInstance('\Skv\Lc\CameraTable')->createDbTable();
         }
+
+        if(!Application::getConnection(\Skv\Lc\DocumentUserTable::getConnectionName())->isTableExists(
+            Base::getInstance('\Skv\Lc\DocumentUserTable')->getDBTableName()
+        )
+        )
+        {
+            Base::getInstance('\Skv\Lc\DocumentUserTable')->createDbTable();
+        }
     }
 
     function UnInstallDB()
@@ -131,8 +139,7 @@ Class SKV_LC extends CModule
 
         Application::getConnection(\Skv\Lc\BookTable::getConnectionName())->
             queryExecute('drop table if exists '.Base::getInstance('\Skv\Lc\BookTable')->getDBTableName());
-
-        //С урока 23
+        
         Application::getConnection(\Skv\Lc\Book2Table::getConnectionName())->
             queryExecute('drop table if exists '.Base::getInstance('\Skv\Lc\Book2Table')->getDBTableName());
 

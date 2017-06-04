@@ -36,7 +36,7 @@ class LcView extends CBitrixComponent
 		}
 		
 		$result["IS_ADMIN"] = $is_admin;
-		echo '6667';
+
         $objects = ObjectTable::getList(array(
             'select'  => array(
 				'ID',
@@ -48,7 +48,7 @@ class LcView extends CBitrixComponent
 							'=\Skv\Lc\ObjectUser:OBJECT.USER.ID' => $user_id,
 						)
         ));
-		echo '111';
+		
 		// $object_str = implode($result['objects']['ID'], ',');
 		// echo 'object_str ' . $object_str . '<br/>';
 		$result['objects'] = $objects->fetchAll();
@@ -93,9 +93,9 @@ class LcView extends CBitrixComponent
         $this -> includeComponentLang('class.php');
 
         $this -> checkModules();
-echo '2323';
+
         $result = $this->show();
-		echo '2323';
+
         $this->arResult = $result;
 
         $this->includeComponentTemplate();

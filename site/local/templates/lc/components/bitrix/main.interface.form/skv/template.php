@@ -211,7 +211,7 @@ else:
 	switch($field["type"]):
 		case 'label':
 		case 'custom':
-			echo '-'.$val.'-';
+			echo $val;
 			break;
 		case 'checkbox':
 ?>
@@ -289,23 +289,36 @@ endforeach;
 <?if($arParams["USER_TYPE"] == "worker" || $arParams["USER_TYPE"] == "admin"):?>
 	<tr>
 		<td class="bx-field-name bx-padding">
-			Видят документ
+			Видят документ:
 		</td>
 		<td class="bx-field-value">
-			<?$GLOBALS["APPLICATION"]->IncludeComponent('bitrix:intranet.user.selector.new', '', array(
+			<?/*echo 'VALUE' . $arParams["DOCUMENT_USERS"];
+			echo '$arParams["DOCUMENT_USERS"]<pre>';
+			print_r($arParams["DOCUMENT_USERS"]);
+			echo '</pre>';
+			*/?>
+			<?$GLOBALS["APPLICATION"]->IncludeComponent('skv:lc.intranet.user.selector.new', '', array(
 					"FORM_NAME" => "document_form_edit",
 					"MULTIPLE" => "Y",
 					"NAME" => "USERS_DOCUMENTS",
 					'SITE_ID' => SITE_ID,
+					"DISPLAY_TABS" => "N",
 					"DISPLAY_TAB_STRUCTURE" => "N",
-					"DISPLAY_TAB_GROUP" => "N",
+					//"DISPLAY_TAB_GROUP" => "N",
+					'DISPLAY_TAB_OBJECT_USERS' => 'Y',
 					'INPUT_NAME_STRING' => "estimate_contact_h",
 					'INPUT_NAME_SUSPICIOUS' => "estimate_contact_h",
 					'TEXTAREA_MIN_HEIGHT' => 30,
 					'TEXTAREA_MAX_HEIGHT' => 60,
 					'SHOW_EXTRANET_USERS' => 'Y',
 					'SOCNET_GROUP_ID' => '',
-					'VALUE' => array(1,25),
+					'VALUE' => $arParams["DOCUMENT_USERS"],
+					
+					'DOCUMENT_ID' => $arParams["ELEMENT_ID"],
+					"ELEMENT_ID" => $arParams["ELEMENT_ID"],
+
+					"OBJECT_ID" => $arParams["OBJECT_ID"],
+					"IBLOCK_ID" => $arParams["IBLOCK_ID"],
 				)
 			);?>
 

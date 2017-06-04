@@ -69,7 +69,7 @@ echo '</pre>';*/
 	});*/
 
 </script>
-<!--<input type="button" onclick="clickMe();" value="click">-->
+<input type="button" onclick="clickMe();" value="click">
 
 <?
 if ($arResult != null) {?>

@@ -1,8 +1,8 @@
 <?
 
 $MESS["SKV_LC_MODULE_NAME"] = "Личный кабинет клиента";
-$MESS["SKV_LC_MODULE_DESC"] = "Описание учебного модуля";
-$MESS["SKV_LC_PARTNER_NAME"] = "Академия Битрикса";
+$MESS["SKV_LC_MODULE_DESC"] = "Модуль личного кабинета";
+$MESS["SKV_LC_PARTNER_NAME"] = "PrimeSoft";
 $MESS["SKV_LC_PARTNER_URI"] = "http://skv.1c-bitrix.ru/";
 
 $MESS["SKV_LC_DENIED"] = "Доступ закрыт";

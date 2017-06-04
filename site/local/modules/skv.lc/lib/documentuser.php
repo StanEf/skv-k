@@ -46,26 +46,4 @@ class DocumentUserTable extends Entity\DataManager
 
         );
     }
-
-    public static function getUsers($object_id)
-    {
-        $obUsers = ObjectUserTable::getList(array(
-                'select' => array('USER_ID'),
-                'filter' => array(
-                    '=OBJECT_ID' => $object_id
-                ),
-            )
-        );
-
-        while($user = $obUsers->fetch()){
-            $arUsers[] = $user["USER_ID"];
-        }
-        /*  echo '$arUsers<pre>';
-          print_r($arUsers);
-          echo '</pre>';*/
-
-        return $arUsers;
-        return implode(",", $arUsers);
-
-    }
 }

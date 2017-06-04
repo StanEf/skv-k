@@ -36,7 +36,7 @@ class LcView extends CBitrixComponent
 		}
 		
 		$result["IS_ADMIN"] = $is_admin;
-		
+
         $objects = ObjectTable::getList(array(
             'select'  => array(
 				'ID',

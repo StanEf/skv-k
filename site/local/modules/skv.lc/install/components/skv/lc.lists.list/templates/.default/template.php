@@ -268,25 +268,36 @@ echo '</pre>';*/
 <!--</div>-->
 
 <?
-/*echo '$arResult<pre>';
-print_r($arResult);
+// --------------------------------------------------------------
+/*$new_doc_root = str_replace("/", "\\", $_SERVER["DOCUMENT_ROOT"]);
+$ar_new_doc_root = explode("/", $_SERVER["DOCUMENT_ROOT"]);
+array_pop($ar_new_doc_root);
+$new_doc_root = implode("\\", $ar_new_doc_root);
+$file_path = str_replace($new_doc_root, "", __FILE__);
+echo '(' . __LINE__ . ') ' . $file_path . '<br/> $arResult["NAV_OBJECT"] <pre>';
+print_r($arResult["NAV_OBJECT"]);
 echo '</pre>';*/
+// --------------------------------------------------------------
+
+
+
 $APPLICATION->IncludeComponent(
 	"bitrix:main.interface.grid",
 	"",
 	array(
-		"GRID_ID" => "DOCUMENTS_GRID",
+		"GRID_ID" => $arResult["GRID_ID"],
 		"HEADERS" => $arResult["ELEMENTS_HEADERS"],
 		"ROWS" => $arResult["ELEMENTS_ROWS"],
 		"FOOTER" => array(array("title" => "Всего", "value" => $arResult["NAV_OBJECT"]->NavRecordCount)),
-		//"NAV_OBJECT" => $arResult["NAV"],
-		"NAV_PARAMS" => array(#				"SEF_MODE" => "Y"
+		"NAV_OBJECT" => $arResult["NAV_OBJECT"],
+		"NAV_PARAMS" => array(				"SEF_MODE" => "Y"
 		),
 		"FILTER" => $arResult["FILTER"],
 		"SORT"=>$arResult["SORT"],
 		//"SORT_VARS"=>$arResult["SORT_VARS"],
 		"FILTER_TEMPLATE_NAME" => "tabbed",
-		"OBJECT_ID" => $arParams["OBJECT_ID"]
+		"OBJECT_ID" => $arParams["OBJECT_ID"],
+		"NAV_STRING" => '',
 	)
 );
 

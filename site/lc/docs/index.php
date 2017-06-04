@@ -28,7 +28,7 @@ foreach($group_access_allowed as $group => $user_type){
 	}
 }
 
-
+//echo $current_user_type.'<br>';
 ?>
 
 <head>
@@ -47,7 +47,7 @@ foreach($group_access_allowed as $group => $user_type){
 	array(
 		"INFOBLOCK_ID" => 54,
 		"USER_TYPE" => $current_user_type,
-		"OBJECT_ID" => $_GET["object"],
+		//"OBJECT_ID" => $_GET["object"],
 		"IBLOCK_TYPE_ID" => "lists",
 		"SEF_MODE" => "Y",
 		"SEF_FOLDER" => "/lc/docs/",

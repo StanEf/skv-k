@@ -23,9 +23,7 @@ $APPLICATION->IncludeComponent("skv:lc.lists.element.edit", ".default", array(
 	"BIZPROC_WORKFLOW_DELETE_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["bizproc_workflow_delete"],
 	"CACHE_TYPE" => $arParams["CACHE_TYPE"],
 	"CACHE_TIME" => $arParams["CACHE_TIME"],
-	
 	"USER_TYPE" => $arParams["USER_TYPE"],
-	
 	),
 	$component
 );?>

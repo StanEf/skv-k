@@ -1,5 +1,49 @@
 <? if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 
+?>
+
+<script>
+/*	console.log('sdsd');
+	console.log(window.IntranetUsers);
+
+
+
+	function clickMe(){
+		console.log('clk');
+		console.log(O_USERS_DOCUMENTS );
+		console.log(O_USERS_DOCUMENTS.arSelected );
+		var users_on_object = [];
+		O_USERS_DOCUMENTS.arSelected.forEach(function(item, number){
+			console.log(item);
+			if(item !== null){
+				users_on_object.push(number);
+			}
+		});
+		users_on_object_str = users_on_object.join();
+		console.log('users_on_object_str'+users_on_object_str);
+		//$("#SELECTED_USERS_ON_OBJECT").val(users_on_object_str);
+	}*/
+	/*$("#object_form_edit").on("submit", function(){
+	 alert(1);
+	 var users_on_object = [];
+	 O_USERS_OBJECTS.arSelected.forEach(function(item, number){
+	 console.log(item);
+	 if(item !== null){
+	 users_on_object.push(number);
+	 }
+	 });
+	 users_on_object_str = users_on_object.join();
+	 console.log('users_on_object_str'+users_on_object_str);
+	 $("#SELECTED_USERS_ON_OBJECT").val(users_on_object_str);
+	 alert(2);
+	 });*/
+
+</script>
+
+
+
+<!--<input type="button" onclick="clickMe();" value="click">-->
+<?
 CJSCore::Init(array('window', 'lists'));
 
 $jsClass = 'ListsElementEditClass_'.$arResult['RAND_STRING'];
@@ -533,22 +577,29 @@ if(!$arParams["CAN_EDIT"])
 /*echo 'before';*/
 /* ПОКАЗЫВАТЬ ТОЛЬКО ВКЛАДКУ - ДОКУМЕНТ*/
 $arTabsTmp[] = $arTabs[0];
-echo '$arTabs<pre>';
+/*echo '$arTabs<pre>';
 print_r($arTabsTmp);
-echo '</pre>';
+echo '</pre>';*/
 /*ДЛЯ АДМИНА ДОБАВЛЯЕМ ПОЛЬЗОВАТЕЛЕЙ КОТОРЫМ БУДЕМ ПОКАЗЫВАТЬ СОЗДАННЫЙ ДОКУМЕНТ*/
 if($arParams["USER_TYPE"] == "worker" || $arParams["USER_TYPE"] == "admin"){
 	/*ФОРМИРУЕМ CHECKBOX - БЛОКИРОВАНИЕ ДЕЙСТВИЙ ПОЛЬЗОВАТЕЛЯ НА ИЗМЕНЕНИЕ ДОКУМЕНТА*/
+	if($arResult["USER_EDIT_RIGHTS"] == "Y"){
+		$checkboxUserShowRights = "checked";
+	}else{
+		$checkboxUserShowRights = "";
+	}
+
 	$arUserEditRights["id"] = "USER_EDIT_RIGHTS";
-	$arUserEditRights["name"] = "Только просмотр пользователем";
+	$arUserEditRights["name"] = "Только просмотр пользователями";
 	$arUserEditRights["required"] = '';
 	$arUserEditRights["type"] = "custom";
 	$arUserEditRights["show"] = "Y";
-	$arUserEditRights["value"] = "<input type=\"checkbox\" name=\"".$arUserEditRights["id"]."\" value=\"1\">";
+	$arUserEditRights["value"] = "<input type=\"checkbox\" name=\"".$arUserEditRights["id"]."\" value=\"1\" ".$checkboxUserShowRights.">";
 
 	$arTabsTmp[0]["fields"][] = $arUserEditRights;
 
 	/*ФОРМИРУЕМ СКРЫТОЕ ПОЛЕ ДЛЯ ЗАПИСИ ПОЛЬЗОВАТЕЛЕЙ которые будут видеть этот документ*/
+
 	$arUserShowRights["id"] = "USER_SHOW_RIGHTS";
 	$arUserShowRights["name"] = "те кто могут видеть документ";
 	$arUserShowRights["required"] = '';
@@ -576,11 +627,14 @@ $APPLICATION->IncludeComponent(
 		"SHOW_SETTINGS"=>"N",
 		"THEME_GRID_ID"=>$arResult["GRID_ID"],
 		"OBJECT_ID" => $arParams["OBJECT_ID"],
-		"USER_TYPE" => $arParams["USER_TYPE"], 
+		"IBLOCK_ID" => $arParams["IBLOCK_ID"],
+		"USER_TYPE" => $arParams["USER_TYPE"],
+		"ELEMENT_ID" => $arParams["ELEMENT_ID"],
+		"DOCUMENT_USERS" => $arResult["DOCUMENT_USERS"],
 	),
 	$component, array("HIDE_ICONS" => "Y")
 );
-echo 'after32';
+
 ?>
 
 <div id="lists-notify-admin-popup" style="display:none;">

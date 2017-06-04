@@ -6,7 +6,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 function autoResize(iframe) {
 	// console.log('height ' + $(iframe).contents().find('html').height());
     $(iframe).height($(iframe).contents().find('html').height()+400);
-	console.log("holla");
+	//console.log("holla");
 	
 }
 
@@ -73,6 +73,7 @@ $(function() {
 								};
 									
 	page_lc.get_active_object = function(elem){
+										console.log("get_active_object");
 										if(!elem){
 											$(".left-nav-object").each(function(){
 												if($(this).children("a").hasClass("active")){
@@ -82,7 +83,7 @@ $(function() {
 													
 													if(page_lc.active_type == "docs"){
 														var document_frame_src = $("#document_frame")[0].src;
-														// console.log(document_frame_src);
+														console.log(document_frame_src);
 														// console.log(document_frame_src.indexOf('object') );
 														var arr_document_frame_src = document_frame_src.split("/");
 														console.log(arr_document_frame_src);
@@ -109,11 +110,14 @@ $(function() {
 											
 											if(page_lc.active_type == "docs"){
 												var document_frame_src = $("#document_frame")[0].src;
-												// console.log(document_frame_src);
+												console.log(document_frame_src);
 												// console.log(document_frame_src.indexOf('object') );
 												
 												var arr_document_frame_src = document_frame_src.split("/");
+												console.log(arr_document_frame_src);
+												console.log(arr_document_frame_src[arr_document_frame_src.length - 2] );
 												arr_document_frame_src[arr_document_frame_src.length - 2] = page_lc.active_object;
+												console.log(arr_document_frame_src.join("/"));
 												$("#document_frame")[0].src = arr_document_frame_src.join("/");
 												
 												// if(document_frame_src.indexOf('object') + 1) {

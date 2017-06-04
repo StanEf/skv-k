@@ -19,7 +19,12 @@ if(!CModule::IncludeModule('lists'))
 	ShowError(GetMessage("CC_BLL_MODULE_NOT_INSTALLED"));
 	return;
 }
-
+if(!CModule::IncludeModule('skv.lc'))
+{
+	ShowError(GetMessage("CC_BLEE_MODULE_NOT_INSTALLED").' LC');
+	return;
+}
+use \Skv\Lc\DocumentUserTable;
 CUtil::JSPostUnescape();
 
 $IBLOCK_ID = intval($arParams["~IBLOCK_ID"]);
@@ -411,7 +416,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['error']))
 		}
 	}
 }
-
+//echo '$arResult["GRID_ID"] ' . $arResult["GRID_ID"] . '<>'; ;
 $grid_options = new Bitrix\Main\Grid\Options($arResult["GRID_ID"]);
 $grid_columns = $grid_options->GetVisibleColumns();
 $grid_sort = $grid_options->GetSorting(array("sort"=>array("name"=>"asc")));
@@ -740,25 +745,56 @@ if($arParams["CAN_EDIT"])
 
 
 $user_groups = CUser::GetUserGroup($_SESSION['SESS_AUTH']['USER_ID']);
-// echo 'user_groups<pre>';
-// print_r($user_groups);
-// echo '</pre>';
-if(!in_array(1, $user_groups)){
-	$arFilter["=CREATED_BY"] = $_SESSION['SESS_AUTH']['USER_ID'];
+
+// показываем простому пользователю личного кабинета только созданные им документы и документы которые ему разрешили смотреть
+/*echo '$arParams["USER_TYPE"] ' . $arParams["USER_TYPE"] ;*/
+if($arParams["USER_TYPE"] == "user"){
+	$current_user_id = $USER->GetID();
+
+
+	/*echo '$current_user_id ' . $current_user_id . '<br>';*/
+/*	$arSelect = Array("ID", "CREATED_BY");
+	$arFilter = Array("IBLOCK_ID" => 54, "CREATED_BY" => $current_user_id );
+	$res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
+	$available_documents = array();
+	while($ob = $res->GetNextElement())
+	{
+		$arFields = $ob->GetFields();
+		$available_documents[$arFields["ID"]] = $arFields["ID"];
+		// echo '<pre>';
+		// print_r($arFields);
+		// echo '</pre>';
+	}*/
+
+
+	/*echo '$arResult["ELEMENTS_ROWS"]<pre>';
+	print_r($arResult["ELEMENTS_ROWS"]);
+	echo '</pre>';*/
+
+	/*ПОЛУЧАЕМ ВСЕ ДОКУМЕНТЫ К КОТОРЫМ ИМЕЕТ ДОСТУП ПОЛЬЗОВАТЕЛЬ*/
+
+	$obUsers = DocumentUserTable::GetList(array(
+		'select' => array('*'),
+		'filter' => array('=USER_ID' => $current_user_id,
+		),
+	));
+
+	while ($row = $obUsers->fetch())
+	{
+		$availableDocuments[$row["DOCUMENT_ID"]] = 1;
+		//$tmp = $row["DOCUMENT_ID"];
+	}
+
 }
 
 
 //$arFilter["=PROPERTY_OBJECT_ID"] = 1;
-$arFilter["=IBLOCK_ID"] = $arParams["IBLOCK_ID"];	;
+$arFilter["=IBLOCK_ID"] = $arParams["IBLOCK_ID"];
+$arFilter["=PROPERTY_OBJECT_ID"] = $arParams["OBJECT_ID"];
 
-
-$arFilter["=PROPERTY_OBJECT_ID"] = $arParams["OBJECT_ID"];	
-	// echo "730<pre>";
-// print_r($arFilter);
-// echo "</pre>";
-	// echo "730<pre>";
-// print_r($_POST);
-// echo "</pre>";
+/*echo __LINE__ . ' $arFilter<pre>';
+print_r($arFilter);
+echo '</pre>';*/
 $rsElements = CIBlockElement::GetList(
 	$grid_sort["sort"], $arFilter, false, $grid_options->GetNavParams(), $arSelect
 );
@@ -777,16 +813,35 @@ else
 
 $check = false;
 $listValues = array();
+/*echo __LINE__ . ' $availableDocuments<pre>';
+print_r($availableDocuments);
+echo '</pre>';*/
 while($obElement = $rsElements->GetNextElement())
 {
 	$check = true;
 	$columns = array();
 	$data = $obElement->GetFields();
+/*	echo __LINE__ . ' $data<pre>';
+	print_r($data);
+	echo '</pre>';*/
 	if(!is_array($data))
 		continue;
 
 	if(!is_array($listValues[$data["ID"]]))
 		$listValues[$data["ID"]] = array();
+
+
+
+	if($arParams["USER_TYPE"] == "user"){
+		if(!isset($availableDocuments[$data["ID"]]) && $data["CREATED_BY"] !=  $current_user_id){
+			continue;
+		}
+	}
+
+
+
+
+
 
 	foreach($data as $fieldId => $fieldValue)
 		$listValues[$data["ID"]][$fieldId] = $fieldValue;
@@ -1163,25 +1218,20 @@ $actionsPanel = array(
 	)
 );
 $arResult["GRID_ACTION_PANEL"] = $actionsPanel;
+//$rsElements->NavStart(0, false);
+//$arRes = $rsElements->arResult();
+// --------------------------------------------------------------
+/*$new_doc_root = str_replace("/", "\\", $_SERVER["DOCUMENT_ROOT"]);
+$ar_new_doc_root = explode("/", $_SERVER["DOCUMENT_ROOT"]);
+array_pop($ar_new_doc_root);
+$new_doc_root = implode("\\", $ar_new_doc_root);
+$file_path = str_replace($new_doc_root, "", __FILE__);
+echo '(' . __LINE__ . ') ' . $file_path . '<br/> $arRes <pre>';
+unset($rsElements->arResult[0]);
+print_r($rsElements->arResult);
+echo '</pre>';*/
+// --------------------------------------------------------------
 
-/* Grid navigation */
-$rsElements->bShowAll = false;
-$arResult["NAV_OBJECT"] = $rsElements;
-$arResult["SORT"] = $grid_sort["sort"];
-$componentObject = null;
-$arResult["GRID_ENABLE_NEXT_PAGE"] = ($arResult["NAV_OBJECT"]->PAGEN < $arResult["NAV_OBJECT"]->NavPageCount);
-$arResult["NAV_STRING"] = $arResult["NAV_OBJECT"]->getPageNavStringEx(
-	$componentObject, "", "grid", true, null, $grid_options->GetNavParams());
-$arResult["GRID_PAGE_SIZES"] = array(
-	array("NAME" => "5", "VALUE" => "5"),
-	array("NAME" => "10", "VALUE" => "10"),
-	array("NAME" => "20", "VALUE" => "20"),
-	array("NAME" => "50", "VALUE" => "50"),
-	array("NAME" => "100", "VALUE" => "100"),
-	array("NAME" => "200", "VALUE" => "200"),
-	array("NAME" => "500", "VALUE" => "500")
-);
-/* *** */
 
 $arResult["LIST_NEW_ELEMENT_URL"] = str_replace(
 	array("#list_id#", "#section_id#", "#element_id#", "#group_id#"),
@@ -1207,31 +1257,33 @@ foreach($arResult["SECTION_PATH"] as $arPath)
 
 global $USER;
 $arResult["USER_GROUPS"] = $USER->GetUserGroupArray();
+/*
+echo '$arResult["ELEMENTS_ROWS"]<pre>';
+print_r($arResult["ELEMENTS_ROWS"]);
+echo '</pre>';*/
 
-// показываем простому пользователю личного кабинета только созданные им документы
 
-if($arResult["USER_TYPE"] == "user"){
-	
-	$arSelect = Array("ID", "CREATED_BY");
-	$arFilter = Array("IBLOCK_ID" => 54, "CREATED_BY" => $USER->GetID() );
-	$res = CIBlockElement::GetList(Array(), $arFilter, false, false, $arSelect);
-	$available_documents = array();
-	while($ob = $res->GetNextElement())
-	{
-		$arFields = $ob->GetFields();
-		$available_documents[$arFields["ID"]] = $arFields["ID"];
-	 // echo '<pre>';
-	 // print_r($arFields);
-	// echo '</pre>';
-	}
-	
-	foreach($arResult["ELEMENTS_ROWS"] as $num => $val){
-		if(!isset($available_documents[$val["id"]])){
-			unset($arResult["ELEMENTS_ROWS"][$num]);
-		}
-	}
-}
+
 /*echo '333';*/
+
+/* Grid navigation */
+$rsElements->bShowAll = false;
+$arResult["NAV_OBJECT"] = $rsElements;
+$arResult["SORT"] = $grid_sort["sort"];
+$componentObject = null;
+$arResult["GRID_ENABLE_NEXT_PAGE"] = ($arResult["NAV_OBJECT"]->PAGEN < $arResult["NAV_OBJECT"]->NavPageCount);
+$arResult["NAV_STRING"] = $arResult["NAV_OBJECT"]->getPageNavStringEx(
+	$componentObject, "", "grid", true, null, $grid_options->GetNavParams());
+$arResult["GRID_PAGE_SIZES"] = array(
+	array("NAME" => "5", "VALUE" => "5"),
+	array("NAME" => "10", "VALUE" => "10"),
+	array("NAME" => "20", "VALUE" => "20"),
+	array("NAME" => "50", "VALUE" => "50"),
+	array("NAME" => "100", "VALUE" => "100"),
+	array("NAME" => "200", "VALUE" => "200"),
+	array("NAME" => "500", "VALUE" => "500")
+);
+/* *** */
 
 
 $this->IncludeComponentTemplate();
